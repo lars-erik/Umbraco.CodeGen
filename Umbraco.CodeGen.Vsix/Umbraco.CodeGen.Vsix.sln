@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Vsix", "Umbraco.CodeGen.Vsix.csproj", "{38B0B9B0-77E5-42DE-89FB-086CB37D33BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen", "..\Umbraco.CodeGen\Umbraco.CodeGen.csproj", "{132E2FC4-B509-4204-9DA2-D688BEA75D4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Tests", "..\Umbraco.CodeGen.Tests\Umbraco.CodeGen.Tests.csproj", "{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://db02:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\Umbraco.CodeGen.Tests\\Umbraco.CodeGen.Tests.csproj
+		SccProjectName1 = ../Umbraco.CodeGen.Tests
+		SccLocalPath1 = ..\\Umbraco.CodeGen.Tests
+		SccProjectUniqueName2 = Umbraco.CodeGen.Vsix.csproj
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = ..\\Umbraco.CodeGen\\Umbraco.CodeGen.csproj
+		SccProjectName3 = ../Umbraco.CodeGen
+		SccLocalPath3 = ..\\Umbraco.CodeGen
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38B0B9B0-77E5-42DE-89FB-086CB37D33BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B0B9B0-77E5-42DE-89FB-086CB37D33BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B0B9B0-77E5-42DE-89FB-086CB37D33BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B0B9B0-77E5-42DE-89FB-086CB37D33BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{132E2FC4-B509-4204-9DA2-D688BEA75D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{132E2FC4-B509-4204-9DA2-D688BEA75D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{132E2FC4-B509-4204-9DA2-D688BEA75D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{132E2FC4-B509-4204-9DA2-D688BEA75D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

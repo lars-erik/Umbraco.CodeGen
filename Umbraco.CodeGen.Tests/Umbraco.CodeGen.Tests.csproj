@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Umbraco.CodeGen.Tests</RootNamespace>
+    <AssemblyName>Umbraco.CodeGen.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Umbraco.CodeGen\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\Umbraco.CodeGen\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DocumentTypeClassGenTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="classes.usynccodegen" />
+    <None Include="DocumentTypeClassGenTests.gold">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="uSync\DataTypeDefinition\Approved Color.config" />
+    <None Include="uSync\DataTypeDefinition\Checkbox list.config" />
+    <None Include="uSync\DataTypeDefinition\Content Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Date Picker with time.config" />
+    <None Include="uSync\DataTypeDefinition\Date Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Dropdown multiple.config" />
+    <None Include="uSync\DataTypeDefinition\Dropdown.config" />
+    <None Include="uSync\DataTypeDefinition\Folder Browser.config" />
+    <None Include="uSync\DataTypeDefinition\Image Cropper.config" />
+    <None Include="uSync\DataTypeDefinition\Label.config" />
+    <None Include="uSync\DataTypeDefinition\Macro Container.config" />
+    <None Include="uSync\DataTypeDefinition\Media Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Member Picker.config" />
+    <None Include="uSync\DataTypeDefinition\MP Employee Picker.config" />
+    <None Include="uSync\DataTypeDefinition\MP Extendable Picker %28Url%29.config" />
+    <None Include="uSync\DataTypeDefinition\MP Extendable Picker %28Value%29.config" />
+    <None Include="uSync\DataTypeDefinition\MP List Settings.config" />
+    <None Include="uSync\DataTypeDefinition\MP Sort Order.config" />
+    <None Include="uSync\DataTypeDefinition\MP Standard Media Picker.config" />
+    <None Include="uSync\DataTypeDefinition\MP Standard RTE.config" />
+    <None Include="uSync\DataTypeDefinition\Numeric.config" />
+    <None Include="uSync\DataTypeDefinition\Radiobox.config" />
+    <None Include="uSync\DataTypeDefinition\Related Links.config" />
+    <None Include="uSync\DataTypeDefinition\Richtext editor.config" />
+    <None Include="uSync\DataTypeDefinition\Simple Editor.config" />
+    <None Include="uSync\DataTypeDefinition\Tags.config" />
+    <None Include="uSync\DataTypeDefinition\Textbox multiple.config" />
+    <None Include="uSync\DataTypeDefinition\Textstring.config" />
+    <None Include="uSync\DataTypeDefinition\Truefalse.config" />
+    <None Include="uSync\DataTypeDefinition\Ultimate Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Upload.config" />
+    <None Include="uSync\Dictionary\MP Employees.config" />
+    <None Include="uSync\Dictionary\MP Standard.config" />
+    <None Include="uSync\DocumentType\mpStandard\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpBillboardFolder\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpElementFolder\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpFooter\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\def.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\EmployeeLinkTest\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpBillboard\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpContact\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpElement\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpFrontpage\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpListableContent\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpListableContent\mpEmployee\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpListableContent\mpListPage\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpListableContent\mpListPage\mpEmployeeList\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpMetadata\mpContent\mpListableContent\mpPage\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpSettings\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpSiteContent\def.config" />
+    <None Include="uSync\DocumentType\mpStandard\mpSite\def.config" />
+    <None Include="uSync\DocumentType\PickerTest\def.config" />
+    <None Include="uSync\Language\en-GB.config" />
+    <None Include="uSync\Language\nb-NO.config" />
+    <None Include="uSync\MediaType\File\def.config" />
+    <None Include="uSync\MediaType\Folder\def.config" />
+    <None Include="uSync\MediaType\Image\def.config" />
+    <None Include="uSync\StyleSheet\mpGlobal.config" />
+    <None Include="uSync\StyleSheet\mpIEOld.config" />
+    <None Include="uSync\StyleSheet\mpMedium.config" />
+    <None Include="uSync\StyleSheet\mpReset.config" />
+    <None Include="uSync\StyleSheet\mpSmall.config" />
+    <None Include="uSync\Template\ContentRedirectMP\def.config" />
+    <None Include="uSync\Template\EmployeeLinkTest\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\ContactMP\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\EmployeeListMP\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\EmployeeMP\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\FrontpageMP\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\ListPageMP\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\PageMP\def.config" />
+    <None Include="uSync\Template\_BaseLayoutMP\PickerTest\def.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Umbraco.CodeGen\Umbraco.CodeGen.csproj">
+      <Project>{132E2FC4-B509-4204-9DA2-D688BEA75D4A}</Project>
+      <Name>Umbraco.CodeGen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="uSync\DocumentType\SamePropertyName\def.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
