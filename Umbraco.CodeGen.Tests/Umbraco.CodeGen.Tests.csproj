@@ -59,39 +59,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="uSync\DataTypeDefinition\Approved Color.config" />
-    <None Include="uSync\DataTypeDefinition\Checkbox list.config" />
-    <None Include="uSync\DataTypeDefinition\Content Picker.config" />
-    <None Include="uSync\DataTypeDefinition\Date Picker with time.config" />
-    <None Include="uSync\DataTypeDefinition\Date Picker.config" />
-    <None Include="uSync\DataTypeDefinition\Dropdown multiple.config" />
-    <None Include="uSync\DataTypeDefinition\Dropdown.config" />
-    <None Include="uSync\DataTypeDefinition\Folder Browser.config" />
-    <None Include="uSync\DataTypeDefinition\Image Cropper.config" />
-    <None Include="uSync\DataTypeDefinition\Label.config" />
-    <None Include="uSync\DataTypeDefinition\Macro Container.config" />
-    <None Include="uSync\DataTypeDefinition\Media Picker.config" />
-    <None Include="uSync\DataTypeDefinition\Member Picker.config" />
-    <None Include="uSync\DataTypeDefinition\MP Employee Picker.config" />
-    <None Include="uSync\DataTypeDefinition\MP Extendable Picker %28Url%29.config" />
-    <None Include="uSync\DataTypeDefinition\MP Extendable Picker %28Value%29.config" />
-    <None Include="uSync\DataTypeDefinition\MP List Settings.config" />
-    <None Include="uSync\DataTypeDefinition\MP Sort Order.config" />
-    <None Include="uSync\DataTypeDefinition\MP Standard Media Picker.config" />
-    <None Include="uSync\DataTypeDefinition\MP Standard RTE.config" />
-    <None Include="uSync\DataTypeDefinition\Numeric.config" />
-    <None Include="uSync\DataTypeDefinition\Radiobox.config" />
-    <None Include="uSync\DataTypeDefinition\Related Links.config" />
-    <None Include="uSync\DataTypeDefinition\Richtext editor.config" />
-    <None Include="uSync\DataTypeDefinition\Simple Editor.config" />
-    <None Include="uSync\DataTypeDefinition\Tags.config" />
-    <None Include="uSync\DataTypeDefinition\Textbox multiple.config" />
-    <None Include="uSync\DataTypeDefinition\Textstring.config" />
-    <None Include="uSync\DataTypeDefinition\Truefalse.config" />
-    <None Include="uSync\DataTypeDefinition\Ultimate Picker.config" />
-    <None Include="uSync\DataTypeDefinition\Upload.config" />
-    <None Include="uSync\Dictionary\MP Employees.config" />
-    <None Include="uSync\Dictionary\MP Standard.config" />
     <None Include="uSync\DocumentType\mpStandard\def.config" />
     <None Include="uSync\DocumentType\mpStandard\mpBillboardFolder\def.config" />
     <None Include="uSync\DocumentType\mpStandard\mpElementFolder\def.config" />
@@ -114,26 +81,9 @@
     <None Include="uSync\DocumentType\mpStandard\mpSiteContent\def.config" />
     <None Include="uSync\DocumentType\mpStandard\mpSite\def.config" />
     <None Include="uSync\DocumentType\PickerTest\def.config" />
-    <None Include="uSync\Language\en-GB.config" />
-    <None Include="uSync\Language\nb-NO.config" />
     <None Include="uSync\MediaType\File\def.config" />
     <None Include="uSync\MediaType\Folder\def.config" />
     <None Include="uSync\MediaType\Image\def.config" />
-    <None Include="uSync\StyleSheet\mpGlobal.config" />
-    <None Include="uSync\StyleSheet\mpIEOld.config" />
-    <None Include="uSync\StyleSheet\mpMedium.config" />
-    <None Include="uSync\StyleSheet\mpReset.config" />
-    <None Include="uSync\StyleSheet\mpSmall.config" />
-    <None Include="uSync\Template\ContentRedirectMP\def.config" />
-    <None Include="uSync\Template\EmployeeLinkTest\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\ContactMP\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\EmployeeListMP\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\EmployeeMP\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\FrontpageMP\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\ListPageMP\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\PageMP\def.config" />
-    <None Include="uSync\Template\_BaseLayoutMP\PickerTest\def.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Umbraco.CodeGen\Umbraco.CodeGen.csproj">
