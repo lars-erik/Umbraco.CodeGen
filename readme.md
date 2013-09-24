@@ -24,6 +24,8 @@ Where dataType equals the Id of the datatype you want to map.
 If you've prefixed your aliases with something you don't want in your code,
 set removePrefix to whatever you want to remove.
 
+If you want your own baseclass, add `baseClass="Some.Namespace.BaseClass"` to USync node.
+
 Set custom tool for the xml file to DocumentTypeClassGen.
 Save the file, or later right click an select "Run Custom Tool"
 
