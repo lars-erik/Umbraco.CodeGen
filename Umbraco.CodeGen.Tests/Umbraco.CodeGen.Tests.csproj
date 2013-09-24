@@ -54,10 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="classes.usynccodegen" />
-    <None Include="DocumentTypeClassGenTests.gold">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="classes.xml" />
+    <None Include="classes.gold" />
+    <None Include="customBaseClass.gold" />
     <None Include="packages.config" />
     <None Include="uSync\DocumentType\mpStandard\def.config" />
     <None Include="uSync\DocumentType\mpStandard\mpBillboardFolder\def.config" />
@@ -93,6 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="uSync\DocumentType\SamePropertyName\def.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="customBaseClass.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

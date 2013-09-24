@@ -14,6 +14,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio;
 
@@ -24,7 +25,10 @@ namespace Microsoft.Samples.VisualStudio.GeneratorSample
     /// a custom tool invoked at design time which can take any file as an input
     /// and provide any file as output.
     /// </summary>
-    public abstract class BaseCodeGenerator : IVsSingleFileGenerator
+	[ComVisible(true)]
+	[Guid("F3B2C45E-115E-48DA-A3C3-B22B609B9D79")]
+	[ProvideObject(typeof(BaseCodeGenerator))]
+	public abstract class BaseCodeGenerator : IVsSingleFileGenerator
     {
         private IVsGeneratorProgress codeGeneratorProgress;
         private string codeFileNameSpace = String.Empty;

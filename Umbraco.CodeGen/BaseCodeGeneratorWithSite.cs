@@ -28,7 +28,10 @@ namespace Microsoft.Samples.VisualStudio.GeneratorSample
     /// <summary>
     /// Base code generator with site implementation
     /// </summary>
-    public abstract class BaseCodeGeneratorWithSite : BaseCodeGenerator, VSOLE.IObjectWithSite
+	[ComVisible(true)]
+	[Guid("782BE53D-82F6-418E-B577-DB2E415C8E13")]
+	[ProvideObject(typeof(BaseCodeGeneratorWithSite))]
+	public abstract class BaseCodeGeneratorWithSite : BaseCodeGenerator, VSOLE.IObjectWithSite
     {
         private object site = null;
         private CodeDomProvider codeDomProvider = null;

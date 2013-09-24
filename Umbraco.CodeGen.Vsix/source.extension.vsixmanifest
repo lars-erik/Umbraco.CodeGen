@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-	<Identity Id="Umbraco.CodeGen.42d22577-6291-401b-af92-56d3f3cd85e2" Version="1.0.1" Language="en-US" Publisher="Omnicom AS" />
+	<Identity Id="Umbraco.CodeGen.42d22577-6291-401b-af92-56d3f3cd85e2" Version="1.0.4" Language="en-US" Publisher="Omnicom AS" />
 	<DisplayName>Umbraco uSync Code Generator</DisplayName>
 	<Description xml:space="preserve">Generates classes from uSync exported datatypes.</Description>
   </Metadata>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeGen>
+  <USync path="uSync" removePrefix="mp" />
+  <TypeMappings default="String">
+	<TypeMapping dataType="ead69342-f06d-4253-83ac-28000225583b" type="Int32"/>
+  </TypeMappings>
+</CodeGen>

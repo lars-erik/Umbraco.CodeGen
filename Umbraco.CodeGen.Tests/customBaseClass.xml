@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeGen>
+  <USync path="uSync" removePrefix="mp" baseClass="Some.Namespace.BaseClass" />
+</CodeGen>
