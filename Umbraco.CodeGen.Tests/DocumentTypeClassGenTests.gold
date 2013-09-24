@@ -368,13 +368,97 @@ namespace Some.Namespace
             }
         }
     }
-    public partial class SamePropertyNameClass : void
+    public partial class SamePropertyNameClass : DocumentTypeBase
     {
         public SamePropertyNameClass(IPublishedContent content) : 
                 base(content)
         {
         }
         public String SamePropertyName
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+    }
+    public partial class File : DocumentTypeBase
+    {
+        public File(IPublishedContent content) : 
+                base(content)
+        {
+        }
+        public String UmbracoFile
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+        public String UmbracoExtension
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+        public String UmbracoBytes
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+    }
+    public partial class Folder : DocumentTypeBase
+    {
+        public Folder(IPublishedContent content) : 
+                base(content)
+        {
+        }
+        public String Contents
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+    }
+    public partial class Image : DocumentTypeBase
+    {
+        public Image(IPublishedContent content) : 
+                base(content)
+        {
+        }
+        public String UmbracoFile
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+        public String UmbracoWidth
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+        public String UmbracoHeight
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+        public String UmbracoBytes
+        {
+            get
+            {
+                return ((String)(GetValue(ThisProperty())));
+            }
+        }
+        public String UmbracoExtension
         {
             get
             {

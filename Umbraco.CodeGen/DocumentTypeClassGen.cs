@@ -27,7 +27,7 @@ namespace Umbraco.CodeGen
 		private string uSyncPath;
 		private string removePrefix;
 		private string inputFolderPath;
-		private string[] files;
+		private Dictionary<string, string[]> files;
 		private CodeCompileUnit compileUnit;
 		private CodeNamespace ns;
 		private CodeTypeDeclaration baseType;
@@ -76,27 +76,31 @@ namespace Umbraco.CodeGen
 
 			baseType = CreateAndAddBaseType();
 
-			foreach (var file in files)
-			{
-				var typeNode = GetTypeNode(file);
-				var infoNode = typeNode.Element("Info");
-				var propNode = typeNode.Element("GenericProperties");
-				var className = infoNode.Element("Alias").Value;
-				var baseClassName = infoNode.Elements("Master").Select(e => e.Value).SingleOrDefault();
-				var properties = propNode.Elements("GenericProperty");
-
-				className = ProperCase(RemovePrefix(removePrefix, className));
-				if (HasPropertyWithSameName(properties, className))
-					className += "Class";
-				var type = CreateType(className, baseClassName);
-				foreach (var property in properties)
-					CreateAndAddProperty(property, type);
-
-				ns.Types.Add(type);
-			}
+			foreach (var nodeType in files.Keys)
+				foreach (var file in files[nodeType])
+					CreateAndAddType(nodeType, file);
 
 			WriteCode(writer, compileUnit);
 			writer.Flush();
+		}
+
+		private void CreateAndAddType(string nodeType, string file)
+		{
+			var typeNode = GetTypeNode(nodeType, file);
+			var infoNode = typeNode.Element("Info");
+			var propNode = typeNode.Element("GenericProperties");
+			var className = infoNode.Element("Alias").Value;
+			var baseClassName = infoNode.Elements("Master").Select(e => e.Value).SingleOrDefault();
+			var properties = propNode.Elements("GenericProperty");
+
+			className = ProperCase(RemovePrefix(removePrefix, className));
+			if (HasPropertyWithSameName(properties, className))
+				className += "Class";
+			var type = CreateType(className, baseClassName);
+			foreach (var property in properties)
+				CreateAndAddProperty(property, type);
+
+			ns.Types.Add(type);
 		}
 
 		private static bool HasPropertyWithSameName(IEnumerable<XElement> properties, string className)
@@ -118,7 +122,7 @@ namespace Umbraco.CodeGen
 				Attributes = MemberAttributes.Public, 
 				IsPartial = true
 			};
-			if (baseClassName != null)
+			if (!String.IsNullOrEmpty(baseClassName))
 			{
 				baseClassName = RemovePrefix(removePrefix, baseClassName);
 				type.BaseTypes.Add(baseClassName);
@@ -165,11 +169,11 @@ namespace Umbraco.CodeGen
 			type.Members.Add(codeProp);
 		}
 
-		private static XElement GetTypeNode(string file)
+		private static XElement GetTypeNode(string nodeType, string file)
 		{
 			var fileDoc = XDocument.Load(file);
 			var typeNode = fileDoc
-				.Element("DocumentType");
+				.Element(nodeType);
 			return typeNode;
 		}
 
@@ -323,8 +327,13 @@ namespace Umbraco.CodeGen
 
 		private void FindFiles()
 		{
-			var absoluteUSyncPath = Path.Combine(inputFolderPath, uSyncPath, "DocumentType");
-			files = Directory.GetFiles(absoluteUSyncPath, "def.config", SearchOption.AllDirectories);
+			var nodeTypes = new[] {"DocumentType", "MediaType"};
+			files = new Dictionary<string, string[]>();
+			foreach(var nodeType in nodeTypes)
+			{
+				var absoluteUSyncPath = Path.Combine(inputFolderPath, uSyncPath, nodeType);
+				files.Add(nodeType, Directory.GetFiles(absoluteUSyncPath, "def.config", SearchOption.AllDirectories));
+			}
 		}
 
 		private void LoadInputConfiguration()
