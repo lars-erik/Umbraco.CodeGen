@@ -28,7 +28,7 @@ namespace Umbraco.CodeGen
 			{
 				using (var writer = new StringWriter(new StringBuilder()))
 				{
-					BuildCode(writer);
+					GenerateCode(writer);
 					return CreatePreamble(writer);
 				}
 			}
@@ -50,7 +50,7 @@ namespace Umbraco.CodeGen
 			FileNameSpace = nameSpace;
 		}
 
-		public void BuildCode(StringWriter writer)
+		public void GenerateCode(StringWriter writer)
 		{
 			LoadConfiguration();
 			LoadContentTypes();

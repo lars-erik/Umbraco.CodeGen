@@ -1,7 +1,5 @@
 # Umbraco uSync Code Generator
 
-*Note: This is not my main source control. Uploaded here for sharing purposes.*
-
 Build and run vsix file from vsix project bin folder to install.
 
 Create an xml file in your project with the following minimal content:

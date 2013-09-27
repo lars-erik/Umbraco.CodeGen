@@ -73,11 +73,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClassBuilder.cs" />
     <Compile Include="BaseCodeGenerator.cs" />
     <Compile Include="BaseCodeGeneratorWithSite.cs" />
     <Compile Include="ContentTypeCodeGenerator.cs" />
+    <Compile Include="ContentTypesBuilder.cs" />
     <Compile Include="IConfigurationProvider.cs" />
     <Compile Include="IContentTypeProvider.cs" />
+    <Compile Include="INamespaceMemberBuilder.cs" />
+    <Compile Include="StandardImportsBuilder.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="UsyncConfigurationProvider.cs" />
     <Compile Include="USyncContentTypeProvider.cs" />

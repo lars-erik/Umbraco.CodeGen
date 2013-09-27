@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Microsoft.CSharp;
 using NUnit.Framework;
 
 namespace Umbraco.CodeGen.Tests
@@ -14,27 +14,43 @@ namespace Umbraco.CodeGen.Tests
 		[Test]
 		public void BuildCode_GeneratesClasses()
 		{
-			TestBuildCode("classes");
+			TestGenerateCode("classes");
 		}
 
 		[Test]
 		public void BuildCode_WhenCustomBaseClass_DoesntGenerateBaseClass()
 		{
-			TestBuildCode("customBaseClass");
+			TestGenerateCode("customBaseClass");
 		}
 
-		private static void TestBuildCode(string testFilesName)
+		[Test]
+		public void BuildCode_Classes_CanBeBuilt()
 		{
-			var inputFilePath = Path.Combine(Environment.CurrentDirectory, @"..\..\", testFilesName + ".xml");
-			var content = GetContent(inputFilePath);
-			var classGen = new DocumentTypeClassGen();
-			var builder = new StringWriter(new StringBuilder());
+			const string fakeCoreCode = @"
+				namespace Umbraco.Core.Models
+				{
+					public interface IPublishedContent
+					{
+						T GetPropertyValue<T>(string name);
+					}
+				}
+			";
 
-			classGen.SetInput(inputFilePath, content);
-			classGen.SetNamespace("Some.Namespace");
-			classGen.BuildCode(builder);
+			var generatedCode = GenerateCode("classes");
 
-			var output = builder.ToString();
+			var provider = new CSharpCodeProvider();
+			var results = provider
+				.CompileAssemblyFromSource(
+					new CompilerParameters(new string[0]),
+					new[] {fakeCoreCode, generatedCode}
+				);
+
+			Assert.AreEqual(0, results.Errors.Count, AggregateBuildErrors(results));
+		}
+
+		private static void TestGenerateCode(string testFilesName)
+		{
+			var output = GenerateCode(testFilesName);
 
 			Console.WriteLine(output);
 
@@ -44,12 +60,32 @@ namespace Umbraco.CodeGen.Tests
 			}
 		}
 
+		private static string GenerateCode(string testFilesName)
+		{
+			var inputFilePath = Path.Combine(Environment.CurrentDirectory, @"..\..\", testFilesName + ".xml");
+			var content = GetContent(inputFilePath);
+			var classGen = new DocumentTypeClassGen();
+			var builder = new StringWriter(new StringBuilder());
+
+			classGen.SetInput(inputFilePath, content);
+			classGen.SetNamespace("Some.Namespace");
+			classGen.GenerateCode(builder);
+
+			var output = builder.ToString();
+			return output;
+		}
+
 		private static string GetContent(string inputFilePath)
 		{
 			using (var reader = File.OpenText(inputFilePath))
 			{
 				return reader.ReadToEnd();
 			}
+		}
+
+		private static string AggregateBuildErrors(CompilerResults results)
+		{
+			return results.Errors.Cast<CompilerError>().Aggregate(String.Empty, (s, e) => s += e.Line + ": " + e.ErrorText + Environment.NewLine);
 		}
     }
 }

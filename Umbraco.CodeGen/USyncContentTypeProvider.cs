@@ -86,7 +86,7 @@ namespace Umbraco.CodeGen
 
 		private PropertyDefinition CreateProperty(XElement propertyNode)
 		{
-			var name = propertyNode.Element("Alias").Value.ProperCase();
+			var name = propertyNode.Element("Alias").Value;
 			var typeId = propertyNode.Element("Type").Value;
 			return new PropertyDefinition
 			{

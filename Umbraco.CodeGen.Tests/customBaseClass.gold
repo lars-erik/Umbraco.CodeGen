@@ -14,339 +14,52 @@ namespace Some.Namespace
     using System.Reflection;
     using Umbraco.Core.Models;
     
-    public partial class Standard : Some.Namespace.BaseClass
+    public partial class Root : Some.Namespace.BaseClass
     {
-        public Standard(IPublishedContent content) : 
+        public Root(IPublishedContent content) : 
+                base(content)
+        {
+        }
+        public String SomeProperty
+        {
+            get
+            {
+                return Content.GetPropertyValue<String>("pfxSomeProperty");
+            }
+        }
+    }
+    public partial class Child : Root
+    {
+        public Child(IPublishedContent content) : 
+                base(content)
+        {
+        }
+        public Int32 MainImage
+        {
+            get
+            {
+                return Content.GetPropertyValue<Int32>("pfxMainImage");
+            }
+        }
+    }
+    public partial class GrandChildNoPfx : Child
+    {
+        public GrandChildNoPfx(IPublishedContent content) : 
                 base(content)
         {
         }
     }
-    public partial class BillboardFolder : Standard
+    public partial class Sibling : Root
     {
-        public BillboardFolder(IPublishedContent content) : 
+        public Sibling(IPublishedContent content) : 
                 base(content)
         {
         }
-    }
-    public partial class ElementFolder : Standard
-    {
-        public ElementFolder(IPublishedContent content) : 
-                base(content)
-        {
-        }
-    }
-    public partial class Footer : Standard
-    {
-        public Footer(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String Column1
+        public Int32 AnotherImage
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Column2
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Column3
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Column4
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class Metadata : Standard
-    {
-        public Metadata(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String SeoTitle
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String SeoDescription
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class Content : Metadata
-    {
-        public Content(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String Heading
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String MainImage
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Body
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class EmployeeLinkTest : Content
-    {
-        public EmployeeLinkTest(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String LinkedEmployees
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Testrelations
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class Billboard : Content
-    {
-        public Billboard(IPublishedContent content) : 
-                base(content)
-        {
-        }
-    }
-    public partial class Contact : Content
-    {
-        public Contact(IPublishedContent content) : 
-                base(content)
-        {
-        }
-    }
-    public partial class Element : Content
-    {
-        public Element(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String ElementLink
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String ReadMore
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class Frontpage : Content
-    {
-        public Frontpage(IPublishedContent content) : 
-                base(content)
-        {
-        }
-    }
-    public partial class ListableContent : Content
-    {
-        public ListableContent(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String ListImage
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String ListText
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String ReadMore
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class Employee : ListableContent
-    {
-        public Employee(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String EmployeeTitle
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Phone
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Email
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String LinkedIn
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Twitter
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class ListPage : ListableContent
-    {
-        public ListPage(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String ListSortOrder
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String ListSettings
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class EmployeeList : ListPage
-    {
-        public EmployeeList(IPublishedContent content) : 
-                base(content)
-        {
-        }
-    }
-    public partial class Page : ListableContent
-    {
-        public Page(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String ReadMoreLink
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String Summary
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class Settings : Standard
-    {
-        public Settings(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String Logo
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-    }
-    public partial class Site : Standard
-    {
-        public Site(IPublishedContent content) : 
-                base(content)
-        {
-        }
-    }
-    public partial class SiteContent : Standard
-    {
-        public SiteContent(IPublishedContent content) : 
-                base(content)
-        {
-        }
-    }
-    public partial class PickerTest : Some.Namespace.BaseClass
-    {
-        public PickerTest(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        public String TestPickerValue
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
-            }
-        }
-        public String TestPickerUrl
-        {
-            get
-            {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<Int32>("anotherImage");
             }
         }
     }
@@ -360,7 +73,7 @@ namespace Some.Namespace
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("samePropertyName");
             }
         }
     }
@@ -374,21 +87,21 @@ namespace Some.Namespace
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoFile");
             }
         }
         public String UmbracoExtension
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoExtension");
             }
         }
         public String UmbracoBytes
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoBytes");
             }
         }
     }
@@ -402,7 +115,7 @@ namespace Some.Namespace
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("contents");
             }
         }
     }
@@ -416,35 +129,35 @@ namespace Some.Namespace
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoFile");
             }
         }
         public String UmbracoWidth
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoWidth");
             }
         }
         public String UmbracoHeight
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoHeight");
             }
         }
         public String UmbracoBytes
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoBytes");
             }
         }
         public String UmbracoExtension
         {
             get
             {
-                return ((String)(GetValue(ThisProperty())));
+                return Content.GetPropertyValue<String>("umbracoExtension");
             }
         }
     }
