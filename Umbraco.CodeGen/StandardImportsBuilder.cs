@@ -12,7 +12,6 @@ namespace Umbraco.CodeGen
 		public void Build(CodeNamespace ns)
 		{
 			ns.Imports.Add(new CodeNamespaceImport("System"));
-			ns.Imports.Add(new CodeNamespaceImport("System.Reflection"));
 			ns.Imports.Add(new CodeNamespaceImport("Umbraco.Core.Models"));
 		}
 	}

@@ -11,7 +11,6 @@
 namespace Some.Namespace
 {
     using System;
-    using System.Reflection;
     using Umbraco.Core.Models;
     
     public partial class Root : Some.Namespace.BaseClass
