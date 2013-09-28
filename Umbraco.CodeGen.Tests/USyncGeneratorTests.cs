@@ -7,10 +7,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Xml.Linq;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.PatternMatching;
 using Microsoft.CSharp;
 using NUnit.Framework;
+using Attribute = ICSharpCode.NRefactory.CSharp.Attribute;
 
 namespace Umbraco.CodeGen.Tests
 {
@@ -25,44 +27,16 @@ namespace Umbraco.CodeGen.Tests
 		[Test]
 		public void CanReadSomeCode()
 		{
-			var code = @"
-				namespace MyWeb.Models
-				{
-					using System;
-					using System.ComponentModel;
-					using System.ComponentModel.DataAnnotations;	
-					using Umbraco.Core.Models;
-
-					[DisplayName(""Some document type"")]
-					[Description(""A description of some document type"")]
-					public class SomeDocumentType : DocumentTypeBase
-					{
-						[DisplayName(""Some property"")]
-						[Description(""A description"")]
-						[Category(""A tab"")]
-						[DataTypeAttribute(""BBBEB697-D751-4A19-8ACE-3A05DE2EEEF6"")]
-						public string SomeProperty
-						{
-							get
-							{
-								return Content.GetPropertyValue<string>(""someProperty"");
-							}
-						}
-					}
-				}
-			";
-
-			const string expectedOutput = 
-@"class SomeDocumentType : DocumentTypeBase
-DisplayName - ""Some document type""
-Description - ""A description of some document type""
-
-string SomeProperty
-DisplayName - ""Some property""
-Description - ""A description""
-Category - ""A tab""
-DataTypeAttribute - ""BBBEB697-D751-4A19-8ACE-3A05DE2EEEF6""
-";
+			var code = "";
+			var expectedOutput = "";
+			using (var inputReader = File.OpenText(@"..\..\SomeDocumentType.cs"))
+			{
+				code = inputReader.ReadToEnd();
+			}
+			using (var goldReader = File.OpenText(@"..\..\SomeDocumentType.gold"))
+			{
+				expectedOutput = goldReader.ReadToEnd();
+			}
 
 			var reader = new StringReader(code);
 
@@ -71,36 +45,128 @@ DataTypeAttribute - ""BBBEB697-D751-4A19-8ACE-3A05DE2EEEF6""
 
 			Assert.AreEqual(0, tree.Errors.Count, tree.Errors.Aggregate("", (s, e) => s += e.Region.BeginLine + ": " + e.Message + "\n"));
 
-			var types = tree.Descendants.OfType<TypeDeclaration>();
+			var type = tree.Descendants.OfType<TypeDeclaration>().First();
+
+			var doc = new XDocument();
+			var root = new XElement("DocumentType");
+			doc.Add(root);
 
 
-			var outputBuilder = new StringBuilder();
-			foreach (var type in types)
+			var info = new XElement("Info");
+			root.Add(info);
+
+			var displayNameAttribute = FindAttribute(type.Attributes, "DisplayName");
+			var name = ElementFromAttribute("Name", displayNameAttribute, type.Name);
+
+			info.Add(name);
+			info.Add(new XElement("Alias", CamelCase(type.Name)));
+			info.Add(new XElement("Icon", "folder.gif"));
+			info.Add(new XElement("Thumbnail", "folder.png"));
+
+			var descriptionAttribute = FindAttribute(type.Attributes, "Description");
+			var description = ElementFromAttribute("Description", descriptionAttribute, "");
+			info.Add(description);
+
+			info.Add(new XElement("AllowAtRoot", "True"));
+			info.Add(new XElement("Master"));
+			info.Add(new XElement("AllowedTemplates"));
+			info.Add(new XElement("DefaultTemplate"));
+
+			root.Add(new XElement("Structure"));
+
+			var props = new XElement("GenericProperties");
+			root.Add(props);
+
+			var tabNames = new List<string>();
+
+			foreach (var prop in type.Descendants.OfType<PropertyDeclaration>())
 			{
-				outputBuilder.AppendFormat("class {0} : {1}\r\n", type.Name, String.Join(", ", type.BaseTypes));
+				var propElem = new XElement("GenericProperty");
 
-				outputBuilder.AppendFormat(type.Attributes.Aggregate("", (s, a) =>
-					s + a.Attributes.Aggregate("", (s2, att) => 
-						s2 + ((SimpleType)att.Type).Identifier + " - " +
-						String.Join(", ", att.Arguments)
-						) + "\r\n"
-					) + "\r\n");
+				var propNameAtt = FindAttribute(prop.Attributes, "DisplayName");
+				var propName = ElementFromAttribute("Name", propNameAtt, prop.Name);
+				propElem.Add(propName);
 
-				foreach (var prop in type.Descendants.OfType<PropertyDeclaration>())
-				{
-					outputBuilder.AppendFormat("{0} {1}\r\n", prop.ReturnType, prop.Name);
+				propElem.Add(new XElement("Alias", CamelCase(prop.Name)));
 
-					outputBuilder.AppendFormat(prop.Attributes.Aggregate("", (s, a) =>
-						s + a.Attributes.Aggregate("", (s2, att) =>
-							s2 + ((SimpleType)att.Type).Identifier + " - " +
-							String.Join(", ", att.Arguments)
-							) + "\r\n"
-						));
-				}
+				var typeAtt = FindAttribute(prop.Attributes, "DataType");
+				var typeId = ElementFromAttribute("Type", typeAtt, Guid.Empty.ToString());
+				propElem.Add(typeId);
+
+				propElem.Add(new  XElement("Definition", Guid.Empty.ToString()));
+
+				var categoryAtt = FindAttribute(prop.Attributes, "Category");
+				var tab = ElementFromAttribute("Tab", categoryAtt, "Properties");
+				propElem.Add(tab);
+
+				tabNames.Add(tab.Value);
+
+				propElem.Add(new XElement("Mandatory", "False"));
+
+				var validationAtt = FindAttribute(prop.Attributes, "RegularExpression");
+				var validation = ElementFromAttribute("Validation", validationAtt, "");
+				propElem.Add(validation);
+
+				var propDescriptionAttribute = FindAttribute(prop.Attributes, "Description");
+				var propDescription = CDataElementFromAttribute("Description", propDescriptionAttribute, "");
+				propElem.Add(propDescription);
+
+				props.Add(propElem);
 			}
 
-			Console.WriteLine(outputBuilder.ToString());
-			Assert.AreEqual(expectedOutput, outputBuilder.ToString());
+			tabNames = tabNames.Distinct().ToList();
+
+			var tabs = new XElement("Tabs");
+			root.Add(tabs);
+
+			foreach (var tab in tabNames)
+			{
+				var tabElem = new XElement("Tab");
+				tabElem.Add(new XElement("Id", "0"));
+				tabElem.Add(new XElement("Name", tab));
+				tabs.Add(tabElem);
+			}
+
+			var sb = new StringBuilder();
+			var writer = new StringWriter(sb);
+			doc.Save(writer);
+			writer.Flush();
+			Console.WriteLine(sb.ToString());
+
+			Assert.AreEqual(expectedOutput, sb.ToString());
+		}
+
+		private static string CamelCase(string value)
+		{
+			return value.Substring(0, 1).ToLower() + value.Substring(1);
+		}
+
+		private static XElement ElementFromAttribute(string elementName, Attribute attribute, string defaultValue)
+		{
+			var value = AttributeValueOrDefault(attribute, defaultValue);
+			return new XElement(elementName, value);
+		}
+
+		private static XElement CDataElementFromAttribute(string elementName, Attribute attribute, string defaultValue)
+		{
+			var value = AttributeValueOrDefault(attribute, defaultValue);
+			return new XElement(elementName, new XCData(value));
+		}
+
+		private static string AttributeValueOrDefault(Attribute attribute, string defaultValue)
+		{
+			var value = attribute != null
+				? attribute.Arguments.Select(arg => arg.GetText().Trim('"')).FirstOrDefault()
+				: defaultValue;
+			return value;
+		}
+
+		private static Attribute FindAttribute(IEnumerable<AttributeSection> attributeSections, string attributeName)
+		{
+			return attributeSections
+				.SelectMany(att => att.Attributes)
+				.Where(att => att.Type is SimpleType)
+				.SingleOrDefault(att => ((SimpleType) att.Type).Identifier == attributeName);
 		}
 	}
 }

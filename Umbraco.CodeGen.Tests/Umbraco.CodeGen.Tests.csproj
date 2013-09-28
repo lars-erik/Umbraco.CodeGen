@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="DocumentTypeClassGenTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="SomeDocumentType.cs" />
     <Compile Include="USyncGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +82,7 @@
     <None Include="classes.gold" />
     <None Include="customBaseClass.gold" />
     <None Include="packages.config" />
+    <None Include="SomeDocumentType.gold" />
     <None Include="uSync\DocumentType\pfxRoot\def.config" />
     <None Include="uSync\DocumentType\pfxRoot\pfxChild\def.config" />
     <None Include="uSync\DocumentType\pfxRoot\pfxChild\GrandChildNoPfx\def.config" />

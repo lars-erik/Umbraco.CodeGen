@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<DocumentType>
+  <Info>
+    <Name>Some document type</Name>
+    <Alias>someDocumentType</Alias>
+    <Icon>folder.gif</Icon>
+    <Thumbnail>folder.png</Thumbnail>
+    <Description>A description of some document type</Description>
+    <AllowAtRoot>True</AllowAtRoot>
+    <Master />
+    <AllowedTemplates />
+    <DefaultTemplate />
+  </Info>
+  <Structure />
+  <GenericProperties>
+    <GenericProperty>
+      <Name>Some property</Name>
+      <Alias>someProperty</Alias>
+      <Type>BBBEB697-D751-4A19-8ACE-3A05DE2EEEF6</Type>
+      <Definition>00000000-0000-0000-0000-000000000000</Definition>
+      <Tab>A tab</Tab>
+      <Mandatory>False</Mandatory>
+      <Validation>[a-z]</Validation>
+      <Description><![CDATA[A description]]></Description>
+    </GenericProperty>
+    <GenericProperty>
+      <Name>Another property</Name>
+      <Alias>anotherProperty</Alias>
+      <Type>BBBEB697-D751-4A19-8ACE-3A05DE2EEEF6</Type>
+      <Definition>00000000-0000-0000-0000-000000000000</Definition>
+      <Tab>A tab</Tab>
+      <Mandatory>False</Mandatory>
+      <Validation></Validation>
+      <Description><![CDATA[Another description]]></Description>
+    </GenericProperty>
+  </GenericProperties>
+  <Tabs>
+    <Tab>
+      <Id>0</Id>
+      <Name>A tab</Name>
+    </Tab>
+  </Tabs>
+</DocumentType>
