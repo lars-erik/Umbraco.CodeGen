@@ -11,6 +11,7 @@
 namespace Some.Namespace
 {
     using System;
+    using Umbraco.Web;
     using Umbraco.Core.Models;
     
     public partial class DocumentTypeBase

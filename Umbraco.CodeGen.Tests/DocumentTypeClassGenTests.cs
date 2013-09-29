@@ -31,7 +31,17 @@ namespace Umbraco.CodeGen.Tests
 				{
 					public interface IPublishedContent
 					{
-						T GetPropertyValue<T>(string name);
+					}
+				}
+				namespace Umbraco.Web
+				{
+					using Umbraco.Core.Models;
+					public static class PublishedContentExtensions
+					{
+						public static T GetPropertyValue<T>(this IPublishedContent content, string name)
+						{
+							return default(T);
+						}
 					}
 				}
 			";
