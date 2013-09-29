@@ -11,14 +11,19 @@ using System.Xml.Linq;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.PatternMatching;
 using Microsoft.CSharp;
+using Mono.CSharp;
 using NUnit.Framework;
 using Attribute = ICSharpCode.NRefactory.CSharp.Attribute;
+using CSharpParser = ICSharpCode.NRefactory.CSharp.CSharpParser;
+using Expression = ICSharpCode.NRefactory.CSharp.Expression;
 
 namespace Umbraco.CodeGen.Tests
 {
 	[TestFixture]
 	public class USyncGeneratorTests
 	{
+		private const StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
+
 		public string AProp
 		{
 			get; set;
@@ -38,19 +43,25 @@ namespace Umbraco.CodeGen.Tests
 				expectedOutput = goldReader.ReadToEnd();
 			}
 
-			var reader = new StringReader(code);
+			const string fakeCode = @"
+			namespace MyWeb.Models
+			{
+				public class SomeOtherDocType {}
+			}
+			";
+
+			var reader = new StringReader(fakeCode + code);
 
 			var parser = new CSharpParser();
 			var tree = parser.Parse(reader);
 
 			Assert.AreEqual(0, tree.Errors.Count, tree.Errors.Aggregate("", (s, e) => s += e.Region.BeginLine + ": " + e.Message + "\n"));
 
-			var type = tree.Descendants.OfType<TypeDeclaration>().First();
+			var type = tree.Descendants.OfType<TypeDeclaration>().First(t => t.Name == "SomeDocumentType");
 
 			var doc = new XDocument();
 			var root = new XElement("DocumentType");
 			doc.Add(root);
-
 
 			var info = new XElement("Info");
 			root.Add(info);
@@ -60,19 +71,40 @@ namespace Umbraco.CodeGen.Tests
 
 			info.Add(name);
 			info.Add(new XElement("Alias", CamelCase(type.Name)));
-			info.Add(new XElement("Icon", "folder.gif"));
-			info.Add(new XElement("Thumbnail", "folder.png"));
+
+			var iconValue = FindStringFieldValue(type, "icon") ?? "Folder.gif";
+			info.Add(new XElement("Icon", iconValue));
+
+			var folderValue = FindStringFieldValue(type, "thumbnail") ?? "Folder.png";
+			info.Add(new XElement("Thumbnail", folderValue));
 
 			var descriptionAttribute = FindAttribute(type.Attributes, "Description");
 			var description = ElementFromAttribute("Description", descriptionAttribute, "");
 			info.Add(description);
 
-			info.Add(new XElement("AllowAtRoot", "True"));
+			var allowAtRootValue = FindBoolFieldValue(type, "allowAtRoot");
+			info.Add(new XElement("AllowAtRoot", allowAtRootValue.ToString().ProperCase()));
+	
 			info.Add(new XElement("Master"));
-			info.Add(new XElement("AllowedTemplates"));
-			info.Add(new XElement("DefaultTemplate"));
 
-			root.Add(new XElement("Structure"));
+			var allowedTemplatesElement = new XElement("AllowedTemplates");
+			info.Add(allowedTemplatesElement);
+
+			var allowedTemplatesValue = FindStringArrayValue(type, "allowedTemplates");
+			if (allowedTemplatesValue != null)
+				foreach(var allowedTemplate in allowedTemplatesValue)
+					allowedTemplatesElement.Add(new XElement("Template", allowedTemplate));
+
+			var defaultTemplateValue = FindStringFieldValue(type, "defaultTemplate");
+			info.Add(new XElement("DefaultTemplate", defaultTemplateValue));
+
+			var structureElement = new XElement("Structure");
+			root.Add(structureElement);
+
+			var structureValue = FindTypeArrayValue(type, "structure");
+			if (structureValue != null)
+				foreach(var typeName in structureValue)
+					structureElement.Add(new XElement("DocumentType", typeName));
 
 			var props = new XElement("GenericProperties");
 			root.Add(props);
@@ -134,6 +166,56 @@ namespace Umbraco.CodeGen.Tests
 			Console.WriteLine(sb.ToString());
 
 			Assert.AreEqual(expectedOutput, sb.ToString());
+		}
+
+		private static string FindStringFieldValue(TypeDeclaration type, string fieldName)
+		{
+			var fieldVariable = FindFieldVariable(type, fieldName);
+			return WithInitializer(fieldVariable, ex => ex.GetText().Trim('"'));
+		}
+
+		private static string[] FindStringArrayValue(TypeDeclaration type, string fieldName)
+		{
+			var fieldVariable = FindFieldVariable(type, fieldName);
+			return WithInitializer(fieldVariable, ex =>
+				((ArrayCreateExpression) ex).Initializer.Elements
+					.OfType<PrimitiveExpression>()
+					.Select(e => e.Value as string)
+					.ToArray()
+			);
+		}
+
+		private static string[] FindTypeArrayValue(TypeDeclaration type, string fieldName)
+		{
+			var fieldVariable = FindFieldVariable(type, fieldName);
+			return WithInitializer(fieldVariable, ex =>
+				((ArrayCreateExpression) ex).Initializer.Elements
+					.OfType<TypeOfExpression>()
+					.Select(e => ((SimpleType)e.Type).Identifier)
+					.ToArray()
+			);
+		}
+
+		private static bool FindBoolFieldValue(TypeDeclaration type, string fieldName)
+		{
+			var fieldVariable = FindFieldVariable(type, fieldName);
+			return WithInitializer(fieldVariable, ex => Convert.ToBoolean(ex.GetText()));
+		}
+
+		private static T WithInitializer<T>(VariableInitializer variable, Func<Expression, T> valueGetter)
+		{
+			if (variable == null || variable.Initializer == null)
+				return default(T);
+			return valueGetter(variable.Initializer);
+		}
+
+		private static VariableInitializer FindFieldVariable(TypeDeclaration type, string fieldName)
+		{
+			var fieldVariable =
+				type.Members.OfType<FieldDeclaration>()
+					.SelectMany(f => f.Variables)
+					.SingleOrDefault(m => String.Compare(m.Name, fieldName, IgnoreCase) == 0);
+			return fieldVariable;
 		}
 
 		private static string CamelCase(string value)

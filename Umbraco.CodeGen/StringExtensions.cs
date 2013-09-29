@@ -1,6 +1,6 @@
 using System;
 
-static internal class StringExtensions
+static public class StringExtensions
 {
 	private const StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
 

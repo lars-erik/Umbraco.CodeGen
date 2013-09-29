@@ -9,6 +9,13 @@
 	[Description("A description of some document type")]
 	public class SomeDocumentType : DocumentTypeBase
 	{
+		const string icon = "privateMemberIcon.gif";
+		const string thumbnail = "privateMemberThumb.png";
+		const bool allowAtRoot = true;
+		readonly string[] allowedTemplates = new[] { "ATemplate", "AnotherTemplate" };
+		const string defaultTemplate = "ATemplate";
+		readonly Type[] structure = new[] { typeof(SomeOtherDocType) };
+
 		[DisplayName("Some property")]
 		[Description("A description")]
 		[Category("A tab")]
