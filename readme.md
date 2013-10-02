@@ -5,6 +5,8 @@ Synchronizes C# classes with uSync DocumentType files.
 Add all assemblies to Umbraco/Bin and you're good to go. (Yes, yes, package is coming)
 Config is read from uSync and ~/config/CodeGen.config.
 
+Depends on https://github.com/icsharpcode/NRefactory
+
 ##Recommended uSync setup:
     <usync read="true" write="false" attach="true" .../>
 

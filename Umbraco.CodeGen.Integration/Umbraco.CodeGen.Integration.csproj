@@ -255,7 +255,7 @@
     <ProjectReference Include="..\Umbraco.CodeGen\Umbraco.CodeGen.csproj">
       <Project>{132e2fc4-b509-4204-9da2-d688bea75d4a}</Project>
       <Name>Umbraco.CodeGen</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
