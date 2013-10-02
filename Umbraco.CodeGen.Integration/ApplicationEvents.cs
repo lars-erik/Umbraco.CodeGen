@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using jumps.umbraco.usync.helpers;
+using Microsoft.CSharp;
 using Umbraco.Core;
 
 namespace Umbraco.CodeGen.Integration
@@ -13,6 +16,8 @@ namespace Umbraco.CodeGen.Integration
 		private IEnumerable<DataTypeDefinition> dataTypes;
 		private CodeGeneratorConfiguration configuration;
 		private USyncConfiguration uSyncConfiguration;
+		private USyncDataTypeProvider dataTypesProvider;
+		private string modelPath;
 
 		public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
@@ -25,20 +30,23 @@ namespace Umbraco.CodeGen.Integration
 
 			uSyncConfiguration = uSyncConfigurationProvider.GetConfiguration();
 			
-			var dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
+			dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
 	
 			dataTypes = dataTypesProvider.GetDataTypes();
 			configuration = configurationProvider.GetConfiguration();
+			modelPath = HttpContext.Current.Server.MapPath(configuration.ModelPath);
 
 			XmlDoc.Saved += OnDocumentTypeSaved;
 
-			GenerateXml();
+			if (configuration.GenerateXml)
+				GenerateXml();
 		}
 
 		private void GenerateXml()
 		{
 			var xmlGenerator = new DocumentTypeXmlGenerator(configuration, dataTypes);
-			var files = Directory.GetFiles(HttpContext.Current.Server.MapPath(configuration.ModelPath), "*.cs", SearchOption.AllDirectories);
+			var modelPath = HttpContext.Current.Server.MapPath(configuration.ModelPath);
+			var files = Directory.GetFiles(modelPath, "*.cs");
 			var documents = new List<XDocument>();
 			foreach(var file in files)
 			{
@@ -76,7 +84,23 @@ namespace Umbraco.CodeGen.Integration
 
 		private void OnDocumentTypeSaved(XmlDocFileEventArgs e)
 		{
-			
+			if (!e.Path.Contains("DocumentType"))
+				return;
+
+			if (!configuration.GenerateClasses)
+				return;
+
+			var codeDomProvider = new CSharpCodeProvider();
+	
+			var doc = XDocument.Load(e.Path);
+			var classGenerator = new ContentTypeCodeGenerator(configuration, doc, codeDomProvider);
+			var path = Path.Combine(modelPath, doc.XPathSelectElement("//Info/Alias").Value.PascalCase() + ".cs");
+				if (configuration.OverwriteReadOnly && File.Exists(path))
+					File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
+			using (var stream = File.CreateText(path))
+			{
+				classGenerator.BuildCode(stream);
+			}
 		}
 
 		public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)

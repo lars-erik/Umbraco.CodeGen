@@ -41,6 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="UmbracoCodeGeneratorConfigurationProvider.cs" />
     <Compile Include="USyncConfigurationProvider.cs" />
     <Compile Include="USyncDataTypeProvider.cs" />

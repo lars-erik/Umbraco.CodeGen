@@ -82,7 +82,7 @@ namespace Umbraco.CodeGen
 				new XElement("Alias", prop.Name.CamelCase()),
 				new XElement("Type", FindDataTypeDefinitionId(prop)),
 				new XElement("Definition", AttributeValue(prop, "DataType", Guid.Empty.ToString())),
-				new XElement("Tab", AttributeValue(prop, "Category", "Properties")),
+				new XElement("Tab", AttributeValue(prop, "Category", "")),
 				new XElement("Mandatory", (FindAttribute(prop.Attributes, "Required") != null).ToString().PascalCase()),
 				new XElement("Validation", AttributeValue(prop, "RegularExpression")),
 				new XElement("Description", new XCData(AttributeValue(prop, "Description")))
@@ -128,7 +128,7 @@ namespace Umbraco.CodeGen
 
 		private static IEnumerable<string> FindTabNames(TypeDeclaration type)
 		{
-			return FindProperties(type).Select(p => AttributeValue(p, "Category", "Properties")).Distinct();
+			return FindProperties(type).Select(p => AttributeValue(p, "Category", "")).Distinct();
 		}
 
 		private static IEnumerable<PropertyDeclaration> FindProperties(TypeDeclaration type)
@@ -216,7 +216,7 @@ namespace Umbraco.CodeGen
 		public IEnumerable<string> Errors { get; private set; }
 
 		public AnalysisException(SyntaxTree tree)
-			: base("Errors in code analysis")
+			: base("Errors in code analysis. See the Errors collection for details.")
 		{
 			Errors = tree.Errors.Select(e => e.Region.BeginLine + ": " + e.Message);
 		}

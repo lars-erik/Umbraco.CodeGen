@@ -28,7 +28,7 @@ namespace Umbraco.CodeGen
 		private CodeTypeDeclaration CreateType()
 		{
 			var className = info.Element("Alias").Value.PascalCase();
-			var baseClass = info.Element("Master").Value;
+			var baseClass = info.Element("Master") != null ? info.Element("Master").Value.PascalCase() : null;
 			baseClass = String.IsNullOrEmpty(baseClass) ? configuration.BaseClass : baseClass;
 
 			CreateType(className, baseClass);
@@ -56,7 +56,7 @@ namespace Umbraco.CodeGen
 
 		private void CreateStructureMember()
 		{
-			var structure = contentType.XPathSelectElements("DocumentType/Structure/DocumentType").Select(e => e.Value);
+			var structure = contentType.XPathSelectElements("DocumentType/Structure/DocumentType").Select(e => e.Value.PascalCase());
 			type.Members.Add(new CodeMemberField("Type[]", "structure")
 			{
 				InitExpression = new CodeArrayCreateExpression("Type[]", structure.Select(t => new CodeTypeOfExpression(t)).Cast<CodeExpression>().ToArray())

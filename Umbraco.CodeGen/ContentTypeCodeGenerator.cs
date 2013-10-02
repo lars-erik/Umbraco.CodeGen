@@ -31,7 +31,7 @@ namespace Umbraco.CodeGen
 			contentTypeBuilder = new ContentTypeBuilder(configuration, contentTypeDefintion);
 		}
 
-		public void BuildCode(StringWriter writer)
+		public void BuildCode(TextWriter writer)
 		{
 			CreateCompileUnit();
 			CreateNamespace();
@@ -63,7 +63,7 @@ namespace Umbraco.CodeGen
 			ns.Imports.Add(new CodeNamespaceImport("Umbraco.Web"));
 		}
 
-		private void WriteCode(StringWriter writer, CodeCompileUnit compileUnit)
+		private void WriteCode(TextWriter writer, CodeCompileUnit compileUnit)
 		{
 			var options = new CodeGeneratorOptions
 			{
