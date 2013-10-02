@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.CSharp;
 using NUnit.Framework;
 
 namespace Umbraco.CodeGen.Tests
@@ -12,13 +14,13 @@ namespace Umbraco.CodeGen.Tests
 	public class ContentTypeCodeGeneratorTests
 	{
 		[Test]
-		public void Generate_GeneratesCode()
+		public void BuildCode_GeneratesCode()
 		{
-			var code = "";
+			var xml = "";
 			var expectedOutput = "";
 			using (var inputReader = File.OpenText(@"..\..\SomeDocumentType.xml"))
 			{
-				code = inputReader.ReadToEnd();
+				xml = inputReader.ReadToEnd();
 			}
 			using (var goldReader = File.OpenText(@"..\..\SomeDocumentType.cs"))
 			{
@@ -29,26 +31,18 @@ namespace Umbraco.CodeGen.Tests
 			{
 				BaseClass = "DocumentTypeBase",
 				TypeMappings = new Dictionary<string, string>(),
-				DefaultTypeMapping = "string"
+				DefaultTypeMapping = "String",
+				Namespace = "MyWeb.Models"
 			};
 
+			var sb = new StringBuilder();
+			var writer = new StringWriter(sb);
+			var generator = new ContentTypeCodeGenerator(configuration, XDocument.Parse(xml), new CSharpCodeProvider());
+			generator.BuildCode(writer);
+			writer.Flush();
+			Console.WriteLine(sb.ToString());
 
-
-			var reader = new StringReader(code);
-			var generator = new ContentTypeBuilder();
-
-			Assert.Fail();
-			//generator.Configure(configuration, );
-			//var doc = generator.Generate(reader).First();
-
-			//var sb = new StringBuilder();
-			//var writer = new StringWriter(sb);
-			//doc.Save(writer);
-			//writer.Flush();
-			//Console.WriteLine(sb.ToString());
-
-			//Assert.AreEqual(expectedOutput, sb.ToString());
-
+			Assert.AreEqual(expectedOutput, sb.ToString());
 		}
 
 	}

@@ -13,13 +13,5 @@ namespace Umbraco.CodeGen
 		public Dictionary<string, string> TypeMappings { get; set; }
 		public bool OverwriteReadOnly { get; set; }
 		public string Namespace { get; set; }
-
-		public string GetTypeName(PropertyDefinition property)
-		{
-			var typeName = TypeMappings.ContainsKey(property.TypeId)
-				? TypeMappings[property.TypeId]
-				: DefaultTypeMapping;
-			return typeName;
-		}
 	}
 }

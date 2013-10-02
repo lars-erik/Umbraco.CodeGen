@@ -3,38 +3,32 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Umbraco.CodeGen
 {
 	public class ContentTypeCodeGenerator
 	{
-		private readonly IEnumerable<ContentTypeDefinition> contentTypes;
 		private readonly CodeDomProvider codeDomProvider;
-		private readonly string nameSpace;
 		private readonly CodeGeneratorConfiguration configuration;
+		private readonly XDocument contentTypeDefintion;
+		private readonly ContentTypeBuilder contentTypeBuilder;
 
 		private CodeCompileUnit compileUnit;
 		private CodeNamespace ns;
 		private CodeTypeReference baseType;
 
-		private readonly List<INamespaceMemberBuilder> builders = new List<INamespaceMemberBuilder>
-		{
-			new StandardImportsBuilder(),
-			new BaseClassBuilder(),
-			new ContentTypesBuilder()
-		}; 
-
 		public ContentTypeCodeGenerator(
 			CodeGeneratorConfiguration configuration, 
-			IEnumerable<ContentTypeDefinition> contentTypes,
-			CodeDomProvider codeDomProvider,
-			string nameSpace
+			XDocument contentTypeDefintion,
+			CodeDomProvider codeDomProvider
 			)
 		{
 			this.configuration = configuration;
-			this.contentTypes = contentTypes;
+			this.contentTypeDefintion = contentTypeDefintion;
 			this.codeDomProvider = codeDomProvider;
-			this.nameSpace = nameSpace;
+
+			contentTypeBuilder = new ContentTypeBuilder(configuration, contentTypeDefintion);
 		}
 
 		public void BuildCode(StringWriter writer)
@@ -42,11 +36,8 @@ namespace Umbraco.CodeGen
 			CreateCompileUnit();
 			CreateNamespace();
 
-			foreach (var builder in builders)
-			{
-				builder.Configure(configuration, contentTypes);
-				builder.Build(ns);
-			}
+			AddUsingStatements();
+			contentTypeBuilder.Build(ns);
 
 			compileUnit.Namespaces.Add(ns);
 			WriteCode(writer, compileUnit);
@@ -60,9 +51,17 @@ namespace Umbraco.CodeGen
 
 		private void CreateNamespace()
 		{
-			ns = new CodeNamespace(nameSpace);
+			ns = new CodeNamespace(configuration.Namespace);
 		}
 
+		private void AddUsingStatements()
+		{
+			ns.Imports.Add(new CodeNamespaceImport("System"));
+			ns.Imports.Add(new CodeNamespaceImport("System.ComponentModel"));
+			ns.Imports.Add(new CodeNamespaceImport("System.ComponentModel.DataAnnotations"));
+			ns.Imports.Add(new CodeNamespaceImport("Umbraco.Core.Models"));
+			ns.Imports.Add(new CodeNamespaceImport("Umbraco.Web"));
+		}
 
 		private void WriteCode(StringWriter writer, CodeCompileUnit compileUnit)
 		{

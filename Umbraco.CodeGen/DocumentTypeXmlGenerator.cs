@@ -83,7 +83,7 @@ namespace Umbraco.CodeGen
 				new XElement("Type", FindDataTypeDefinitionId(prop)),
 				new XElement("Definition", AttributeValue(prop, "DataType", Guid.Empty.ToString())),
 				new XElement("Tab", AttributeValue(prop, "Category", "Properties")),
-				new XElement("Mandatory", "False"), // TODO: Required
+				new XElement("Mandatory", (FindAttribute(prop.Attributes, "Required") != null).ToString().PascalCase()),
 				new XElement("Validation", AttributeValue(prop, "RegularExpression")),
 				new XElement("Description", new XCData(AttributeValue(prop, "Description")))
 			);
