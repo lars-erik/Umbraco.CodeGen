@@ -12,6 +12,7 @@ namespace Umbraco.CodeGen
 		public string DefaultTypeMapping { get; set; }
 		public Dictionary<string, string> TypeMappings { get; set; }
 		public bool OverwriteReadOnly { get; set; }
+		public string Namespace { get; set; }
 
 		public string GetTypeName(PropertyDefinition property)
 		{

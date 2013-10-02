@@ -8,7 +8,7 @@
 
 	[DisplayName("Some document type")]
 	[Description("A description of some document type")]
-	public class SomeDocumentType : DocumentTypeBase
+	public partial class SomeDocumentType : DocumentTypeBase
 	{
 		const string icon = "privateMemberIcon.gif";
 		const string thumbnail = "privateMemberThumb.png";
@@ -39,6 +39,10 @@
 			{
 				return Content.GetPropertyValue<string>("anotherProperty");
 			}
+		}
+
+		public SomeDocumentType(IPublishedContent content) : base(content)
+		{
 		}
 	}
 }

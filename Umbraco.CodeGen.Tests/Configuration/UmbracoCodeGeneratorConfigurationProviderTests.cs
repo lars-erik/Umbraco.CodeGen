@@ -20,6 +20,7 @@ namespace Umbraco.CodeGen.Tests.Configuration
 			Assert.AreEqual(true, config.GenerateClasses);
 			Assert.AreEqual(true, config.GenerateXml);
 			Assert.AreEqual("Models", config.ModelPath);
+			Assert.AreEqual("MyWeb.Models", config.Namespace);
 			Assert.AreEqual(false, config.OverwriteReadOnly);
 			Assert.AreEqual("pfx", config.RemovePrefix);
 			Assert.AreNotEqual(0, config.TypeMappings.Count);

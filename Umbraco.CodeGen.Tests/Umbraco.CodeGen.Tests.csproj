@@ -75,6 +75,7 @@
     <Compile Include="Configuration\UmbracoCodeGeneratorConfigurationProviderTests.cs" />
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="DocumentTypeClassGenTests.cs" />
+    <Compile Include="ContentTypeCodeGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="SomeDocumentType.cs" />
     <Compile Include="DocumentTypeXmlGeneratorTests.cs" />
@@ -85,7 +86,7 @@
     <Content Include="config\CodeGen.config" />
     <None Include="customBaseClass.gold" />
     <None Include="packages.config" />
-    <None Include="SomeDocumentType.gold" />
+    <Content Include="SomeDocumentType.xml" />
     <None Include="uSync\DataTypeDefinition\Approved Color.config" />
     <None Include="uSync\DataTypeDefinition\Checkbox list.config" />
     <None Include="uSync\DataTypeDefinition\Content Picker.config" />

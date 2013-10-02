@@ -19,7 +19,7 @@ namespace Umbraco.CodeGen.Tests
 			{
 				code = inputReader.ReadToEnd();
 			}
-			using (var goldReader = File.OpenText(@"..\..\SomeDocumentType.gold"))
+			using (var goldReader = File.OpenText(@"..\..\SomeDocumentType.xml"))
 			{
 				expectedOutput = goldReader.ReadToEnd();
 			}

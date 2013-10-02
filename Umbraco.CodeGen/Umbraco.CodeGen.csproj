@@ -103,6 +103,7 @@
     <Compile Include="BaseCodeGenerator.cs" />
     <Compile Include="BaseCodeGeneratorWithSite.cs" />
     <Compile Include="CodeGeneratorConfiguration.cs" />
+    <Compile Include="ContentTypeBuilder.cs" />
     <Compile Include="ContentTypeCodeGenerator.cs" />
     <Compile Include="ContentTypeDefinition.cs" />
     <Compile Include="ContentTypesBuilder.cs" />

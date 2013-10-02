@@ -64,7 +64,7 @@ namespace Umbraco.CodeGen.Tests
 
 			Console.WriteLine(output);
 
-			using (var gold = File.OpenText(Path.Combine(Environment.CurrentDirectory, @"..\..\", testFilesName + ".gold")))
+			using (var gold = File.OpenText(Path.Combine(Environment.CurrentDirectory, @"..\..\", testFilesName + ".xml")))
 			{
 				Assert.AreEqual(gold.ReadToEnd(), output);
 			}

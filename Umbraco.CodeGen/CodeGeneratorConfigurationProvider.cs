@@ -55,6 +55,7 @@ namespace Umbraco.CodeGen
 				GenerateClasses = Convert.ToBoolean(AttributeValue(root, "GenerateClasses", "false")),
 				GenerateXml = Convert.ToBoolean(AttributeValue(root, "GenerateXml", "false")),
 				ModelPath = AttributeValue(root, "ModelPath", "Models"),
+				Namespace = AttributeValue(root, "Namespace"),
 				OverwriteReadOnly = Convert.ToBoolean(AttributeValue(root, "OverwriteReadOnly", "false")),
 				RemovePrefix = AttributeValue(root, "RemovePrefix"),
 				DefaultTypeMapping = defaultTypeMapping,
