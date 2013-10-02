@@ -46,11 +46,13 @@ Config is read from uSync and ~/config/CodeGen.config.
 ###CodeGenerator element
 
 *ModelPath*
+
 If you have ReSharper, set the Models\Synchronized folder as Namespace Provider=False.
 Otherwise, make a folder that has the namespace structure you want.
 The code generation will attemt to create DocumentType XML for ALL classes found in the specified folder.
 
 *BaseClass*
+
 A class in the same namespace as the generated/code first classes with at least the following structure:
 
     public class DocumentTypeBase
