@@ -64,27 +64,76 @@ A class in the same namespace as the generated/code first classes with at least 
 The class itself can be named whatever.
 
 *Namespace*
+
 Preferably the correct namespace for your model folder. :)
 
 *GenerateClasses*
+
 Whether to generate class for document types when saved. (Works with uSync attach=true)
 
 *GenerateXml*
+
 Whether to generate XML for document types when Umbraco starts. (Works with uSync read=true)
 
 *RemovePrefix*
+
 Partially implemented and not at all tested.
 Should remove prefixes from class and property names if you have them in your aliases.
 
 *OverwriteReadOnly*
+
 For everyone lucky enough to have a SCS locking the files.
 
 *TypeMappings*
+
 Pretty self explanatory if you should use this tool at all. ;)
 For some reason the CSharpCodeDomProvider adds @ to intristic type aliases. (string, int etc.)
 Use the class names of the types to avoid it.
 
-Gotchas:
+###Supported code constructs
+
+*Class attributes*
+
+* [DisplayName] - Document type name
+* [Description] - Guess what
+
+*Class name*
+
+Alias, camelCased in XML, PascalCased in C#.
+
+*Class fields*
+
+* String icon
+* String thumbnail
+* Boolean allowAtRoot
+* String[] allowedTemplates
+* String defaultTemplate
+* Type[] structure
+
+*Class ctor*
+
+See base class
+
+*Property attributes*
+
+* [DisplayName] - Property name
+* [Description] - Yup
+* [Category] - Tab name, leave empty for "generic properties"
+* [DataType] - DataType definition ID (Not editor)
+* [RegularExpression] - Validation
+* [Required] - Mandatory
+
+*Property name*
+
+Alias, camelCased in XML, PascalCased in C#.
+
+*Property getter*
+
+Will be regenerated as `return Content.GetPropertyValue<T>("alias")`
+
+*ANY CODE BUT THIS WILL BE DELETED ON ROUNDTRIP!*
+
+###Gotchas:
 * Generated classes are partial
     DO NOT write code other than properties in the generated classes!
 * If document type and property has the same name,
