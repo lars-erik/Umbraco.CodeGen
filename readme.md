@@ -52,6 +52,7 @@ The code generation will attemt to create DocumentType XML for ALL classes found
 
 *BaseClass*
 A class in the same namespace as the generated/code first classes with at least the following structure:
+
     public class DocumentTypeBase
     {
         protected IPublishedContent Content; // Can be field or property, must be named Content
@@ -61,6 +62,7 @@ A class in the same namespace as the generated/code first classes with at least 
             Content = content;
         }
     }
+
 The class itself can be named whatever.
 
 *Namespace*
