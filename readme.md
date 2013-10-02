@@ -13,6 +13,11 @@ Config is read from uSync and ~/config/CodeGen.config.
 *DO NOT CODE FIRST BEFORE FIRST RUN OF USYNC!*
 *YOU'LL LOSE YOUR CODE!*
 
+*DO NOT WRITE LOGIC IN THE CLASSES, ONLY PROPERTIES!*
+*YOU'LL LOSE YOUR CODE!*
+
+*Classes are partial for this reason*
+
 ##Recommended CodeGen config (~/config/CodeGen.config):
     <?xml version="1.0" encoding="utf-8" ?>
     <CodeGenerator
@@ -80,5 +85,7 @@ For some reason the CSharpCodeDomProvider adds @ to intristic type aliases. (str
 Use the class names of the types to avoid it.
 
 Gotchas:
+* Generated classes are partial
+    DO NOT write code other than properties in the generated classes!
 * If document type and property has the same name,
     the class is suffixed with "Class"
