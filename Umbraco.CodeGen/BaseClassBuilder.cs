@@ -18,11 +18,11 @@ namespace Umbraco.CodeGen
 
 		public void Build(CodeNamespace ns)
 		{
-			if (String.IsNullOrEmpty(configuration.CustomBaseClass))
+			if (String.IsNullOrEmpty(configuration.BaseClass))
 			{
 				var baseType = CreateBaseType();
 				ns.Types.Add(baseType);
-				configuration.CustomBaseClass = baseType.Name;
+				configuration.BaseClass = baseType.Name;
 			}
 		}
 

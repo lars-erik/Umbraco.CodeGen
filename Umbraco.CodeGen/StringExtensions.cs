@@ -4,7 +4,7 @@ static public class StringExtensions
 {
 	private const StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
 
-	public static string ProperCase(this string value)
+	public static string PascalCase(this string value)
 	{
 		return value.Substring(0, 1).ToUpper() + value.Substring(1);
 	}
@@ -14,5 +14,10 @@ static public class StringExtensions
 		if (removePrefix != null && name.StartsWith(removePrefix, IgnoreCase))
 			name = name.Substring(removePrefix.Length);
 		return name;
+	}
+
+	public static string CamelCase(this string value)
+	{
+		return value.Substring(0, 1).ToLower() + value.Substring(1);
 	}
 }

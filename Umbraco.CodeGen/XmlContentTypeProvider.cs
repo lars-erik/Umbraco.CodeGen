@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace Umbraco.CodeGen
 {
-	public class USyncContentTypeProvider : IContentTypeProvider
+	public class XmlContentTypeProvider : IContentTypeProvider
 	{
 		private readonly string inputFileContent;
 		private readonly string path;
@@ -16,7 +16,7 @@ namespace Umbraco.CodeGen
 		private XElement uSyncNode;
 		private List<ContentTypeDefinition> contentTypeDefinitions;
 
-		public USyncContentTypeProvider(string path, string inputFileContent)
+		public XmlContentTypeProvider(string path, string inputFileContent)
 		{
 			this.path = path;
 			this.inputFileContent = inputFileContent;
@@ -65,7 +65,7 @@ namespace Umbraco.CodeGen
 			var className = infoNode.Element("Alias").Value;
 			var baseClassName = infoNode.Elements("Master").Select(e => e.Value).SingleOrDefault();
 			var properties = CreateProperties(typeNode);
-			className = className.RemovePrefix(removePrefix).ProperCase();
+			className = className.RemovePrefix(removePrefix).PascalCase();
 			if (HasPropertyWithSameName(properties, className))
 				className += "Class";
 
@@ -107,18 +107,5 @@ namespace Umbraco.CodeGen
 				.Element(nodeType);
 			return typeNode;
 		}
-	}
-
-	public class PropertyDefinition
-	{
-		public string Name { get; set; }
-		public string TypeId { get; set; }
-	}
-
-	public class ContentTypeDefinition
-	{
-		public string ClassName { get; set; }
-		public string BaseClassName { get; set; }
-		public List<PropertyDefinition> Properties { get; set; }
 	}
 }

@@ -72,17 +72,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\UmbracoCodeGeneratorConfigurationProviderTests.cs" />
+    <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="DocumentTypeClassGenTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="SomeDocumentType.cs" />
-    <Compile Include="USyncGeneratorTests.cs" />
+    <Compile Include="DocumentTypeXmlGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="classes.xml" />
     <None Include="classes.gold" />
+    <Content Include="config\CodeGen.config" />
     <None Include="customBaseClass.gold" />
     <None Include="packages.config" />
     <None Include="SomeDocumentType.gold" />
+    <None Include="uSync\DataTypeDefinition\Approved Color.config" />
+    <None Include="uSync\DataTypeDefinition\Checkbox list.config" />
+    <None Include="uSync\DataTypeDefinition\Content Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Date Picker with time.config" />
+    <None Include="uSync\DataTypeDefinition\Date Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Dropdown multiple.config" />
+    <None Include="uSync\DataTypeDefinition\Dropdown.config" />
+    <None Include="uSync\DataTypeDefinition\Folder Browser.config" />
+    <None Include="uSync\DataTypeDefinition\Image Cropper.config" />
+    <None Include="uSync\DataTypeDefinition\Label.config" />
+    <None Include="uSync\DataTypeDefinition\Macro Container.config" />
+    <None Include="uSync\DataTypeDefinition\Media Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Member Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Numeric.config" />
+    <None Include="uSync\DataTypeDefinition\Radiobox.config" />
+    <None Include="uSync\DataTypeDefinition\Related Links.config" />
+    <None Include="uSync\DataTypeDefinition\Richtext editor.config" />
+    <None Include="uSync\DataTypeDefinition\Simple Editor.config" />
+    <None Include="uSync\DataTypeDefinition\Tags.config" />
+    <None Include="uSync\DataTypeDefinition\Textbox multiple.config" />
+    <None Include="uSync\DataTypeDefinition\Textstring.config" />
+    <None Include="uSync\DataTypeDefinition\Truefalse.config" />
+    <None Include="uSync\DataTypeDefinition\Ultimate Picker.config" />
+    <None Include="uSync\DataTypeDefinition\Upload.config" />
     <None Include="uSync\DocumentType\pfxRoot\def.config" />
     <None Include="uSync\DocumentType\pfxRoot\pfxChild\def.config" />
     <None Include="uSync\DocumentType\pfxRoot\pfxChild\GrandChildNoPfx\def.config" />
@@ -92,6 +119,10 @@
     <None Include="uSync\MediaType\Image\def.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Umbraco.CodeGen.Integration\Umbraco.CodeGen.Integration.csproj">
+      <Project>{25A9D2A6-65FF-470F-B284-2F85B08EE2B4}</Project>
+      <Name>Umbraco.CodeGen.Integration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Umbraco.CodeGen\Umbraco.CodeGen.csproj">
       <Project>{132E2FC4-B509-4204-9DA2-D688BEA75D4A}</Project>
       <Name>Umbraco.CodeGen</Name>

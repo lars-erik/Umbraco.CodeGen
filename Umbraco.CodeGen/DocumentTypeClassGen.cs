@@ -61,13 +61,13 @@ namespace Umbraco.CodeGen
 
 		private void LoadConfiguration()
 		{
-			var configProvider = new UsyncConfigurationProvider(inputFileContent);
+			var configProvider = new CodeGeneratorConfigurationProvider(inputFileContent);
 			configuration = configProvider.GetConfiguration();
 		}
 
 		private void LoadContentTypes()
 		{
-			var contentTypeProvider = new USyncContentTypeProvider(path, inputFileContent);
+			var contentTypeProvider = new XmlContentTypeProvider(path, inputFileContent);
 			contentTypes = contentTypeProvider.GetContentTypeDefinitions();
 		}
 

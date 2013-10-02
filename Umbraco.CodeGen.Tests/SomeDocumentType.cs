@@ -4,6 +4,7 @@
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;	
 	using Umbraco.Core.Models;
+	using Umbraco.Web;
 
 	[DisplayName("Some document type")]
 	[Description("A description of some document type")]
@@ -19,7 +20,7 @@
 		[DisplayName("Some property")]
 		[Description("A description")]
 		[Category("A tab")]
-		[DataType("BBBEB697-D751-4A19-8ACE-3A05DE2EEEF6")]
+		[DataType("ca90c950-0aff-4e72-b976-a30b1ac57dad")]
 		[RegularExpression("[a-z]")]
 		public string SomeProperty
 		{
@@ -31,7 +32,7 @@
 		[DisplayName("Another property")]
 		[Description("Another description")]
 		[Category("A tab")]
-		[DataType("BBBEB697-D751-4A19-8ACE-3A05DE2EEEF6")]
+		[DataType("ca90c950-0aff-4e72-b976-a30b1ac57dad")]
 		public string AnotherProperty
 		{
 			get

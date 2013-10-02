@@ -48,7 +48,7 @@ namespace Umbraco.CodeGen
 		private CodeTypeReference CreateBaseTypeReference(string baseClassName)
 		{
 			if (String.IsNullOrEmpty(baseClassName))
-				return new CodeTypeReference(configuration.CustomBaseClass);
+				return new CodeTypeReference(configuration.BaseClass);
 
 			return new CodeTypeReference(
 				baseClassName.RemovePrefix(configuration.RemovePrefix)
@@ -70,7 +70,7 @@ namespace Umbraco.CodeGen
 		{
 			var codeProp = new CodeMemberProperty();
 			var typeName = configuration.GetTypeName(property);
-			codeProp.Name = property.Name.RemovePrefix(configuration.RemovePrefix).ProperCase();
+			codeProp.Name = property.Name.RemovePrefix(configuration.RemovePrefix).PascalCase();
 			codeProp.Type = new CodeTypeReference(typeName);
 			codeProp.Attributes = MemberAttributes.Public | MemberAttributes.Final;
 
