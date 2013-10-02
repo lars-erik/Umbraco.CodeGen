@@ -7,6 +7,8 @@ Config is read from uSync and ~/config/CodeGen.config.
 
 Depends on https://github.com/icsharpcode/NRefactory
 
+Binaries available here: http://lars-erik.github.io/Umbraco.CodeGen/
+
 ##Recommended uSync setup:
     <usync read="true" write="false" attach="true" .../>
 
