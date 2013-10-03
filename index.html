@@ -9,9 +9,25 @@ font-family: Segoe UI, Sans-Serif;
 </head>
 <body>
 <h2>Umbraco USync Code Generator</h2>
-<p><a href="https://github.com/lars-erik/Umbraco.CodeGen">View GitHub repo</a> (see usage in readme.md)</p>
-<p><a href="Umbraco.CodeGen.zip">Download binaries</a></p>
-<p><a href="Umbraco.CodeGen.pdbs.zip">Download symbols</a> if you want them</p>
+<p><a href="https://github.com/lars-erik/Umbraco.CodeGen" onclick="trackLink('https://github.com/lars-erik/Umbraco.CodeGen');">View GitHub repo</a> (see usage in readme.md)</p>
+<p><a href="Umbraco.CodeGen.zip" onclick="trackLink('Umbraco.CodeGen.zip');">Download binaries</a></p>
+<p><a href="Umbraco.CodeGen.pdbs.zip" onclick="trackLink('Umbraco.CodeGen.pdbs.zip');">Download symbols</a> if you want them</p>
 <p>Copyright (c) 2013 Omnicom AS, released using the <a href="http://opensource.org/licenses/MIT">MIT license</a></p>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44569969-1', 'lars-erik.github.io');
+ga('send', 'pageview');
+
+function trackLink(link) { 
+ try { 
+  ga('send', 'event', 'link', 'click', link); 
+ } catch(err){}
+}
+</script>
 </body>
 </html>
