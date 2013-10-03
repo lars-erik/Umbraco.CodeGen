@@ -4,6 +4,7 @@
 
 .nuget/nuget.exe
 Umbraco.CodeGen.Web/*
+*.nupkg
 
 #################
 ## Eclipse

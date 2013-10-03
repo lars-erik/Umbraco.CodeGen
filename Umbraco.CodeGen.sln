@@ -22,6 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Web", "Umbr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Integration", "Umbraco.CodeGen.Integration\Umbraco.CodeGen.Integration.csproj", "{25A9D2A6-65FF-470F-B284-2F85B08EE2B4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{99D34CF8-4447-426E-A9AC-9432BC82F566}"
+	ProjectSection(SolutionItems) = preProject
+		packaging\Umbraco.CodeGen.nuspec = packaging\Umbraco.CodeGen.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

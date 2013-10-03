@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Umbraco.CodeGen")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Umbraco USync Code Generator Core")]
+[assembly: AssemblyDescription("Core classes for code generation")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Umbraco.CodeGen")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("Omnicom AS")]
+[assembly: AssemblyProduct("Umbraco USync Code Generator")]
+[assembly: AssemblyCopyright("Copyright © Omnicom AS 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

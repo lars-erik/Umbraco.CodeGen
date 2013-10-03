@@ -11,12 +11,10 @@ namespace Umbraco.CodeGen
 	{
 		private readonly CodeDomProvider codeDomProvider;
 		private readonly CodeGeneratorConfiguration configuration;
-		private readonly XDocument contentTypeDefintion;
 		private readonly ContentTypeBuilder contentTypeBuilder;
 
 		private CodeCompileUnit compileUnit;
 		private CodeNamespace ns;
-		private CodeTypeReference baseType;
 
 		public ContentTypeCodeGenerator(
 			CodeGeneratorConfiguration configuration, 
@@ -25,7 +23,6 @@ namespace Umbraco.CodeGen
 			)
 		{
 			this.configuration = configuration;
-			this.contentTypeDefintion = contentTypeDefintion;
 			this.codeDomProvider = codeDomProvider;
 
 			contentTypeBuilder = new ContentTypeBuilder(configuration, contentTypeDefintion);

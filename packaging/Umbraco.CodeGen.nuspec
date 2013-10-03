@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Umbraco.CodeGen</id>
+    <version>1.0.0</version>
+    <title>Umbraco USync Code Generator</title>
+    <authors>Omnicom AS</authors>
+    <owners>Omnicom AS</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Generates XML and code on uSync events</description>
+    <copyright>Copyright © Omnicom AS 2013</copyright>
+    <dependencies>
+      <dependency id="ICSharpCode.NRefactory" version="5.3.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Umbraco.CodeGen\bin\Release\Umbraco.CodeGen.dll" target="lib\net45"/>
+    <file src="..\Umbraco.CodeGen.Integration\bin\Release\Umbraco.CodeGen.Integration.dll" target="lib\net45"/>
+    <file src="..\Umbraco.CodeGen.Integration\Config\CodeGen.config" target="content\config\CodeGen.config"/>
+  </files>
+</package>
