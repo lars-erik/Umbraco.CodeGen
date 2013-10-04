@@ -17,7 +17,8 @@ namespace Umbraco.CodeGen.Integration
 		private CodeGeneratorConfiguration configuration;
 		private USyncConfiguration uSyncConfiguration;
 		private USyncDataTypeProvider dataTypesProvider;
-		private string modelPath;
+
+		private Dictionary<string, string> paths = new Dictionary<string, string>(); 
 
 		public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
@@ -34,18 +35,23 @@ namespace Umbraco.CodeGen.Integration
 	
 			dataTypes = dataTypesProvider.GetDataTypes();
 			configuration = configurationProvider.GetConfiguration();
-			modelPath = HttpContext.Current.Server.MapPath(configuration.ModelPath);
+
+			paths.Add("DocumentType", HttpContext.Current.Server.MapPath(configuration.DocumentTypes.ModelPath));
+			paths.Add("MediaType", HttpContext.Current.Server.MapPath(configuration.MediaTypes.ModelPath));
 
 			XmlDoc.Saved += OnDocumentTypeSaved;
 
-			if (configuration.GenerateXml)
-				GenerateXml();
+			if (configuration.DocumentTypes.GenerateXml)
+				GenerateXml(configuration.DocumentTypes);
+
+			if (configuration.MediaTypes.GenerateXml)
+				GenerateXml(configuration.MediaTypes);
 		}
 
-		private void GenerateXml()
+		private void GenerateXml(ContentTypeConfiguration contentTypeConfiguration)
 		{
-			var xmlGenerator = new DocumentTypeXmlGenerator(configuration, dataTypes);
-			var modelPath = HttpContext.Current.Server.MapPath(configuration.ModelPath);
+			var xmlGenerator = new DocumentTypeXmlGenerator(contentTypeConfiguration, dataTypes);
+			var modelPath = HttpContext.Current.Server.MapPath(contentTypeConfiguration.ModelPath);
 			var files = Directory.GetFiles(modelPath, "*.cs");
 			var documents = new List<XDocument>();
 			foreach(var file in files)
@@ -56,18 +62,24 @@ namespace Umbraco.CodeGen.Integration
 				}
 			}
 
-			var documentTypeRoot = Path.Combine(uSyncConfiguration.USyncFolder, "DocumentType");
+			var documentTypeRoot = Path.Combine(uSyncConfiguration.USyncFolder, contentTypeConfiguration.ContentTypeName);
 			if (!Directory.Exists(documentTypeRoot))
 				Directory.CreateDirectory(documentTypeRoot);
-			WriteDocuments(documents, documentTypeRoot, "");
+			WriteDocuments(contentTypeConfiguration, documents, documentTypeRoot, "");
 		}
 
-		private void WriteDocuments(IEnumerable<XDocument> documents, string path, string baseClass)
+		private void WriteDocuments(
+			ContentTypeConfiguration contentTypeConfiguration,
+			IEnumerable<XDocument> documents, 
+			string path, 
+			string baseClass
+			)
 		{
-			var docsAtLevel = documents.Where(doc => doc.Element("DocumentType").Element("Info").Element("Master").Value == baseClass);
+			var contentTypeName = contentTypeConfiguration.ContentTypeName;
+			var docsAtLevel = documents.Where(doc => doc.Element(contentTypeName).Element("Info").Element("Master").Value == baseClass);
 			foreach (var doc in docsAtLevel)
 			{
-				var alias = doc.Element("DocumentType").Element("Info").Element("Alias").Value;
+				var alias = doc.Element(contentTypeName).Element("Info").Element("Alias").Value;
 				var directoryPath = Path.Combine(path, alias);
 				if (!Directory.Exists(directoryPath))
 					Directory.CreateDirectory(directoryPath);
@@ -78,22 +90,27 @@ namespace Umbraco.CodeGen.Integration
 
 				doc.Save(defPath);
 
-				WriteDocuments(documents, directoryPath, alias);
+				WriteDocuments(contentTypeConfiguration, documents, directoryPath, alias);
 			}
 		}
 
 		private void OnDocumentTypeSaved(XmlDocFileEventArgs e)
 		{
-			if (!e.Path.Contains("DocumentType"))
+			if (!e.Path.Contains("DocumentType") && !e.Path.Contains("MediaType"))
 				return;
 
-			if (!configuration.GenerateClasses)
+			var typeConfig = e.Path.Contains("DocumentType")
+				? configuration.DocumentTypes
+				: configuration.MediaTypes;
+
+			if (!typeConfig.GenerateClasses)
 				return;
 
 			var codeDomProvider = new CSharpCodeProvider();
 	
 			var doc = XDocument.Load(e.Path);
-			var classGenerator = new ContentTypeCodeGenerator(configuration, doc, codeDomProvider);
+			var classGenerator = new ContentTypeCodeGenerator(typeConfig, doc, codeDomProvider);
+			var modelPath = paths[typeConfig.ModelPath];
 			var path = Path.Combine(modelPath, doc.XPathSelectElement("//Info/Alias").Value.PascalCase() + ".cs");
 				if (configuration.OverwriteReadOnly && File.Exists(path))
 					File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);

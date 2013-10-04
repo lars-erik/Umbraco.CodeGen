@@ -14,8 +14,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Umbraco.CodeGen\bin\Release\Umbraco.CodeGen.dll" target="lib\net45"/>
-    <file src="..\Umbraco.CodeGen.Integration\bin\Release\Umbraco.CodeGen.Integration.dll" target="lib\net45"/>
+    <file src="..\Umbraco.CodeGen\bin\Release\Umbraco.CodeGen.dll" target="lib\net40"/>
+    <file src="..\Umbraco.CodeGen.Integration\bin\Release\Umbraco.CodeGen.Integration.dll" target="lib\net40"/>
     <file src="..\Umbraco.CodeGen.Integration\Config\CodeGen.config" target="content\config\CodeGen.config"/>
   </files>
 </package>

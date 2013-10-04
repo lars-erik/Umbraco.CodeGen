@@ -8,16 +8,17 @@ namespace Umbraco.CodeGen
 {
 	public class ContentTypeBuilder
 	{
-		private readonly CodeGeneratorConfiguration configuration;
+		private readonly ContentTypeConfiguration configuration;
 		private readonly XDocument contentType;
 		private readonly XElement info;
 		private CodeTypeDeclaration type;
+		private const StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
 
-		public ContentTypeBuilder(CodeGeneratorConfiguration config, XDocument type)
+		public ContentTypeBuilder(ContentTypeConfiguration config, XDocument type)
 		{
 			configuration = config;
 			contentType = type;
-			info = contentType.XPathSelectElement("DocumentType/Info");
+			info = contentType.XPathSelectElement(config.ContentTypeName + "/Info");
 		}
 
 		public void Build(CodeNamespace ns)
@@ -50,13 +51,18 @@ namespace Umbraco.CodeGen
 			AddConst("icon", info.Element("Icon").Value);
 			AddConst("thumbnail", info.Element("Thumbnail").Value);
 			AddConst("allowAtRoot", Convert.ToBoolean(info.Element("AllowAtRoot").Value));
-			AddAllowedTemplates();
-			AddConst("defaultTemplate", info.Element("DefaultTemplate").Value);
+
+			// TODO: Refactor everything :)
+			if (configuration.ContentTypeName == "DocumentType")
+			{
+				AddAllowedTemplates();
+				AddConst("defaultTemplate", info.Element("DefaultTemplate").Value);
+			}
 		}
 
 		private void CreateStructureMember()
 		{
-			var structure = contentType.XPathSelectElements("DocumentType/Structure/DocumentType").Select(e => e.Value.PascalCase());
+			var structure = contentType.XPathSelectElements(configuration.ContentTypeName + "/Structure/DocumentType").Select(e => e.Value.PascalCase());
 			type.Members.Add(new CodeMemberField("Type[]", "structure")
 			{
 				InitExpression = new CodeArrayCreateExpression("Type[]", structure.Select(t => new CodeTypeOfExpression(t)).Cast<CodeExpression>().ToArray())
@@ -111,6 +117,8 @@ namespace Umbraco.CodeGen
 			var codeProp = new CodeMemberProperty();
 			var typeName = GetTypeName(property);
 			var name = property.Element("Alias").Value;
+			if (String.Compare(name, "Content", IgnoreCase) == 0)
+				name = "ContentProperty";
 			codeProp.Name = name.RemovePrefix(configuration.RemovePrefix).PascalCase();
 			codeProp.Type = new CodeTypeReference(typeName);
 			codeProp.Attributes = MemberAttributes.Public | MemberAttributes.Final;

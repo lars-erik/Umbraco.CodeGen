@@ -29,15 +29,18 @@ namespace Umbraco.CodeGen.Tests
 
 			var configuration = new CodeGeneratorConfiguration
 			{
-				BaseClass = "DocumentTypeBase",
 				TypeMappings = new Dictionary<string, string>(),
 				DefaultTypeMapping = "String",
+			};
+			var typeConfig = new ContentTypeConfiguration(configuration)
+			{
+				BaseClass = "DocumentTypeBase",
 				Namespace = "MyWeb.Models"
 			};
 
 			var sb = new StringBuilder();
 			var writer = new StringWriter(sb);
-			var generator = new ContentTypeCodeGenerator(configuration, XDocument.Parse(xml), new CSharpCodeProvider());
+			var generator = new ContentTypeCodeGenerator(typeConfig, XDocument.Parse(xml), new CSharpCodeProvider());
 			generator.BuildCode(writer);
 			writer.Flush();
 			Console.WriteLine(sb.ToString());

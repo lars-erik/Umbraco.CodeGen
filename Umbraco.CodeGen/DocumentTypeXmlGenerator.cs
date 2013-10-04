@@ -12,11 +12,11 @@ namespace Umbraco.CodeGen
 	public class DocumentTypeXmlGenerator
 	{
 		private const StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
-		private readonly CodeGeneratorConfiguration configuration;
+		private readonly ContentTypeConfiguration configuration;
 		private readonly IEnumerable<DataTypeDefinition> dataTypes;
 		private readonly CSharpParser parser = new CSharpParser();
 
-		public DocumentTypeXmlGenerator(CodeGeneratorConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
+		public DocumentTypeXmlGenerator(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
 		{
 			this.configuration = configuration;
 			this.dataTypes = dataTypes;
@@ -44,7 +44,7 @@ namespace Umbraco.CodeGen
 		{
 			return new XDocument(
 				new XElement(
-					"DocumentType",
+					configuration.ContentTypeName,
 					new XElement("Info", GenerateInfo(type)),
 					new XElement("Structure", GenerateStructure(type)),
 					new XElement("GenericProperties", GenerateProperties(type)),
@@ -99,10 +99,10 @@ namespace Umbraco.CodeGen
 				);
 		}
 
-		private static IEnumerable<XElement> GenerateStructure(TypeDeclaration type)
+		private IEnumerable<XElement> GenerateStructure(TypeDeclaration type)
 		{
 			return FindTypeArrayValue(type, "structure").Select(typeName => 
-				new XElement("DocumentType", typeName)
+				new XElement(configuration.ContentTypeName, typeName)
 			);
 		}
 

@@ -31,6 +31,12 @@ namespace Umbraco.CodeGen
 			var root = doc.Element("CodeGenerator");
 			if (root == null)
 				throw new Exception("No CodeGenerator element at root");
+			var documentTypes = root.Element("DocumentTypes");
+			if (documentTypes == null)
+				throw new Exception("No CodeGenerator/DocumentTypes element");
+			var mediaTypes = root.Element("MediaTypes");
+			if (mediaTypes == null)
+				throw new Exception("No CodeGenerator/MediaTypes element");
 
 			string defaultTypeMapping;
 			Dictionary<string, string> typeMappings;
@@ -49,17 +55,31 @@ namespace Umbraco.CodeGen
 				typeMappings = new Dictionary<string, string>();
 			}
 
-			return new CodeGeneratorConfiguration
+			var config = new CodeGeneratorConfiguration
 			{
-				BaseClass = AttributeValue(root, "BaseClass"),
-				GenerateClasses = Convert.ToBoolean(AttributeValue(root, "GenerateClasses", "false")),
-				GenerateXml = Convert.ToBoolean(AttributeValue(root, "GenerateXml", "false")),
-				ModelPath = AttributeValue(root, "ModelPath", "Models"),
-				Namespace = AttributeValue(root, "Namespace"),
 				OverwriteReadOnly = Convert.ToBoolean(AttributeValue(root, "OverwriteReadOnly", "false")),
-				RemovePrefix = AttributeValue(root, "RemovePrefix"),
 				DefaultTypeMapping = defaultTypeMapping,
 				TypeMappings = typeMappings,
+			};
+			config.DocumentTypes = GetContentTypeConfiguration(documentTypes, config, "DocumentType");
+			config.MediaTypes = GetContentTypeConfiguration(mediaTypes, config, "MediaType");
+			return config;
+		}
+
+		private ContentTypeConfiguration GetContentTypeConfiguration(
+			XElement contentTypeConfiguration, 
+			CodeGeneratorConfiguration config,
+			string contentTypeName)
+		{
+			return new ContentTypeConfiguration(config)
+			{
+				BaseClass = AttributeValue(contentTypeConfiguration, "BaseClass"),
+				GenerateClasses = Convert.ToBoolean(AttributeValue(contentTypeConfiguration, "GenerateClasses", "false")),
+				GenerateXml = Convert.ToBoolean(AttributeValue(contentTypeConfiguration, "GenerateXml", "false")),
+				ModelPath = AttributeValue(contentTypeConfiguration, "ModelPath", "Models"),
+				Namespace = AttributeValue(contentTypeConfiguration, "Namespace"),
+				RemovePrefix = AttributeValue(contentTypeConfiguration, "RemovePrefix"),
+				ContentTypeName = contentTypeName
 			};
 		}
 

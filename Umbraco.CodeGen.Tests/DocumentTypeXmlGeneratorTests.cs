@@ -26,9 +26,12 @@ namespace Umbraco.CodeGen.Tests
 
 			var configuration = new CodeGeneratorConfiguration
 			{
-				BaseClass = "DocumentTypeBase",
 				TypeMappings = new Dictionary<string, string>(),
 				DefaultTypeMapping = "string"
+			};
+			configuration.DocumentTypes = new ContentTypeConfiguration(configuration)
+			{
+				BaseClass = "DocumentTypeBase",
 			};
 
 			var dataTypeConfiguration = new List<DataTypeDefinition>
@@ -37,7 +40,7 @@ namespace Umbraco.CodeGen.Tests
 			};
 
 			var reader = new StringReader(code);
-			var generator = new DocumentTypeXmlGenerator(configuration, dataTypeConfiguration);
+			var generator = new DocumentTypeXmlGenerator(configuration.DocumentTypes, dataTypeConfiguration);
 			var doc = generator.Generate(reader).First();
 
 			var sb = new StringBuilder();

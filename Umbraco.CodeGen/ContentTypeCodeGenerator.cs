@@ -10,14 +10,14 @@ namespace Umbraco.CodeGen
 	public class ContentTypeCodeGenerator
 	{
 		private readonly CodeDomProvider codeDomProvider;
-		private readonly CodeGeneratorConfiguration configuration;
+		private readonly ContentTypeConfiguration configuration;
 		private readonly ContentTypeBuilder contentTypeBuilder;
 
 		private CodeCompileUnit compileUnit;
 		private CodeNamespace ns;
 
 		public ContentTypeCodeGenerator(
-			CodeGeneratorConfiguration configuration, 
+			ContentTypeConfiguration configuration, 
 			XDocument contentTypeDefintion,
 			CodeDomProvider codeDomProvider
 			)

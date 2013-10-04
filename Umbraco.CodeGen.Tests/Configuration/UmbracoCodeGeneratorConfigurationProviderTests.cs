@@ -15,16 +15,16 @@ namespace Umbraco.CodeGen.Tests.Configuration
 				new UmbracoCodeGeneratorConfigurationProvider(Path.Combine(Environment.CurrentDirectory,
 					@"..\..\config\codegen.config"));
 			var config = provider.GetConfiguration();
-			Assert.AreEqual("SomeBaseClass", config.BaseClass);
-			Assert.AreEqual("string", config.DefaultTypeMapping);
-			Assert.AreEqual(true, config.GenerateClasses);
-			Assert.AreEqual(true, config.GenerateXml);
-			Assert.AreEqual("Models", config.ModelPath);
-			Assert.AreEqual("MyWeb.Models", config.Namespace);
+			Assert.AreEqual("SomeBaseClass", config.DocumentTypes.BaseClass);
+			Assert.AreEqual("String", config.DefaultTypeMapping);
+			Assert.AreEqual(true, config.DocumentTypes.GenerateClasses);
+			Assert.AreEqual(true, config.DocumentTypes.GenerateXml);
+			Assert.AreEqual("Models/DocumentTypes", config.DocumentTypes.ModelPath);
+			Assert.AreEqual("MyWeb.Models", config.DocumentTypes.Namespace);
+			Assert.AreEqual("pfx", config.DocumentTypes.RemovePrefix);
 			Assert.AreEqual(false, config.OverwriteReadOnly);
-			Assert.AreEqual("pfx", config.RemovePrefix);
 			Assert.AreNotEqual(0, config.TypeMappings.Count);
-			Assert.AreEqual("int", config.TypeMappings["1413AFCB-D19A-4173-8E9A-68288D2A73B8"]);
+			Assert.AreEqual("Int32", config.TypeMappings["1413AFCB-D19A-4173-8E9A-68288D2A73B8"]);
 		}
 	}
 }

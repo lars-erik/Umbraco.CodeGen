@@ -6,6 +6,7 @@ static public class StringExtensions
 
 	public static string PascalCase(this string value)
 	{
+		if (String.IsNullOrEmpty(value)) return value;
 		return value.Substring(0, 1).ToUpper() + value.Substring(1);
 	}
 
@@ -18,6 +19,7 @@ static public class StringExtensions
 
 	public static string CamelCase(this string value)
 	{
+		if (String.IsNullOrEmpty(value)) return value;
 		return value.Substring(0, 1).ToLower() + value.Substring(1);
 	}
 }
