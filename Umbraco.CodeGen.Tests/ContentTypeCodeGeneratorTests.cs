@@ -40,7 +40,10 @@ namespace Umbraco.CodeGen.Tests
 
 			var configuration = new CodeGeneratorConfiguration
 			{
-				TypeMappings = new Dictionary<string, string>(),
+				TypeMappings = new Dictionary<string, string>
+				{
+					{"1413afcb-d19a-4173-8e9a-68288d2a73b8", "Int32"}
+				},
 				DefaultTypeMapping = "String",
 			};
 			var typeConfig = new ContentTypeConfiguration(configuration)

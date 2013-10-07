@@ -60,12 +60,12 @@ namespace Umbraco.CodeGen.Models
         [DisplayName("Tabless property")]
         [Description("")]
         [Category("")]
-        [DataType("ca90c950-0aff-4e72-b976-a30b1ac57dad")]
-        public String TablessProperty
+        [DataType("2e6d3631-066e-44b8-aec4-96f09099b2b5")]
+        public Int32 TablessProperty
         {
             get
             {
-                return Content.GetPropertyValue<String>("tablessProperty");
+                return Content.GetPropertyValue<Int32>("tablessProperty");
             }
         }
     }

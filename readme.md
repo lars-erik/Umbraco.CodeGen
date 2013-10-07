@@ -97,6 +97,7 @@ For everyone lucky enough to have a SCS locking the files.
 Pretty self explanatory if you should use this tool at all. ;)
 For some reason the CSharpCodeDomProvider adds @ to intristic type aliases. (string, int etc.)
 Use the class names of the types to avoid it.
+DataTypeId = _the editor ID_.
 
 ###Supported code constructs
 
