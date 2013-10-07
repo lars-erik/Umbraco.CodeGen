@@ -55,7 +55,7 @@ namespace Umbraco.CodeGen
 
 		private IEnumerable<XElement> GenerateInfo(TypeDeclaration type)
 		{
-			return new[]
+			var infoElements = new List<XElement>
 			{
 				new XElement("Name", AttributeValue(type, "DisplayName", type.Name.PascalCase())),
 				new XElement("Alias", type.Name.CamelCase()),
@@ -64,9 +64,15 @@ namespace Umbraco.CodeGen
 				new XElement("Description", AttributeValue(type, "Description")),
 				new XElement("AllowAtRoot", FindBoolFieldValue(type, "allowAtRoot")),
 				new XElement("Master", FindMaster(type)),
-				new XElement("AllowedTemplates", GenerateAllowedTemplates(type)),
-				new XElement("DefaultTemplate", FindStringFieldValue(type, "defaultTemplate"))
 			};
+			if (configuration.ContentTypeName == "DocumentType")
+			{
+				infoElements.AddRange(new[]{
+					new XElement("AllowedTemplates", GenerateAllowedTemplates(type)),
+					new XElement("DefaultTemplate", FindStringFieldValue(type, "defaultTemplate"))
+				});
+			}
+			return infoElements;
 		}
 
 		private IEnumerable<XElement> GenerateProperties(TypeDeclaration type)
@@ -128,7 +134,10 @@ namespace Umbraco.CodeGen
 
 		private static IEnumerable<string> FindTabNames(TypeDeclaration type)
 		{
-			return FindProperties(type).Select(p => AttributeValue(p, "Category", "")).Distinct();
+			return FindProperties(type)
+				.Select(p => AttributeValue(p, "Category", ""))
+				.Where(name => !String.IsNullOrWhiteSpace(name))
+				.Distinct();
 		}
 
 		private static IEnumerable<PropertyDeclaration> FindProperties(TypeDeclaration type)
@@ -160,6 +169,7 @@ namespace Umbraco.CodeGen
 			return WithInitializer(fieldVariable, ex =>
 				((ArrayCreateExpression)ex).Initializer.Elements
 					.OfType<TypeOfExpression>()
+					.Where(e => e.Type is SimpleType)
 					.Select(e => ((SimpleType)e.Type).Identifier)
 					.ToArray(),
 				new string[0]

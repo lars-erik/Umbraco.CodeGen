@@ -28,8 +28,8 @@ namespace Umbraco.CodeGen
 
 		private CodeTypeDeclaration CreateType()
 		{
-			var className = info.Element("Alias").Value.PascalCase();
-			var baseClass = info.Element("Master") != null ? info.Element("Master").Value.PascalCase() : null;
+			var className = info.ElementValue("Alias").PascalCase();
+			var baseClass = info.ElementValue("Master").PascalCase();
 			baseClass = String.IsNullOrEmpty(baseClass) ? configuration.BaseClass : baseClass;
 
 			CreateType(className, baseClass);
@@ -46,26 +46,33 @@ namespace Umbraco.CodeGen
 
 		private void CreateInfoMembers()
 		{
-			AddSimpleCustomAttribute(type, "DisplayName", info.Element("Name").Value);
-			AddSimpleCustomAttribute(type, "Description", info.Element("Description").Value);
-			AddConst("icon", info.Element("Icon").Value);
-			AddConst("thumbnail", info.Element("Thumbnail").Value);
-			AddConst("allowAtRoot", Convert.ToBoolean(info.Element("AllowAtRoot").Value));
+			AddSimpleCustomAttribute(type, "DisplayName", info.ElementValue("Name"));
+			AddSimpleCustomAttribute(type, "Description", info.ElementValue("Description"));
+			AddConst("icon", info.ElementValue("Icon"));
+			AddConst("thumbnail", info.ElementValue("Thumbnail"));
+			AddConst("allowAtRoot", Convert.ToBoolean(info.ElementValue("AllowAtRoot")));
 
 			// TODO: Refactor everything :)
 			if (configuration.ContentTypeName == "DocumentType")
 			{
 				AddAllowedTemplates();
-				AddConst("defaultTemplate", info.Element("DefaultTemplate").Value);
+				AddConst("defaultTemplate", info.ElementValue("DefaultTemplate"));
 			}
 		}
 
 		private void CreateStructureMember()
 		{
-			var structure = contentType.XPathSelectElements(configuration.ContentTypeName + "/Structure/DocumentType").Select(e => e.Value.PascalCase());
+			var structure = contentType
+				.XPathSelectElements(configuration.ContentTypeName + "/Structure/" + configuration.ContentTypeName)
+				.Where(e => !String.IsNullOrEmpty(e.Value))
+				.Select(e => e.Value.PascalCase());
 			type.Members.Add(new CodeMemberField("Type[]", "structure")
 			{
-				InitExpression = new CodeArrayCreateExpression("Type[]", structure.Select(t => new CodeTypeOfExpression(t)).Cast<CodeExpression>().ToArray())
+				InitExpression = new CodeArrayCreateExpression("Type[]", 
+					structure.Select(t => new CodeTypeOfExpression(t))
+						.Cast<CodeExpression>()
+						.ToArray()
+				)
 			});
 		}
 
@@ -94,7 +101,7 @@ namespace Umbraco.CodeGen
 
 		private CodeTypeMember CreateTypeConstructor()
 		{
-			var ctor = new CodeConstructor()
+			var ctor = new CodeConstructor
 			{
 				Attributes = MemberAttributes.Public
 			};
@@ -116,20 +123,20 @@ namespace Umbraco.CodeGen
 		{
 			var codeProp = new CodeMemberProperty();
 			var typeName = GetTypeName(property);
-			var name = property.Element("Alias").Value;
+			var name = property.ElementValue("Alias");
 			if (String.Compare(name, "Content", IgnoreCase) == 0)
 				name = "ContentProperty";
 			codeProp.Name = name.RemovePrefix(configuration.RemovePrefix).PascalCase();
 			codeProp.Type = new CodeTypeReference(typeName);
-			codeProp.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+			codeProp.Attributes = (MemberAttributes)((int)MemberAttributes.Public | (int)MemberAttributes.Final);
 
-			AddSimpleCustomAttribute(codeProp, "DisplayName", property.Element("Name").Value);
-			AddSimpleCustomAttribute(codeProp, "Description", property.Element("Description").Value);
-			AddSimpleCustomAttribute(codeProp, "Category", property.Element("Tab").Value);
-			AddSimpleCustomAttribute(codeProp, "DataType", property.Element("Definition").Value);
-			if (!String.IsNullOrEmpty(property.Element("Validation").Value))
-				AddSimpleCustomAttribute(codeProp, "RegularExpression", property.Element("Validation").Value);
-			if (Convert.ToBoolean(property.Element("Mandatory").Value))
+			AddSimpleCustomAttribute(codeProp, "DisplayName", property.ElementValue("Name"));
+			AddSimpleCustomAttribute(codeProp, "Description", property.ElementValue("Description"));
+			AddSimpleCustomAttribute(codeProp, "Category", property.ElementValue("Tab"));
+			AddSimpleCustomAttribute(codeProp, "DataType", property.ElementValue("Definition"));
+			if (!String.IsNullOrEmpty(property.ElementValue("Validation")))
+				AddSimpleCustomAttribute(codeProp, "RegularExpression", property.ElementValue("Validation"));
+			if (Convert.ToBoolean(property.ElementValue("Mandatory")))
 				AddSimpleCustomAttribute(codeProp, "Required");
 
 			var contentRef = new CodePropertyReferenceExpression(null, "Content");
@@ -143,7 +150,7 @@ namespace Umbraco.CodeGen
 
 		private string GetTypeName(XElement property)
 		{
-			var typeId = property.Element("Type").Value;
+			var typeId = property.ElementValue("Type");
 			var typeName = configuration.TypeMappings.ContainsKey(typeId)
 				? configuration.TypeMappings[typeId]
 				: configuration.DefaultTypeMapping;

@@ -14,15 +14,26 @@ namespace Umbraco.CodeGen.Tests
 	public class ContentTypeCodeGeneratorTests
 	{
 		[Test]
-		public void BuildCode_GeneratesCode()
+		public void BuildCode_GeneratesCodeForDocumentType()
+		{
+			TestBuildCode("SomeDocumentType", "DocumentType");
+		}
+
+		[Test]
+		public void BuildCode_GeneratesCodeForMediaType()
+		{
+			TestBuildCode("SomeMediaType", "MediaType");
+		}
+
+		private static void TestBuildCode(string fileName, string contentTypeName)
 		{
 			var xml = "";
 			var expectedOutput = "";
-			using (var inputReader = File.OpenText(@"..\..\SomeDocumentType.xml"))
+			using (var inputReader = File.OpenText(@"..\..\" + fileName + ".xml"))
 			{
 				xml = inputReader.ReadToEnd();
 			}
-			using (var goldReader = File.OpenText(@"..\..\SomeDocumentType.cs"))
+			using (var goldReader = File.OpenText(@"..\..\" + fileName + ".cs"))
 			{
 				expectedOutput = goldReader.ReadToEnd();
 			}
@@ -34,8 +45,9 @@ namespace Umbraco.CodeGen.Tests
 			};
 			var typeConfig = new ContentTypeConfiguration(configuration)
 			{
+				ContentTypeName = contentTypeName,
 				BaseClass = "DocumentTypeBase",
-				Namespace = "MyWeb.Models"
+				Namespace = "Umbraco.CodeGen.Models"
 			};
 
 			var sb = new StringBuilder();
@@ -47,6 +59,5 @@ namespace Umbraco.CodeGen.Tests
 
 			Assert.AreEqual(expectedOutput, sb.ToString());
 		}
-
 	}
 }

@@ -77,8 +77,10 @@
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="ContentTypeCodeGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="SomeMediaType.cs" />
     <Content Include="SomeDocumentType.cs" />
     <Compile Include="DocumentTypeXmlGeneratorTests.cs" />
+    <Content Include="SomeMediaType.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="classes.xml" />

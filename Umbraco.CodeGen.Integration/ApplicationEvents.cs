@@ -18,7 +18,7 @@ namespace Umbraco.CodeGen.Integration
 		private USyncConfiguration uSyncConfiguration;
 		private USyncDataTypeProvider dataTypesProvider;
 
-		private Dictionary<string, string> paths = new Dictionary<string, string>(); 
+		private readonly Dictionary<string, string> paths = new Dictionary<string, string>(); 
 
 		public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
@@ -43,7 +43,6 @@ namespace Umbraco.CodeGen.Integration
 
 			if (configuration.DocumentTypes.GenerateXml)
 				GenerateXml(configuration.DocumentTypes);
-
 			if (configuration.MediaTypes.GenerateXml)
 				GenerateXml(configuration.MediaTypes);
 		}
@@ -52,6 +51,8 @@ namespace Umbraco.CodeGen.Integration
 		{
 			var xmlGenerator = new DocumentTypeXmlGenerator(contentTypeConfiguration, dataTypes);
 			var modelPath = HttpContext.Current.Server.MapPath(contentTypeConfiguration.ModelPath);
+			if (!Directory.Exists(modelPath))
+				Directory.CreateDirectory(modelPath);
 			var files = Directory.GetFiles(modelPath, "*.cs");
 			var documents = new List<XDocument>();
 			foreach(var file in files)
@@ -110,7 +111,9 @@ namespace Umbraco.CodeGen.Integration
 	
 			var doc = XDocument.Load(e.Path);
 			var classGenerator = new ContentTypeCodeGenerator(typeConfig, doc, codeDomProvider);
-			var modelPath = paths[typeConfig.ModelPath];
+			var modelPath = paths[typeConfig.ContentTypeName];
+			if (!Directory.Exists(modelPath))
+				Directory.CreateDirectory(modelPath);
 			var path = Path.Combine(modelPath, doc.XPathSelectElement("//Info/Alias").Value.PascalCase() + ".cs");
 				if (configuration.OverwriteReadOnly && File.Exists(path))
 					File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);

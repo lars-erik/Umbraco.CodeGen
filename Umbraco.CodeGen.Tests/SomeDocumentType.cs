@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyWeb.Models
+namespace Umbraco.CodeGen.Models
 {
     using System;
     using System.ComponentModel;
@@ -55,6 +55,17 @@ namespace MyWeb.Models
             get
             {
                 return Content.GetPropertyValue<String>("anotherProperty");
+            }
+        }
+        [DisplayName("Tabless property")]
+        [Description("")]
+        [Category("")]
+        [DataType("ca90c950-0aff-4e72-b976-a30b1ac57dad")]
+        public String TablessProperty
+        {
+            get
+            {
+                return Content.GetPropertyValue<String>("tablessProperty");
             }
         }
     }
