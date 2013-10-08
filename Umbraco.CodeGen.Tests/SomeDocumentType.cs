@@ -20,6 +20,7 @@ namespace Umbraco.CodeGen.Models
     [Description("A description of some document type")]
     public partial class SomeDocumentType : DocumentTypeBase
     {
+        #region Info members
         const String icon = "privateMemberIcon.gif";
         const String thumbnail = "privateMemberThumb.png";
         const Boolean allowAtRoot = true;
@@ -29,6 +30,7 @@ namespace Umbraco.CodeGen.Models
         const String defaultTemplate = "ATemplate";
         private Type[] structure = new Type[] {
                 typeof(SomeOtherDocType)};
+        #endregion
         public SomeDocumentType(IPublishedContent content) : 
                 base(content)
         {

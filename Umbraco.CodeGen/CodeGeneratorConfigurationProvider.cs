@@ -46,7 +46,7 @@ namespace Umbraco.CodeGen
 			{
 				defaultTypeMapping = typeMappingNode.Attributes("Default").Select(a => a.Value).SingleOrDefault() ?? DefaultTypeMapping;
 				typeMappings = typeMappingNode.Descendants("TypeMapping")
-					.Select(e => new { DataType = e.AttributeValue("DataTypeId").ToLower(), Type = e.AttributeValue("Type").ToLower() })
+					.Select(e => new { DataType = e.AttributeValue("DataTypeId").ToLower(), Type = e.AttributeValue("Type") })
 					.ToDictionary(a => a.DataType, a => a.Type);
 			}
 			else

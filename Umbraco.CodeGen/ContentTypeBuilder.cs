@@ -13,6 +13,7 @@ namespace Umbraco.CodeGen
 		private readonly XElement info;
 		private CodeTypeDeclaration type;
 		private const StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
+		private const string InfoRegionName = "Info members";
 
 		public ContentTypeBuilder(ContentTypeConfiguration config, XDocument type)
 		{
@@ -34,6 +35,7 @@ namespace Umbraco.CodeGen
 
 			CreateType(className, baseClass);
 
+			CreateInfoAttributes();
 			CreateInfoMembers();
 			CreateStructureMember();
 
@@ -46,9 +48,9 @@ namespace Umbraco.CodeGen
 
 		private void CreateInfoMembers()
 		{
-			AddSimpleCustomAttribute(type, "DisplayName", info.ElementValue("Name"));
-			AddSimpleCustomAttribute(type, "Description", info.ElementValue("Description"));
-			AddConst("icon", info.ElementValue("Icon"));
+			var iconMember = AddConst("icon", info.ElementValue("Icon"));
+			iconMember.StartDirectives.Add(new CodeRegionDirective(CodeRegionMode.Start, InfoRegionName));
+
 			AddConst("thumbnail", info.ElementValue("Thumbnail"));
 			AddConst("allowAtRoot", Convert.ToBoolean(info.ElementValue("AllowAtRoot")));
 
@@ -60,20 +62,29 @@ namespace Umbraco.CodeGen
 			}
 		}
 
+		private void CreateInfoAttributes()
+		{
+			AddSimpleCustomAttribute(type, "DisplayName", info.ElementValue("Name"));
+			AddSimpleCustomAttribute(type, "Description", info.ElementValue("Description"));
+		}
+
 		private void CreateStructureMember()
 		{
 			var structure = contentType
 				.XPathSelectElements(configuration.ContentTypeName + "/Structure/" + configuration.ContentTypeName)
 				.Where(e => !String.IsNullOrEmpty(e.Value))
 				.Select(e => e.Value.PascalCase());
-			type.Members.Add(new CodeMemberField("Type[]", "structure")
+			var codeMemberField = new CodeMemberField("Type[]", "structure")
 			{
 				InitExpression = new CodeArrayCreateExpression("Type[]", 
 					structure.Select(t => new CodeTypeOfExpression(t))
 						.Cast<CodeExpression>()
 						.ToArray()
-				)
-			});
+					)
+			};
+			type.Members.Add(codeMemberField);
+
+			codeMemberField.EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, InfoRegionName));
 		}
 
 		private void CreateType(string className, string baseClassName)
@@ -165,13 +176,15 @@ namespace Umbraco.CodeGen
 			codeTypeDeclaration.CustomAttributes.Add(codeAttributeDeclaration);
 		}
 
-		private void AddConst<T>(string name, T value)
+		private CodeMemberField AddConst<T>(string name, T value)
 		{
-			type.Members.Add(new CodeMemberField(typeof(T).Name, name)
+			var codeMemberField = new CodeMemberField(typeof(T).Name, name)
 			{
 				Attributes = MemberAttributes.Const,
 				InitExpression = new CodePrimitiveExpression(value)
-			});
+			};
+			type.Members.Add(codeMemberField);
+			return codeMemberField;
 		}
 	}
 }

@@ -20,6 +20,7 @@ namespace Umbraco.CodeGen.Models
     [Description("")]
     public partial class InheritedMediaFolder : Folder
     {
+        #region Info members
         const String icon = "folder.gif";
         const String thumbnail = "folder.png";
         const Boolean allowAtRoot = true;
@@ -28,6 +29,7 @@ namespace Umbraco.CodeGen.Models
                 typeof(Image),
                 typeof(File),
                 typeof(InheritedMediaFolder)};
+        #endregion
         public InheritedMediaFolder(IPublishedContent content) : 
                 base(content)
         {
