@@ -133,7 +133,7 @@ namespace Umbraco.CodeGen
 			AddSimpleCustomAttribute(codeProp, "DisplayName", property.ElementValue("Name"));
 			AddSimpleCustomAttribute(codeProp, "Description", property.ElementValue("Description"));
 			AddSimpleCustomAttribute(codeProp, "Category", property.ElementValue("Tab"));
-			AddSimpleCustomAttribute(codeProp, "DataType", property.ElementValue("Definition"));
+			AddSimpleCustomAttribute(codeProp, "DataType", property.ElementValue("Definition").ToLower());
 			if (!String.IsNullOrEmpty(property.ElementValue("Validation")))
 				AddSimpleCustomAttribute(codeProp, "RegularExpression", property.ElementValue("Validation"));
 			if (Convert.ToBoolean(property.ElementValue("Mandatory")))
@@ -150,7 +150,7 @@ namespace Umbraco.CodeGen
 
 		private string GetTypeName(XElement property)
 		{
-			var typeId = property.ElementValue("Type");
+			var typeId = property.ElementValue("Type").ToLower();
 			var typeName = configuration.TypeMappings.ContainsKey(typeId)
 				? configuration.TypeMappings[typeId]
 				: configuration.DefaultTypeMapping;

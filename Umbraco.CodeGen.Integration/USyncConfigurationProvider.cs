@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Umbraco.CodeGen;
 
 namespace Umbraco.CodeGen.Integration
 {
@@ -23,7 +24,7 @@ namespace Umbraco.CodeGen.Integration
 			if (!File.Exists(uSyncConfigPath))
 				return configuration;
 			var doc = XDocument.Load(uSyncConfigPath);
-			var relativePath = doc.XPathSelectElements("configuration/usync").Select(e => e.Attribute("folder").Value).SingleOrDefault();
+			var relativePath = doc.XPathSelectElements("configuration/usync").Select(e => e.AttributeValue("folder")).SingleOrDefault();
 			if (!String.IsNullOrEmpty(relativePath))
 				configuration.USyncFolder = pathResolver.Resolve(relativePath);
 			return configuration;

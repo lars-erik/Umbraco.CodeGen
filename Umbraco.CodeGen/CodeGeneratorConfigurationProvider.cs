@@ -46,7 +46,7 @@ namespace Umbraco.CodeGen
 			{
 				defaultTypeMapping = typeMappingNode.Attributes("Default").Select(a => a.Value).SingleOrDefault() ?? DefaultTypeMapping;
 				typeMappings = typeMappingNode.Descendants("TypeMapping")
-					.Select(e => new {DataType = e.Attribute("DataTypeId").Value, Type = e.Attribute("Type").Value})
+					.Select(e => new { DataType = e.AttributeValue("DataTypeId").ToLower(), Type = e.AttributeValue("Type").ToLower() })
 					.ToDictionary(a => a.DataType, a => a.Type);
 			}
 			else
@@ -57,7 +57,7 @@ namespace Umbraco.CodeGen
 
 			var config = new CodeGeneratorConfiguration
 			{
-				OverwriteReadOnly = Convert.ToBoolean(AttributeValue(root, "OverwriteReadOnly", "false")),
+				OverwriteReadOnly = Convert.ToBoolean(root.AttributeValue("OverwriteReadOnly", "false")),
 				DefaultTypeMapping = defaultTypeMapping,
 				TypeMappings = typeMappings,
 			};
@@ -73,19 +73,14 @@ namespace Umbraco.CodeGen
 		{
 			return new ContentTypeConfiguration(config)
 			{
-				BaseClass = AttributeValue(contentTypeConfiguration, "BaseClass"),
-				GenerateClasses = Convert.ToBoolean(AttributeValue(contentTypeConfiguration, "GenerateClasses", "false")),
-				GenerateXml = Convert.ToBoolean(AttributeValue(contentTypeConfiguration, "GenerateXml", "false")),
-				ModelPath = AttributeValue(contentTypeConfiguration, "ModelPath", "Models"),
-				Namespace = AttributeValue(contentTypeConfiguration, "Namespace"),
-				RemovePrefix = AttributeValue(contentTypeConfiguration, "RemovePrefix"),
+				BaseClass = contentTypeConfiguration.AttributeValue("BaseClass"),
+				GenerateClasses = Convert.ToBoolean(contentTypeConfiguration.AttributeValue("GenerateClasses", "false")),
+				GenerateXml = Convert.ToBoolean(contentTypeConfiguration.AttributeValue("GenerateXml", "false")),
+				ModelPath = contentTypeConfiguration.AttributeValue("ModelPath", "Models"),
+				Namespace = contentTypeConfiguration.AttributeValue("Namespace"),
+				RemovePrefix = contentTypeConfiguration.AttributeValue("RemovePrefix"),
 				ContentTypeName = contentTypeName
 			};
-		}
-
-		private static string AttributeValue(XElement root, string attributeName, string defaultValue = null)
-		{
-			return root.Attributes(attributeName).Select(a => a.Value).DefaultIfEmpty(defaultValue).SingleOrDefault();
 		}
 	}
 }
