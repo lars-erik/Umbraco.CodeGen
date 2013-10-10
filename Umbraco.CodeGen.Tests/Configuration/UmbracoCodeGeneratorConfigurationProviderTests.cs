@@ -24,7 +24,7 @@ namespace Umbraco.CodeGen.Tests.Configuration
 			Assert.AreEqual("pfx", config.DocumentTypes.RemovePrefix);
 			Assert.AreEqual(false, config.OverwriteReadOnly);
 			Assert.AreNotEqual(0, config.TypeMappings.Count);
-			Assert.AreEqual("Int32", config.TypeMappings["1413AFCB-D19A-4173-8E9A-68288D2A73B8"]);
+			Assert.AreEqual("Int32", config.TypeMappings["1413afcb-d19a-4173-8e9a-68288d2a73b8"]);
 		}
 	}
 }

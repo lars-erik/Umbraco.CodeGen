@@ -29,11 +29,11 @@ namespace Umbraco.CodeGen.Tests
 		{
 			var xml = "";
 			var expectedOutput = "";
-			using (var inputReader = File.OpenText(@"..\..\" + fileName + ".xml"))
+			using (var inputReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".xml"))
 			{
 				xml = inputReader.ReadToEnd();
 			}
-			using (var goldReader = File.OpenText(@"..\..\" + fileName + ".cs"))
+            using (var goldReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".cs"))
 			{
 				expectedOutput = goldReader.ReadToEnd();
 			}

@@ -77,18 +77,15 @@
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="ContentTypeCodeGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="SomeMediaType.cs" />
-    <Content Include="SomeDocumentType.cs" />
+    <Content Include="TestFiles\SomeMediaType.cs" />
+    <Content Include="TestFiles\SomeDocumentType.cs" />
     <Compile Include="DocumentTypeXmlGeneratorTests.cs" />
-    <Content Include="SomeMediaType.xml" />
+    <Content Include="TestFiles\SomeMediaType.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="classes.xml" />
-    <None Include="classes.gold" />
     <Content Include="config\CodeGen.config" />
-    <None Include="customBaseClass.gold" />
     <None Include="packages.config" />
-    <Content Include="SomeDocumentType.xml" />
+    <Content Include="TestFiles\SomeDocumentType.xml" />
     <None Include="uSync\DataTypeDefinition\Approved Color.config" />
     <None Include="uSync\DataTypeDefinition\Checkbox list.config" />
     <None Include="uSync\DataTypeDefinition\Content Picker.config" />
@@ -133,9 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="uSync\DocumentType\SamePropertyName\def.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="customBaseClass.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
