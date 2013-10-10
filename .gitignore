@@ -2,7 +2,6 @@
 ## Project specific
 #################
 
-.nuget/nuget.exe
 Umbraco.CodeGen.Web/*
 *.nupkg
 
