@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Web", "Umbraco.CodeGen.Web\Umbraco.CodeGen.Web.csproj", "{047B659A-C3F3-4089-9F0D-6E16D6BE6EAB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Integration", "Umbraco.CodeGen.Integration\Umbraco.CodeGen.Integration.csproj", "{25A9D2A6-65FF-470F-B284-2F85B08EE2B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{99D34CF8-4447-426E-A9AC-9432BC82F566}"
@@ -41,10 +39,6 @@ Global
 		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{047B659A-C3F3-4089-9F0D-6E16D6BE6EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{047B659A-C3F3-4089-9F0D-6E16D6BE6EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{047B659A-C3F3-4089-9F0D-6E16D6BE6EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{047B659A-C3F3-4089-9F0D-6E16D6BE6EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{25A9D2A6-65FF-470F-B284-2F85B08EE2B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{25A9D2A6-65FF-470F-B284-2F85B08EE2B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25A9D2A6-65FF-470F-B284-2F85B08EE2B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
