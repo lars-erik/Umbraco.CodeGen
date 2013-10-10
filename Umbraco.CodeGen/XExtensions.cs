@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -8,8 +9,8 @@ namespace Umbraco.CodeGen
 		public static string ElementValue(this XContainer element, string elementName)
 		{
 			var subElement = element.Element(elementName);
-			if (subElement == null)
-				return "";
+			if (subElement == null || String.IsNullOrEmpty(subElement.Value))
+				return null;
 			return subElement.Value;
 		}
 

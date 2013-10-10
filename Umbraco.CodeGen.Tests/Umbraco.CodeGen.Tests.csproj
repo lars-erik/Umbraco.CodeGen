@@ -71,11 +71,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="umbraco">
+      <HintPath>..\packages\UmbracoCms.Core.6.1.6\lib\umbraco.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\UmbracoCodeGeneratorConfigurationProviderTests.cs" />
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="ContentTypeCodeGeneratorTests.cs" />
+    <Compile Include="Definitions\ContentTypeSerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="TestFiles\SomeMediaType.cs" />
     <Content Include="TestFiles\SomeDocumentType.cs" />
