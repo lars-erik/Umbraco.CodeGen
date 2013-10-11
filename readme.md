@@ -24,15 +24,9 @@ Binaries available here: http://lars-erik.github.io/Umbraco.CodeGen/
 
 ##Recommended CodeGen config (~/config/CodeGen.config):
     <?xml version="1.0" encoding="utf-8" ?>
-    <CodeGenerator
-      ModelPath="~/Models/Synchronized"
-      BaseClass="DocumentTypeBase"
-      Namespace="Umbraco.CodeGen.Web.Models"
-      GenerateClasses="true"
-      GenerateXml="true"
-      RemovePrefix="pfx"
-      OverwriteReadOnly="false"
-      >
+	<CodeGenerator OverwriteReadOnly="false">
+	  <DocumentTypes ModelPath="~/Models/DocumentTypes" Namespace="MyWeb.Models" BaseClass="SomeBaseClass" GenerateClasses="true" GenerateXml="true" RemovePrefix=""/>
+	  <MediaTypes ModelPath="~/Models/MediaTypes" Namespace="MyWeb.Models" BaseClass="SomeBaseClass" GenerateClasses="true" GenerateXml="true" RemovePrefix=""/>
       <TypeMappings Default="String">
 	    <TypeMapping DataTypeId="38B352C1-E9F8-4FD8-9324-9A2EAB06D97A" Type="Boolean" Description="True/false"/>
 	    <TypeMapping DataTypeId="1413AFCB-D19A-4173-8E9A-68288D2A73B8" Type="Int32" Description="Numeric"/>
