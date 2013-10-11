@@ -84,7 +84,7 @@ namespace Umbraco.CodeGen
 		{
 			return new XElement(
 				"GenericProperty",
-				new XElement("Name", AttributeValue(prop, "DisplayName")),
+				new XElement("Name", AttributeValue(prop, "DisplayName", prop.Name.PascalCase())),
 				new XElement("Alias", prop.Name.CamelCase()),
 				new XElement("Type", FindDataTypeDefinitionId(prop)),
 				new XElement("Definition", AttributeValue(prop, "DataType", Guid.Empty.ToString())),
@@ -198,7 +198,7 @@ namespace Umbraco.CodeGen
 			return fieldVariable;
 		}
 
-		private static string AttributeValue(EntityDeclaration entity, string attributeName, string defaultValue = null)
+		private static string AttributeValue(EntityDeclaration entity, string attributeName, string defaultValue = "")
 		{
 			var attribute = FindAttribute(entity.Attributes, attributeName);
 			return AttributeValueOrDefault(attribute, defaultValue);

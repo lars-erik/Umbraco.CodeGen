@@ -65,6 +65,8 @@ A class in the same namespace as the generated/code first classes with at least 
 
 The class itself can be named whatever.
 
+*It should however not be in the synced folders, keep it one step up, for instance under Models.*
+
 *Namespace*
 
 Preferably the correct namespace for your model folder. :)
