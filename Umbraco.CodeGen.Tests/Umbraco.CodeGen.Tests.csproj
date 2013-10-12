@@ -76,14 +76,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeParserTests.cs" />
     <Compile Include="Configuration\UmbracoCodeGeneratorConfigurationProviderTests.cs" />
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="ContentTypeCodeGeneratorTests.cs" />
-    <Compile Include="Definitions\ContentTypeSerializerTests.cs" />
+    <Compile Include="ContentTypeSerializerTests.cs" />
+    <Compile Include="Parsers\CommonInfoParserTests.cs" />
+    <Compile Include="Parsers\DocumentTypeInfoParserTests.cs" />
+    <Compile Include="Parsers\InfoParserTestBase.cs" />
+    <Compile Include="SerializationHelper.cs" />
+    <Compile Include="TestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="TestFiles\SomeMediaType.cs" />
     <Content Include="TestFiles\SomeDocumentType.cs" />
-    <Compile Include="DocumentTypeXmlGeneratorTests.cs" />
+    <Content Include="DocumentTypeXmlGeneratorTests.cs" />
     <Content Include="TestFiles\SomeMediaType.xml" />
   </ItemGroup>
   <ItemGroup>

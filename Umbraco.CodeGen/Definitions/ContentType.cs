@@ -4,6 +4,7 @@ namespace Umbraco.CodeGen.Definitions
 {
     public abstract class ContentType
     {
+        public Info Info { get; set; }
         public List<GenericProperty> GenericProperties { get; set; }
         public List<Tab> Tabs { get; set; }
         public List<string> Structure { get; set; }

@@ -49,7 +49,7 @@ namespace Umbraco.CodeGen.Integration
 
 		private void GenerateXml(ContentTypeConfiguration contentTypeConfiguration)
 		{
-			var xmlGenerator = new DocumentTypeXmlGenerator(contentTypeConfiguration, dataTypes);
+			var xmlGenerator = new CodeParser(contentTypeConfiguration, dataTypes);
 			var modelPath = HttpContext.Current.Server.MapPath(contentTypeConfiguration.ModelPath);
 			if (!Directory.Exists(modelPath))
 				Directory.CreateDirectory(modelPath);
@@ -59,7 +59,7 @@ namespace Umbraco.CodeGen.Integration
 			{
 				using (var reader = File.OpenText(file))
 				{
-					documents.AddRange(xmlGenerator.Generate(reader));
+					documents.AddRange(xmlGenerator.Parse(reader));
 				}
 			}
 

@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Definitions
+namespace Umbraco.CodeGen
 {
     /// <summary>
     /// Serializes or deserializes Document- and MediaTypes.
@@ -258,12 +259,12 @@ namespace Umbraco.CodeGen.Definitions
 
             public override void DeserializeInfo(XElement infoElement, ContentType type)
             {
-                var docType = (DocumentType) type;
-                DeserializeCommonInfo(infoElement, docType.Info);
+                var info = (DocumentTypeInfo) type.Info;
+                DeserializeCommonInfo(infoElement, info);
 
                 foreach (var allowedTemplate in infoElement.Descendants("Template"))
-                    docType.Info.AllowedTemplates.Add(allowedTemplate.Value);
-                docType.Info.DefaultTemplate = infoElement.ElementValue("DefaultTemplate");
+                    info.AllowedTemplates.Add(allowedTemplate.Value);
+                info.DefaultTemplate = infoElement.ElementValue("DefaultTemplate");
             }
 
             public override XElement CreateRoot()

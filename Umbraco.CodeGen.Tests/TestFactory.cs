@@ -1,77 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Xml.Serialization;
-using NUnit.Framework;
+using System.Collections.Generic;
 using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Tests.Definitions
+namespace Umbraco.CodeGen.Tests
 {
-    [TestFixture]
-    public class ContentTypeSerializerTests
+    static internal class TestFactory
     {
-        [Test]
-        public void Deserialize_DocumentType_ReturnsDocumentType()
-        {
-            TestDeserialize("SomeDocumentType", CreateExpectedDocumentType());
-        }
-
-        [Test]
-        public void Deserialize_MediaType_ReturnsMediaType()
-        {
-            TestDeserialize("SomeMediaType", CreateExpectedMediaType());
-        }
-
-        [Test]
-        public void Serialize_DocumentType_WritesDocumentType()
-        {
-            TestSerialize(CreateExpectedDocumentType(), "SomeDocumentType");
-        }
-
-        [Test]
-        public void Serialize_MediaType_WritesDocumentType()
-        {
-            TestSerialize(CreateExpectedMediaType(), "SomeMediaType");
-        }
-
-        private static void TestDeserialize<T>(string filename, T expectedContentType)
-            where T : ContentType
-        {
-            T actual;
-            var actualBuilder = new StringBuilder();
-            var expectedBuilder = new StringBuilder();
-            using (var reader = File.OpenText(string.Format(@"..\..\TestFiles\{0}.xml", filename)))
-            {
-                var serializer = new ContentTypeSerializer();
-                var content = serializer.Deserialize(reader);
-                actual = (T) content;
-            }
-            BclSerialize(actualBuilder, actual);
-            BclSerialize(expectedBuilder, expectedContentType);
-            Assert.AreEqual(expectedBuilder.ToString(), actualBuilder.ToString());
-        }
-
-        private void TestSerialize(ContentType contentType, string goldFileName)
-        {
-            string expectedXml;
-            using (var reader = File.OpenText(string.Format(@"..\..\TestFiles\{0}.xml", goldFileName)))
-            {
-                expectedXml = reader.ReadToEnd();
-            }
-
-            var serializer = new ContentTypeSerializer();
-            var actualXml = serializer.Serialize(contentType);
-            Assert.AreEqual(expectedXml, actualXml);
-        }
-
-        private static void BclSerialize<T>(StringBuilder builder, T contentType)
-        {
-            var writer = new StringWriter(builder);
-            var xmlSerializer = new XmlSerializer(typeof (T));
-            xmlSerializer.Serialize(writer, contentType);
-        }
-
-        private DocumentType CreateExpectedDocumentType()
+        public static DocumentType CreateExpectedDocumentType()
         {
             return new DocumentType
             {
@@ -136,7 +70,7 @@ namespace Umbraco.CodeGen.Tests.Definitions
             };
         }
 
-        private MediaType CreateExpectedMediaType()
+        public static MediaType CreateExpectedMediaType()
         {
             return new MediaType
             {
