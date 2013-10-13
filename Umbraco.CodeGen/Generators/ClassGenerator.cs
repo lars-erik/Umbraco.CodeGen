@@ -35,8 +35,9 @@ namespace Umbraco.CodeGen.Generators
             entityDescriptionGenerator.Generate(type, info);
             SetBaseClass(type, info);
 
-            foreach(var generator in memberGenerators)
-                generator.Generate(type, contentType);
+            if (memberGenerators != null)
+                foreach(var generator in memberGenerators)
+                    generator.Generate(type, contentType);
         }
 
         protected void SetBaseClass(CodeTypeDeclaration type, Info info)

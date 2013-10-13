@@ -14,7 +14,9 @@ namespace Umbraco.CodeGen.Parsers
         {
             var type = (TypeDeclaration) node;
 
-            contentType.Structure = TypeArrayValue(type, "Structure").ToList();
+            contentType.Structure = TypeArrayValue(type, "Structure")
+                .Select(val => val.CamelCase())
+                .ToList();
         }
     }
 }

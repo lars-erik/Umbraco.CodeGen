@@ -16,54 +16,42 @@ namespace Umbraco.CodeGen.Models
     using Umbraco.Core.Models;
     using Umbraco.Web;
     
-    [DisplayName("Some document type")]
     [Description("A description of some document type")]
-    public partial class SomeDocumentType : DocumentTypeBase
+    public class SomeDocumentType : DocumentTypeBase
     {
-        #region Info members
-        const String icon = "privateMemberIcon.gif";
-        const String thumbnail = "privateMemberThumb.png";
-        const Boolean allowAtRoot = true;
-        private String[] allowedTemplates = new String[] {
+        private string icon = "privateMemberIcon.gif";
+        private string thumbnail = "privateMemberThumb.png";
+        private bool allowAtRoot = true;
+        private string defaultTemplate = "ATemplate";
+        private string[] allowedTemplates = new string[] {
                 "ATemplate",
                 "AnotherTemplate"};
-        const String defaultTemplate = "ATemplate";
-        private Type[] structure = new Type[] {
+        private System.Type[] structure = new System.Type[] {
                 typeof(SomeOtherDocType)};
-        #endregion
-        public SomeDocumentType(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        [DisplayName("Some property")]
         [Description("A description")]
+        [DataType("RTE")]
         [Category("A tab")]
-        [DataType("ca90c950-0aff-4e72-b976-a30b1ac57dad")]
-        [RegularExpression("[a-z]")]
         [Required()]
-        public String SomeProperty
+        [RegularExpression("[a-z]")]
+        private String SomeProperty
         {
             get
             {
                 return Content.GetPropertyValue<String>("someProperty");
             }
         }
-        [DisplayName("Another property")]
         [Description("Another description")]
+        [DataType("RTE")]
         [Category("A tab")]
-        [DataType("ca90c950-0aff-4e72-b976-a30b1ac57dad")]
-        public String AnotherProperty
+        private String AnotherProperty
         {
             get
             {
                 return Content.GetPropertyValue<String>("anotherProperty");
             }
         }
-        [DisplayName("Tabless property")]
-        [Description("")]
-        [Category("")]
-        [DataType("2e6d3631-066e-44b8-aec4-96f09099b2b5")]
-        public Int32 TablessProperty
+        [DataType("Numeric")]
+        private Int32 TablessProperty
         {
             get
             {

@@ -79,7 +79,7 @@
     <Compile Include="CodeParserTests.cs" />
     <Compile Include="Configuration\UmbracoCodeGeneratorConfigurationProviderTests.cs" />
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
-    <Compile Include="ContentTypeCodeGeneratorTests.cs" />
+    <Compile Include="ContentTypeCodeGeneratorsAcceptanceTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
     <Compile Include="Generators\ClassGeneratorTests.cs" />
     <Compile Include="Generators\CodeGenerationHelper.cs" />
@@ -108,7 +108,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="TestFiles\SomeMediaType.cs" />
     <Content Include="TestFiles\SomeDocumentType.cs" />
-    <Content Include="DocumentTypeXmlGeneratorTests.cs" />
+    <Compile Include="DocumentTypeXmlGeneratorTests.cs" />
     <Content Include="TestFiles\SomeMediaType.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,7 @@ namespace Umbraco.CodeGen.Tests.Parsers
 
             Parse(code);
             Assert.That(
-                new[]{"AnotherClass", "DifferentClass"}
+                new[]{"anotherClass", "differentClass"}
                 .SequenceEqual(ContentType.Structure)
                 );
         }

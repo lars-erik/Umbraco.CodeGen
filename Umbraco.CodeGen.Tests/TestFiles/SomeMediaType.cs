@@ -16,40 +16,27 @@ namespace Umbraco.CodeGen.Models
     using Umbraco.Core.Models;
     using Umbraco.Web;
     
-    [DisplayName("Inherited Media Folder")]
-    [Description("")]
-    public partial class InheritedMediaFolder : Folder
+    public class InheritedMediaFolder : Folder
     {
-        #region Info members
-        const String icon = "folder.gif";
-        const String thumbnail = "folder.png";
-        const Boolean allowAtRoot = true;
-        private Type[] structure = new Type[] {
+        private string icon = "folder.gif";
+        private string thumbnail = "folder.png";
+        private bool allowAtRoot = true;
+        private System.Type[] structure = new System.Type[] {
                 typeof(Folder),
                 typeof(Image),
                 typeof(File),
                 typeof(InheritedMediaFolder)};
-        #endregion
-        public InheritedMediaFolder(IPublishedContent content) : 
-                base(content)
-        {
-        }
-        [DisplayName("LetsHaveAProperty")]
-        [Description("")]
+        [DataType("Textstring")]
         [Category("A tab")]
-        [DataType("0cc0eba1-9960-42c9-bf9b-60e150b429ae")]
-        public String LetsHaveAProperty
+        private String LetsHaveAProperty
         {
             get
             {
                 return Content.GetPropertyValue<String>("letsHaveAProperty");
             }
         }
-        [DisplayName("And a tabless property")]
-        [Description("")]
-        [Category("")]
-        [DataType("0cc0eba1-9960-42c9-bf9b-60e150b429ae")]
-        public String AndATablessProperty
+        [DataType("Textstring")]
+        private String AndATablessProperty
         {
             get
             {

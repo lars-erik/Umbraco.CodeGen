@@ -30,7 +30,7 @@ namespace Umbraco.CodeGen.Tests
                 TypeMappings = new Dictionary<string, string>(),
                 DefaultTypeMapping = "string"
             };
-            configuration.DocumentTypes = new ContentTypeConfiguration(configuration)
+            var contentTypeConfiguration = new ContentTypeConfiguration(configuration)
             {
                 ContentTypeName = contentTypeName,
                 BaseClass = "DocumentTypeBase",
@@ -44,7 +44,7 @@ namespace Umbraco.CodeGen.Tests
 			};
 
 
-            var parser = new CodeParser(configuration.DocumentTypes, dataTypes, new DefaultParserFactory());
+            var parser = new CodeParser(contentTypeConfiguration, dataTypes, new DefaultParserFactory());
             var contentType = parser.Parse(new StringReader(code)).SingleOrDefault();
 
             var expectedBuilder = new StringBuilder();

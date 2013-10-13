@@ -1,53 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Umbraco.CodeGen.Generators.CodeGeneratorBase">
-    <Position X="2.75" Y="0.75" Width="1.5" />
+  <Class Name="Umbraco.CodeGen.Generators.ClassGenerator">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <InheritanceLine Type="Umbraco.CodeGen.Generators.CodeGeneratorBase" FixedToPoint="true">
+      <Path>
+        <Point X="15.5" Y="2.062" />
+        <Point X="15.5" Y="2.375" />
+        <Point X="10.25" Y="2.375" />
+        <Point X="10.25" Y="2.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAACAQAAAAAAAAAAAAAAEAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\ClassGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.CodeGeneratorBase" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAgAAAAABAAAEAAAIAAAAAAAAAABAAEAACAQ=</HashCode>
       <FileName>Generators\CodeGeneratorBase.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="Config" />
-    </ShowAsAssociation>
   </Class>
-  <Class Name="Umbraco.CodeGen.Generators.CommonInfoGenerator" Collapsed="true">
-    <Position X="3.75" Y="4.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <InheritanceLine Type="Umbraco.CodeGen.Generators.CodeGeneratorBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="3.5" Y="3.651" />
-        <Point X="3.5" Y="4.125" />
-        <Point X="4.438" Y="4.125" />
-        <Point X="4.438" Y="4.5" />
-      </Path>
-    </InheritanceLine>
+  <Class Name="Umbraco.CodeGen.Generators.CommonInfoGenerator">
+    <Position X="14.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Generators\CommonInfoGenerator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Umbraco.CodeGen.Generators.EntityDescriptionGenerator" Collapsed="true">
-    <Position X="1.75" Y="4.5" Width="1.5" />
-    <InheritanceLine Type="Umbraco.CodeGen.Generators.CodeGeneratorBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="3.5" Y="3.651" />
-        <Point X="3.5" Y="4.125" />
-        <Point X="2.562" Y="4.125" />
-        <Point X="2.562" Y="4.5" />
-      </Path>
-    </InheritanceLine>
+  <Class Name="Umbraco.CodeGen.Generators.CtorGenerator">
+    <Position X="11.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\CtorGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory" Collapsed="true">
+    <Position X="12.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAgAE=</HashCode>
+      <FileName>Generators\DefaultCodeGeneratorFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.DocumentTypeInfoGenerator">
+    <Position X="13" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\DocumentTypeInfoGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.EntityDescriptionGenerator">
+    <Position X="20" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAECAAAAAAAAAAAAQAAAAAAAAAAAAAAQEAAAAA=</HashCode>
       <FileName>Generators\EntityDescriptionGenerator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Umbraco.CodeGen.ContentTypeConfiguration" Collapsed="true">
-    <Position X="5" Y="2.25" Width="1.5" />
+  <Class Name="Umbraco.CodeGen.Generators.ImportsGenerator">
+    <Position X="7.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABCAgAAAAAAAAAEAAgAACAAAAAAIAQEAAEAAAAAAgA=</HashCode>
-      <FileName>CodeGeneratorConfiguration.cs</FileName>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\ImportsGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.NamespaceGenerator">
+    <Position X="6" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\NamespaceGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.PropertiesGenerator">
+    <Position X="18.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\PropertiesGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.PropertyBodyGenerator">
+    <Position X="21.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\PropertyBodyGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.PropertyDeclarationGenerator">
+    <Position X="23.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAQAAABAAAAAAAEAAAQAAAAQAAAAAEAACAA=</HashCode>
+      <FileName>Generators\PropertyDeclarationGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.StructureGenerator">
+    <Position X="16.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\StructureGenerator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

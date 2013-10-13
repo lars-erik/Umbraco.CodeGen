@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ICSharpCode.NRefactory.CSharp;
 using NUnit.Framework;
+using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Parsers;
 
 namespace Umbraco.CodeGen.Tests
 {
@@ -30,12 +33,8 @@ namespace Umbraco.CodeGen.Tests
 
 		private static void TestGeneratedXml(string fileName, string contentTypeName)
 		{
-			var code = "";
+			ContentType contentType;
 			var expectedOutput = "";
-            using (var inputReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".cs"))
-			{
-				code = inputReader.ReadToEnd();
-			}
             using (var goldReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".xml"))
 			{
 				expectedOutput = goldReader.ReadToEnd();
@@ -46,30 +45,31 @@ namespace Umbraco.CodeGen.Tests
 				TypeMappings = new Dictionary<string, string>(),
 				DefaultTypeMapping = "string"
 			};
-			configuration.DocumentTypes = new ContentTypeConfiguration(configuration)
+			var contentTypeConfig = new ContentTypeConfiguration(configuration)
 			{
 				ContentTypeName = contentTypeName,
 				BaseClass = "DocumentTypeBase",
 			};
 
-			var dataTypeConfiguration = new List<DataTypeDefinition>
+			var dataTypes = new List<DataTypeDefinition>
 			{
 				new DataTypeDefinition("RTE", "5e9b75ae-face-41c8-b47e-5f4b0fd82f83", "ca90c950-0aff-4e72-b976-a30b1ac57dad"),
 				new DataTypeDefinition("Textstring", "ec15c1e5-9d90-422a-aa52-4f7622c63bea", "0cc0eba1-9960-42c9-bf9b-60e150b429ae"),
 				new DataTypeDefinition("Numeric", "1413afcb-d19a-4173-8e9a-68288d2a73b8", "2e6d3631-066e-44b8-aec4-96f09099b2b5")
 			};
 
-			var reader = new StringReader(code);
-			var generator = new DocumentTypeXmlGenerator(configuration.DocumentTypes, dataTypeConfiguration);
-			var doc = generator.Generate(reader).First();
+            using (var inputReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".cs"))
+			{
+                var codeParser = new CodeParser(contentTypeConfig, dataTypes, new DefaultParserFactory());
+			    contentType = codeParser.Parse(inputReader).Single();
+			}
+            
+		    var serializer = new ContentTypeSerializer();
+		    var xml = serializer.Serialize(contentType);
 
-			var sb = new StringBuilder();
-			var writer = new StringWriter(sb);
-			doc.Save(writer);
-			writer.Flush();
-			Console.WriteLine(sb.ToString());
+            Console.WriteLine(xml);
 
-			Assert.AreEqual(expectedOutput, sb.ToString());
+		    Assert.AreEqual(expectedOutput, xml);
 		}
 	}
 }

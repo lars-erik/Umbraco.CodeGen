@@ -5,7 +5,7 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators
 {
-    public class DocumentTypeInfoGenerator : CodeGeneratorBase
+    public class DocumentTypeInfoGenerator : CommonInfoGenerator
     {
         public DocumentTypeInfoGenerator(ContentTypeConfiguration config) : base(config)
         {
@@ -16,6 +16,8 @@ namespace Umbraco.CodeGen.Generators
             var contentType = (ContentType) entity;
             var info = (DocumentTypeInfo) contentType.Info;
             var type = (CodeTypeDeclaration) codeObject;
+
+            base.Generate(type, contentType);
 
             AddFieldIfNotEmpty(type, "defaultTemplate", info.DefaultTemplate);
             AddAllowedTemplates(type, info);

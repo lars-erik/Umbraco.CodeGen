@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Tests
             {
                 Info = new DocumentTypeInfo
                 {
-                    Name = "Some document type",
+                    Name = "Some Document Type",
                     Alias = "someDocumentType",
                     Icon = "privateMemberIcon.gif",
                     Thumbnail = "privateMemberThumb.png",
@@ -27,13 +27,13 @@ namespace Umbraco.CodeGen.Tests
                 },
                 Structure = new List<string>
                 {
-                    "SomeOtherDocType"
+                    "someOtherDocType"
                 },
                 GenericProperties = new List<GenericProperty>
                 {
                     new GenericProperty
                     {
-                        Name = "Some property",
+                        Name = "Some Property",
                         Alias = "someProperty",
                         Type = "5e9b75ae-face-41c8-b47e-5f4b0fd82f83",
                         Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
@@ -44,7 +44,7 @@ namespace Umbraco.CodeGen.Tests
                     },
                     new GenericProperty
                     {
-                        Name = "Another property",
+                        Name = "Another Property",
                         Alias = "anotherProperty",
                         Type = "5e9b75ae-face-41c8-b47e-5f4b0fd82f83",
                         Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
@@ -53,10 +53,10 @@ namespace Umbraco.CodeGen.Tests
                     },
                     new GenericProperty
                     {
-                        Name = "Tabless property",
+                        Name = "Tabless Property",
                         Alias = "tablessProperty",
-                        Description = "",
-                        Tab = "",
+                        Description = null,
+                        Tab = null,
                         Type = "1413afcb-d19a-4173-8e9a-68288d2a73b8",
                         Definition = "2e6d3631-066e-44b8-aec4-96f09099b2b5"
                     }
@@ -83,20 +83,20 @@ namespace Umbraco.CodeGen.Tests
                     Icon = "folder.gif",
                     Thumbnail = "folder.png",
                     AllowAtRoot = true,
-                    Master = "Folder"
+                    Master = "folder"
                 },
                 Structure = new List<string>
                 {
-                    "Folder",
-                    "Image",
-                    "File",
-                    "InheritedMediaFolder"
+                    "folder",
+                    "image",
+                    "file",
+                    "inheritedMediaFolder"
                 },
                 GenericProperties = new List<GenericProperty>
                 {
                     new GenericProperty
                     {
-                        Name = "LetsHaveAProperty",
+                        Name = "Lets Have A Property",
                         Alias = "letsHaveAProperty",
                         Type = "ec15c1e5-9d90-422a-aa52-4f7622c63bea",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
@@ -104,7 +104,7 @@ namespace Umbraco.CodeGen.Tests
                     },
                     new GenericProperty
                     {
-                        Name = "And a tabless property",
+                        Name = "And A Tabless Property",
                         Alias = "andATablessProperty",
                         Type = "ec15c1e5-9d90-422a-aa52-4f7622c63bea",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
