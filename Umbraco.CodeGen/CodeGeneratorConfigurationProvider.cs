@@ -8,6 +8,7 @@ namespace Umbraco.CodeGen
 	public class CodeGeneratorConfigurationProvider : IConfigurationProvider
 	{
 		private const string DefaultTypeMapping = "String";
+        private const string DefaultDefinitionId = "0cc0eba1-9960-42c9-bf9b-60e150b429ae";
 		private readonly string inputFileContent;
 		private CodeGeneratorConfiguration configuration;
 
@@ -39,12 +40,14 @@ namespace Umbraco.CodeGen
 				throw new Exception("No CodeGenerator/MediaTypes element");
 
 			string defaultTypeMapping;
+		    string defaultDefinitionId;
 			Dictionary<string, string> typeMappings;
 
 			var typeMappingNode = root.Element("TypeMappings");
-			if (typeMappingNode != null)
+		    if (typeMappingNode != null)
 			{
 				defaultTypeMapping = typeMappingNode.Attributes("Default").Select(a => a.Value).SingleOrDefault() ?? DefaultTypeMapping;
+				defaultDefinitionId = typeMappingNode.Attributes("DefaultDefinitionId").Select(a => a.Value).SingleOrDefault() ?? DefaultTypeMapping;
 				typeMappings = typeMappingNode.Descendants("TypeMapping")
 					.Select(e => new { DataType = e.AttributeValue("DataTypeId").ToLower(), Type = e.AttributeValue("Type") })
 					.ToDictionary(a => a.DataType, a => a.Type);
@@ -52,6 +55,7 @@ namespace Umbraco.CodeGen
 			else
 			{
 				defaultTypeMapping = DefaultTypeMapping;
+				defaultDefinitionId = DefaultDefinitionId;
 				typeMappings = new Dictionary<string, string>();
 			}
 
@@ -59,6 +63,7 @@ namespace Umbraco.CodeGen
 			{
 				OverwriteReadOnly = Convert.ToBoolean(root.AttributeValue("OverwriteReadOnly", "false")),
 				DefaultTypeMapping = defaultTypeMapping,
+                DefaultDefinitionId = defaultDefinitionId,
 				TypeMappings = typeMappings,
 			};
 			config.DocumentTypes = GetContentTypeConfiguration(documentTypes, config, "DocumentType");

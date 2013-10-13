@@ -14,9 +14,10 @@ namespace Umbraco.CodeGen
 		public string ContentTypeName { get; set; }
 
 		public string DefaultTypeMapping { get { return config.DefaultTypeMapping; } }
-		public Dictionary<string, string> TypeMappings { get { return config.TypeMappings; } }
+        public string DefaultDefinitionId { get { return config.DefaultDefinitionId; } }
+        public Dictionary<string, string> TypeMappings { get { return config.TypeMappings; } }
 
-		public ContentTypeConfiguration(CodeGeneratorConfiguration config)
+	    public ContentTypeConfiguration(CodeGeneratorConfiguration config)
 		{
 			this.config = config;
 		}
@@ -27,7 +28,9 @@ namespace Umbraco.CodeGen
 		public ContentTypeConfiguration DocumentTypes { get; set; }
 		public ContentTypeConfiguration MediaTypes { get; set; }
 		public string DefaultTypeMapping { get; set; }
-		public Dictionary<string, string> TypeMappings { get; set; }
+        public string DefaultDefinitionId { get; set; }
+        public Dictionary<string, string> TypeMappings { get; set; }
 		public bool OverwriteReadOnly { get; set; }
+
 	}
 }

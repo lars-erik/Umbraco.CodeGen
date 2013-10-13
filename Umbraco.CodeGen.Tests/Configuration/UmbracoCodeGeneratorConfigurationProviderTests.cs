@@ -17,6 +17,7 @@ namespace Umbraco.CodeGen.Tests.Configuration
 			var config = provider.GetConfiguration();
 			Assert.AreEqual("SomeBaseClass", config.DocumentTypes.BaseClass);
 			Assert.AreEqual("String", config.DefaultTypeMapping);
+            Assert.AreEqual("0cc0eba1-9960-42c9-bf9b-60e150b429ae", config.DefaultDefinitionId);
 			Assert.AreEqual(true, config.DocumentTypes.GenerateClasses);
 			Assert.AreEqual(true, config.DocumentTypes.GenerateXml);
 			Assert.AreEqual("Models/DocumentTypes", config.DocumentTypes.ModelPath);

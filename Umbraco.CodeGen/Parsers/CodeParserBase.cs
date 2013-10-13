@@ -80,7 +80,7 @@ namespace Umbraco.CodeGen.Parsers
             return fieldVariable;
         }
 
-        protected static string AttributeValue(EntityDeclaration entity, string attributeName, string defaultValue = "")
+        protected static string AttributeValue(EntityDeclaration entity, string attributeName, string defaultValue = null)
         {
             var attribute = FindAttribute(entity.Attributes, attributeName);
             return AttributeValueOrDefault(attribute, defaultValue);

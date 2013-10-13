@@ -1,44 +1,54 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Umbraco.CodeGen.Parsers
 {
     public class ParserFactory
     {
-        public ContentTypeCodeParser Create(ContentTypeConfiguration configuration)
+        private ContentTypeConfiguration config;
+        private IList<DataTypeDefinition> types;
+
+        public ContentTypeCodeParser Create(
+            ContentTypeConfiguration configuration,
+            IEnumerable<DataTypeDefinition> dataTypes 
+        )
         {
-            ContentTypeCodeParser typedParser;
-            if (configuration.ContentTypeName == "DocumentType")
-                typedParser = CreateDocumentTypeParser(configuration);
-            else
-                typedParser = CreateMediaTypeParser(configuration);
+            config = configuration;
+            types = dataTypes as List<DataTypeDefinition> ?? dataTypes.ToList();
+            var typedParser = configuration.ContentTypeName == "DocumentType" 
+                ? CreateDocumentTypeParser() 
+                : CreateMediaTypeParser();
             return typedParser;
         }
 
-        private ContentTypeCodeParser CreateMediaTypeParser(ContentTypeConfiguration configuration)
+        private ContentTypeCodeParser CreateMediaTypeParser()
         {
-            var parsers = CreateParsers(configuration);
-            parsers.Insert(0, new CommonInfoParser(configuration));
-            return new MediaTypeCodeParser(
-                configuration,
-                parsers.ToArray()
-            );
+            var parsers = CreateParsers(new CommonInfoParser(config));
+            return new MediaTypeCodeParser(config, parsers.ToArray());
         }
 
-        private ContentTypeCodeParser CreateDocumentTypeParser(ContentTypeConfiguration configuration)
+        private ContentTypeCodeParser CreateDocumentTypeParser()
         {
-            var parsers = CreateParsers(configuration);
-            parsers.Insert(0, new DocumentTypeInfoParser(configuration));
-            return new DocumentTypeCodeParser(
-                configuration,
-                parsers.ToArray()
-            );
+            var parsers = CreateParsers(new DocumentTypeInfoParser(config));
+            return new DocumentTypeCodeParser(config, parsers.ToArray());
         }
 
-        private List<ContentTypeCodeParserBase> CreateParsers(ContentTypeConfiguration configuration)
+        private List<ContentTypeCodeParserBase> CreateParsers(CommonInfoParser infoParser)
+        {
+            var parsers = CreateParsers();
+            parsers.Insert(0, infoParser);
+            return parsers;
+        }
+
+        private List<ContentTypeCodeParserBase> CreateParsers()
         {
             return new List<ContentTypeCodeParserBase>
             {
-                new StructureParser(configuration)
+                new StructureParser(config),
+                new PropertiesParser(config,
+                    new PropertyParser(config, types)
+                ),
+                new TabsParser(config)
             };
         }
     }

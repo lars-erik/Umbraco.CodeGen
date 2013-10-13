@@ -52,6 +52,7 @@ namespace Umbraco.CodeGen.Tests
             SerializationHelper.BclSerialize(expectedBuilder, expected);
             SerializationHelper.BclSerialize(actualBuilder, (DocumentType)contentType);
             Console.WriteLine(actualBuilder.ToString());
+            Console.WriteLine(expectedBuilder.ToString());
             Assert.AreEqual(expectedBuilder.ToString(), actualBuilder.ToString());
         }
     }

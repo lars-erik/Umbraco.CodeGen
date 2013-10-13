@@ -48,7 +48,10 @@ namespace Umbraco.CodeGen
 
 		private ContentType Generate(TypeDeclaration type)
 		{
-		    ContentTypeCodeParser typedParser = parserFactory.Create(configuration);
+		    ContentTypeCodeParser typedParser = parserFactory.Create(
+                configuration,
+                dataTypes
+            );
 		    ContentType contentType = typedParser.Parse(type);
 
 		    return contentType;

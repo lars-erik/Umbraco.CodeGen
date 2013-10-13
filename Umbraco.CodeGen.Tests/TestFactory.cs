@@ -55,6 +55,8 @@ namespace Umbraco.CodeGen.Tests
                     {
                         Name = "Tabless property",
                         Alias = "tablessProperty",
+                        Description = "",
+                        Tab = "",
                         Type = "1413afcb-d19a-4173-8e9a-68288d2a73b8",
                         Definition = "2e6d3631-066e-44b8-aec4-96f09099b2b5"
                     }
