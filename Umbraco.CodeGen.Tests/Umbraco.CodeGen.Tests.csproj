@@ -84,6 +84,7 @@
     <Compile Include="Parsers\CommonInfoParserTests.cs" />
     <Compile Include="Parsers\DocumentTypeInfoParserTests.cs" />
     <Compile Include="Parsers\ContentTypeCodeParserTestBase.cs" />
+    <Compile Include="Parsers\PropertyParserTests.cs" />
     <Compile Include="Parsers\StructureParserTests.cs" />
     <Compile Include="SerializationHelper.cs" />
     <Compile Include="TestFactory.cs" />

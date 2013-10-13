@@ -101,6 +101,7 @@
     <Compile Include="Parsers\InfoCodeParser.cs" />
     <Compile Include="Parsers\MediaTypeCodeParser.cs" />
     <Compile Include="Parsers\ParserFactory.cs" />
+    <Compile Include="Parsers\PropertyParser.cs" />
     <Compile Include="Parsers\StructureParser.cs" />
     <Compile Include="PropertyDefinition.cs" />
     <Compile Include="StringExtensions.cs" />
