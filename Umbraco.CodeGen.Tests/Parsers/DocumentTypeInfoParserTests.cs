@@ -6,7 +6,7 @@ using Umbraco.CodeGen.Parsers;
 namespace Umbraco.CodeGen.Tests.Parsers
 {
     [TestFixture]
-    public class DocumentTypeInfoParserTests : InfoParserTestBase
+    public class DocumentTypeInfoParserTests : ContentTypeCodeParserTestBase
     {
         private DocumentTypeInfo typedInfo;
 

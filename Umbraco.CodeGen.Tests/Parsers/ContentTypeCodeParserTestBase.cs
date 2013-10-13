@@ -6,11 +6,11 @@ using Umbraco.CodeGen.Parsers;
 
 namespace Umbraco.CodeGen.Tests.Parsers
 {
-    public class InfoParserTestBase
+    public class ContentTypeCodeParserTestBase
     {
         protected const string EmptyClass = @"public class AClass {}";
         protected ContentTypeConfiguration Configuration;
-        protected CommonInfoParser Parser;
+        protected ContentTypeCodeParserBase Parser;
         protected ContentType ContentType;
         protected Info Info;
 

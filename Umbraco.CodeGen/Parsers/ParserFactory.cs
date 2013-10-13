@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Umbraco.CodeGen.Parsers
 {
@@ -19,18 +16,30 @@ namespace Umbraco.CodeGen.Parsers
 
         private ContentTypeCodeParser CreateMediaTypeParser(ContentTypeConfiguration configuration)
         {
+            var parsers = CreateParsers(configuration);
+            parsers.Insert(0, new CommonInfoParser(configuration));
             return new MediaTypeCodeParser(
                 configuration,
-                new CommonInfoParser(configuration)
-                );
+                parsers.ToArray()
+            );
         }
 
         private ContentTypeCodeParser CreateDocumentTypeParser(ContentTypeConfiguration configuration)
         {
+            var parsers = CreateParsers(configuration);
+            parsers.Insert(0, new DocumentTypeInfoParser(configuration));
             return new DocumentTypeCodeParser(
                 configuration,
-                new DocumentTypeInfoParser(configuration)
-                );
+                parsers.ToArray()
+            );
+        }
+
+        private List<ContentTypeCodeParserBase> CreateParsers(ContentTypeConfiguration configuration)
+        {
+            return new List<ContentTypeCodeParserBase>
+            {
+                new StructureParser(configuration)
+            };
         }
     }
 }

@@ -8,8 +8,14 @@ namespace Umbraco.CodeGen.Parsers
 {
     public class MediaTypeCodeParser : ContentTypeCodeParser
     {
-        public MediaTypeCodeParser(ContentTypeConfiguration configuration, InfoCodeParser infoParser)
-            : base(configuration, infoParser)
+        public MediaTypeCodeParser(
+            ContentTypeConfiguration configuration, 
+            params ContentTypeCodeParserBase[] memberParsers
+            )
+            : base(
+                configuration,
+                memberParsers
+            )
         {
         }
 

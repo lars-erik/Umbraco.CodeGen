@@ -117,7 +117,7 @@ namespace Umbraco.CodeGen
 
 		private IEnumerable<XElement> GenerateStructure(TypeDeclaration type)
 		{
-			return FindTypeArrayValue(type, "structure").Select(typeName => 
+			return TypeArrayValue(type, "structure").Select(typeName => 
 				new XElement(configuration.ContentTypeName, typeName)
 			);
 		}

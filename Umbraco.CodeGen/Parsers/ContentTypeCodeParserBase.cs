@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ICSharpCode.NRefactory.CSharp;
+using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Parsers
 {
@@ -13,5 +15,7 @@ namespace Umbraco.CodeGen.Parsers
         {
             Configuration = configuration;
         }
+
+        public abstract void Parse(AstNode node, ContentType contentType);
     }
 }

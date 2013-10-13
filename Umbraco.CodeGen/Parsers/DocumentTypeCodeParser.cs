@@ -10,8 +10,11 @@ namespace Umbraco.CodeGen.Parsers
     {
         public DocumentTypeCodeParser(
             ContentTypeConfiguration configuration, 
-            InfoCodeParser infoParser
-            ) : base(configuration, infoParser)
+            params ContentTypeCodeParserBase[] memberParsers 
+            ) : base(
+                configuration,
+                memberParsers
+            )
         {
         }
 

@@ -11,8 +11,9 @@ namespace Umbraco.CodeGen.Parsers
             
         }
 
-        public void Parse(TypeDeclaration type, ContentType definition)
+        public override void Parse(AstNode node, ContentType definition)
         {
+            var type = (TypeDeclaration) node;
             OnParseInfo(type, definition);
         }
 

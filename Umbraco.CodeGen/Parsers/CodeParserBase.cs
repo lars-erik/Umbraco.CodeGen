@@ -45,7 +45,7 @@ namespace Umbraco.CodeGen.Parsers
             );
         }
 
-        protected static IEnumerable<string> FindTypeArrayValue(TypeDeclaration type, string fieldName)
+        protected static IEnumerable<string> TypeArrayValue(TypeDeclaration type, string fieldName)
         {
             var fieldVariable = FindFieldVariable(type, fieldName);
             return WithInitializer(fieldVariable, ex =>
