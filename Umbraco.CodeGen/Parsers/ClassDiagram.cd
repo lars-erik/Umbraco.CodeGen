@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Umbraco.CodeGen.Parsers.CodeParserBase" Collapsed="true">
+    <Position X="11.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAMAAAAAAAAAAAAgAAAEAAUAAAAAAQAAAIAggiQ=</HashCode>
+      <FileName>Parsers\CodeParserBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.CommonInfoParser" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\CommonInfoParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.ContentTypeCodeParser" Collapsed="true">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <AssociationLine Name="memberParsers" Type="Umbraco.CodeGen.Parsers.ContentTypeCodeParserBase" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.125" Y="5.25" />
+        <Point X="6.125" Y="4.375" />
+        <Point X="11.5" Y="4.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Parsers\ContentTypeCodeParser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="memberParsers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.ContentTypeCodeParserBase">
+    <Position X="11.5" Y="3.25" Width="1.5" />
+    <AssociationLine Name="Configuration" Type="Umbraco.CodeGen.ContentTypeConfiguration" FixedFromPoint="true">
+      <Path>
+        <Point X="13" Y="3.637" />
+        <Point X="14.75" Y="3.637" />
+        <Point X="14.75" Y="2.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\ContentTypeCodeParserBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Configuration" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.DocumentTypeCodeParser" Collapsed="true">
+    <Position X="4.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Parsers\DocumentTypeCodeParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.DocumentTypeInfoParser" Collapsed="true">
+    <Position X="9.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\DocumentTypeInfoParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.InfoParserBase" Collapsed="true">
+    <Position X="9.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\InfoParserBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.MediaTypeCodeParser" Collapsed="true">
+    <Position X="7" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Parsers\MediaTypeCodeParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.DefaultParserFactory" Collapsed="true">
+    <Position X="9" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQACAAAAAEAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Parsers\DefaultParserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.PropertiesParser" Collapsed="true">
+    <Position X="13.75" Y="5.25" Width="1.5" />
+    <AssociationLine Name="propertyParser" Type="Umbraco.CodeGen.Parsers.ContentTypeCodeParserBase" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.75" Y="5.25" />
+        <Point X="14.75" Y="4.41" />
+        <Point X="13" Y="4.41" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\PropertiesParser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="propertyParser" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.PropertyParser" Collapsed="true">
+    <Position X="16" Y="5.25" Width="1.5" />
+    <AssociationLine Name="dataTypes" Type="Umbraco.CodeGen.DataTypeDefinition" FixedToPoint="true">
+      <Path>
+        <Point X="16.938" Y="5.25" />
+        <Point X="16.938" Y="2.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgAgAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Parsers\PropertyParser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="dataTypes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.StructureParser" Collapsed="true">
+    <Position X="11.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\StructureParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.TabsParser" Collapsed="true">
+    <Position X="18.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\TabsParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.ContentTypeConfiguration" Collapsed="true">
+    <Position X="14" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAgAAAAAAAAAEAAgAACAAAAAAIAQEAAEAAAAAAgA=</HashCode>
+      <FileName>CodeGeneratorConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.DataTypeDefinition" Collapsed="true">
+    <Position X="16" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAEAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>DataTypeDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Parsers.ParserFactoryBase">
+    <Position X="9" Y="0.5" Width="1.75" />
+    <AssociationLine Name="DataTypes" Type="Umbraco.CodeGen.DataTypeDefinition" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.75" Y="0.878" />
+        <Point X="16.938" Y="0.878" />
+        <Point X="16.938" Y="2.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAQACAAAAAAAAAAAAAEAAgAAAAAAAAAA=</HashCode>
+      <FileName>Parsers\ParserFactoryBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Configuration" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="DataTypes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

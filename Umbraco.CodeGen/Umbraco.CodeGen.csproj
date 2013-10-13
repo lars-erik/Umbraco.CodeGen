@@ -84,7 +84,7 @@
     <Compile Include="ContentTypeSerializer.cs" />
     <Compile Include="Definitions\DocumentType.cs" />
     <Compile Include="Definitions\DocumentTypeInfo.cs" />
-    <Compile Include="Definitions\Entity.cs" />
+    <Compile Include="Definitions\EntityDescription.cs" />
     <Compile Include="Definitions\GenericProperty.cs" />
     <Compile Include="Definitions\Info.cs" />
     <Compile Include="Definitions\MediaType.cs" />
@@ -98,9 +98,10 @@
     <Compile Include="Parsers\ContentTypeCodeParserBase.cs" />
     <Compile Include="Parsers\DocumentTypeCodeParser.cs" />
     <Compile Include="Parsers\DocumentTypeInfoParser.cs" />
-    <Compile Include="Parsers\InfoCodeParser.cs" />
+    <Compile Include="Parsers\InfoParserBase.cs" />
     <Compile Include="Parsers\MediaTypeCodeParser.cs" />
-    <Compile Include="Parsers\ParserFactory.cs" />
+    <Compile Include="Parsers\DefaultParserFactory.cs" />
+    <Compile Include="Parsers\ParserFactoryBase.cs" />
     <Compile Include="Parsers\PropertiesParser.cs" />
     <Compile Include="Parsers\PropertyParser.cs" />
     <Compile Include="Parsers\StructureParser.cs" />
@@ -113,7 +114,9 @@
     <Compile Include="XExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Definitions\ClassDiagram.cd" />
     <None Include="packages.config" />
+    <None Include="Parsers\ClassDiagram.cd" />
     <None Include="Umbraco.Codegen.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

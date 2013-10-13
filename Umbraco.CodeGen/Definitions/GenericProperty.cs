@@ -1,6 +1,6 @@
 ﻿namespace Umbraco.CodeGen.Definitions
 {
-    public class GenericProperty : Entity
+    public class GenericProperty : EntityDescription
     {
         public string Type { get; set; }
         public string Definition { get; set; }

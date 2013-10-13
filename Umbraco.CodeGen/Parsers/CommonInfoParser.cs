@@ -2,7 +2,7 @@
 
 namespace Umbraco.CodeGen.Parsers
 {
-    public class CommonInfoParser : InfoCodeParser
+    public class CommonInfoParser : InfoParserBase
     {
         public CommonInfoParser(ContentTypeConfiguration configuration) : base(configuration)
         {

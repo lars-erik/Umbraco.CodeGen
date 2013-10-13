@@ -3,9 +3,9 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Parsers
 {
-    public abstract class InfoCodeParser : ContentTypeCodeParserBase
+    public abstract class InfoParserBase : ContentTypeCodeParserBase
     {
-        protected InfoCodeParser(ContentTypeConfiguration configuration)
+        protected InfoParserBase(ContentTypeConfiguration configuration)
             : base(configuration)
         {
             

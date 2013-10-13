@@ -44,7 +44,7 @@ namespace Umbraco.CodeGen.Tests
 			};
 
 
-            var parser = new CodeParser(configuration.DocumentTypes, dataTypes, new ParserFactory());
+            var parser = new CodeParser(configuration.DocumentTypes, dataTypes, new DefaultParserFactory());
             var contentType = parser.Parse(new StringReader(code)).SingleOrDefault();
 
             var expectedBuilder = new StringBuilder();

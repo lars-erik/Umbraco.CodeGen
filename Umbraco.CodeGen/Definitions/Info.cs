@@ -1,6 +1,6 @@
 ﻿namespace Umbraco.CodeGen.Definitions
 {
-    public class Info : Entity
+    public class Info : EntityDescription
     {
         public string Icon { get; set; }
         public string Thumbnail { get; set; }
