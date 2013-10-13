@@ -2,7 +2,7 @@
 
 namespace Umbraco.CodeGen.Definitions
 {
-    public abstract class ContentType
+    public abstract class ContentType : Entity
     {
         public Info Info { get; set; }
         public List<GenericProperty> GenericProperties { get; set; }

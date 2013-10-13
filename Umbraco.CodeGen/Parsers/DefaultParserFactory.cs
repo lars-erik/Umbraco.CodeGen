@@ -2,7 +2,7 @@
 
 namespace Umbraco.CodeGen.Parsers
 {
-    public class DefaultParserFactory : ParserFactoryBase
+    public class DefaultParserFactory : ParserFactory
     {
         protected override ContentTypeCodeParser CreateMediaTypeParser()
         {

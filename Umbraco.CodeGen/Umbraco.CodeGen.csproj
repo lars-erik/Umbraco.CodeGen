@@ -84,13 +84,26 @@
     <Compile Include="ContentTypeSerializer.cs" />
     <Compile Include="Definitions\DocumentType.cs" />
     <Compile Include="Definitions\DocumentTypeInfo.cs" />
+    <Compile Include="Definitions\Entity.cs" />
     <Compile Include="Definitions\EntityDescription.cs" />
     <Compile Include="Definitions\GenericProperty.cs" />
     <Compile Include="Definitions\Info.cs" />
     <Compile Include="Definitions\MediaType.cs" />
     <Compile Include="Definitions\Tab.cs" />
     <Compile Include="CodeParser.cs" />
+    <Compile Include="Generators\ClassGenerator.cs" />
+    <Compile Include="Generators\CtorGenerator.cs" />
+    <Compile Include="Generators\ImportsGenerator.cs" />
+    <Compile Include="Generators\NamespaceGenerator.cs" />
+    <Compile Include="Generators\CodeGeneratorBase.cs" />
     <Compile Include="Generators\CommonInfoGenerator.cs" />
+    <Compile Include="Generators\DefaultCodeGeneratorFactory.cs" />
+    <Compile Include="Generators\DocumentTypeInfoGenerator.cs" />
+    <Compile Include="Generators\EntityDescriptionGenerator.cs" />
+    <Compile Include="Generators\PropertiesGenerator.cs" />
+    <Compile Include="Generators\PropertyBodyGenerator.cs" />
+    <Compile Include="Generators\PropertyDeclarationGenerator.cs" />
+    <Compile Include="Generators\StructureGenerator.cs" />
     <Compile Include="IConfigurationProvider.cs" />
     <Compile Include="IDataTypeProvider.cs" />
     <Compile Include="Parsers\CodeParserBase.cs" />
@@ -102,7 +115,7 @@
     <Compile Include="Parsers\InfoParserBase.cs" />
     <Compile Include="Parsers\MediaTypeCodeParser.cs" />
     <Compile Include="Parsers\DefaultParserFactory.cs" />
-    <Compile Include="Parsers\ParserFactoryBase.cs" />
+    <Compile Include="Parsers\ParserFactory.cs" />
     <Compile Include="Parsers\PropertiesParser.cs" />
     <Compile Include="Parsers\PropertyParser.cs" />
     <Compile Include="Parsers\StructureParser.cs" />
@@ -116,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Definitions\ClassDiagram.cd" />
+    <None Include="Generators\ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Parsers\ClassDiagram.cd" />
     <None Include="Umbraco.Codegen.snk" />

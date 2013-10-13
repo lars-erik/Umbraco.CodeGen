@@ -1,6 +1,6 @@
 ﻿namespace Umbraco.CodeGen.Definitions
 {
-    public abstract class EntityDescription
+    public abstract class EntityDescription : Entity
     {
         public string Name { get; set; }
         public string Alias { get; set; }

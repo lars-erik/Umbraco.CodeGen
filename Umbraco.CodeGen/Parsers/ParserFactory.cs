@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Umbraco.CodeGen.Parsers
 {
-    public abstract class ParserFactoryBase
+    public abstract class ParserFactory
     {
         protected ContentTypeConfiguration Configuration;
         protected IList<DataTypeDefinition> DataTypes;

@@ -1,8 +1,5 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
+﻿using System.CodeDom;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
@@ -10,74 +7,74 @@ using Umbraco.CodeGen.Generators;
 namespace Umbraco.CodeGen.Tests.Generators
 {
     [TestFixture]
-    public class CommonInfoGeneratorTests
+    public class CommonInfoGeneratorTests : TypeCodeGeneratorTestBase
     {
-        private CommonInfoGenerator generator;
-        private CodeTypeDeclaration type;
+        private Info info;
 
         [SetUp]
         public void SetUp()
         {
-            generator = new CommonInfoGenerator(null);
-            type = new CodeTypeDeclaration();
+            Configuration = new ContentTypeConfiguration(null);
+            Generator = new CommonInfoGenerator(Configuration);
+            ContentType = new MediaType { Info = { Alias = "anEntity" } };
+            Candidate = Type = new CodeTypeDeclaration();
+            info = ContentType.Info;
         }
 
         [Test]
-        public void Generate_Alias_PascalCasesClassName()
+        public void Generate_Icon_WhenHasValue_IsFieldWithValue()
         {
-            var contentType = new MediaType {Info = {Alias = "aClass"}};
-            Generate(contentType);
-            Assert.AreEqual("AClass", type.Name);
+            info.Icon = "icon.gif";
+            Generate();
+            Assert.AreEqual("icon.gif", PrimitiveFieldValue("icon"));
         }
 
         [Test]
-        [ExpectedException(typeof(Exception), ExpectedMessage = "Cannot generate class with alias null or empty")]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void Generate_Alias_NullOrEmpty_Throws(string alias)
+        public void Generate_Icon_WhenNullOrEmpty_IsIgnored(string value)
         {
-            var contentType = new MediaType {Info={Alias=alias}};
-            Generate(contentType);
+            Generate();
+            Assert.IsNull(FindField("icon"));
         }
 
         [Test]
-        public void Generate_Name_NotEqualToAlias_AddsDisplayNameAttribute()
+        public void Generate_Thumbnail_WhenHasValue_IsFieldWithValue()
         {
-            var contentType = new MediaType {Info = {Alias = "aClass", Name = "A fancy class"}};
-            Generate(contentType);
-            Assert.AreEqual("A fancy class", FindAttributeValue("DisplayName"));
+            info.Thumbnail = "thumb.png";
+            Generate();
+            Assert.AreEqual("thumb.png", PrimitiveFieldValue("thumbnail"));
         }
 
         [Test]
-        [TestCase("A Class")]
-        [TestCase("AClass")]
-        [TestCase("aClass")]
-        public void Generate_Name_LowerCaseOrSplitEqualsAlias_DoesNotAddDisplayNameAttribute(string name)
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Generate_Thumbnail_WhenNullOrEmpty_IsIgnored(string value)
         {
-            var contentType = new MediaType {Info = {Alias = "aClass", Name = name}};
-            Generate(contentType);
-            Assert.AreEqual(0, type.CustomAttributes.Count);
+            Generate();
+            Assert.IsNull(FindField("thumbnail"));
         }
 
         [Test]
-        public void Generate_Description_WhenNonEmpty_AddsDescriptionAttribute()
+        public void Generate_AllowAtRoot_WhenTrue_IsFieldValue()
         {
-            var contentType = new MediaType {Info = {Alias = "aClass", Description = "A fancy class"}};
-            Generate(contentType);
-            Assert.AreEqual("A fancy class", FindAttributeValue("Description"));
+            info.AllowAtRoot = true;
+            Generate();
+            Assert.IsTrue((bool)PrimitiveFieldValue("allowAtRoot"));
         }
 
-        private void Generate(ContentType contentType)
+        [Test]
+        public void Generate_AllowAtRoot_WhenTrue_IsOmitted()
         {
-            generator.Generate(type, contentType);
+            Generate();
+            Assert.IsNull(FindField("allowAtRoot"));
         }
 
-        private object FindAttributeValue(string attributeName)
+        private void Generate()
         {
-            var attribute = type.CustomAttributes.Cast<CodeAttributeDeclaration>().Single(att => att.Name == attributeName);
-            var value = ((CodePrimitiveExpression) attribute.Arguments[0].Value).Value;
-            return value;
+            Generator.Generate(Type, ContentType);
         }
     }
 }

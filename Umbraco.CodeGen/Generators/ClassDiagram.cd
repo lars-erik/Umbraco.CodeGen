@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Umbraco.CodeGen.Generators.CodeGeneratorBase">
+    <Position X="2.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAgAAAAABAAAEAAAIAAAAAAAAAABAAEAACAQ=</HashCode>
+      <FileName>Generators\CodeGeneratorBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Config" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.CommonInfoGenerator" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="Umbraco.CodeGen.Generators.CodeGeneratorBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="3.651" />
+        <Point X="3.5" Y="4.125" />
+        <Point X="4.438" Y="4.125" />
+        <Point X="4.438" Y="4.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generators\CommonInfoGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.Generators.EntityDescriptionGenerator" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.5" />
+    <InheritanceLine Type="Umbraco.CodeGen.Generators.CodeGeneratorBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="3.651" />
+        <Point X="3.5" Y="4.125" />
+        <Point X="2.562" Y="4.125" />
+        <Point X="2.562" Y="4.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAECAAAAAAAAAAAAQAAAAAAAAAAAAAAQEAAAAA=</HashCode>
+      <FileName>Generators\EntityDescriptionGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Umbraco.CodeGen.ContentTypeConfiguration" Collapsed="true">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAgAAAAAAAAAEAAgAACAAAAAAIAQEAAEAAAAAAgA=</HashCode>
+      <FileName>CodeGeneratorConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

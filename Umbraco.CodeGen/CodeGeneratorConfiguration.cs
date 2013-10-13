@@ -32,5 +32,9 @@ namespace Umbraco.CodeGen
         public Dictionary<string, string> TypeMappings { get; set; }
 		public bool OverwriteReadOnly { get; set; }
 
+	    public CodeGeneratorConfiguration()
+	    {
+	        TypeMappings = new Dictionary<string, string>();
+	    }
 	}
 }
