@@ -81,6 +81,7 @@
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="ContentTypeCodeGeneratorTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
+    <Compile Include="Generators\CommonInfoGeneratorTests.cs" />
     <Compile Include="Parsers\CommonInfoParserTests.cs" />
     <Compile Include="Parsers\DocumentTypeInfoParserTests.cs" />
     <Compile Include="Parsers\ContentTypeCodeParserTestBase.cs" />

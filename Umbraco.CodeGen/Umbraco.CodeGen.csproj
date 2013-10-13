@@ -90,6 +90,7 @@
     <Compile Include="Definitions\MediaType.cs" />
     <Compile Include="Definitions\Tab.cs" />
     <Compile Include="CodeParser.cs" />
+    <Compile Include="Generators\CommonInfoGenerator.cs" />
     <Compile Include="IConfigurationProvider.cs" />
     <Compile Include="IDataTypeProvider.cs" />
     <Compile Include="Parsers\CodeParserBase.cs" />
