@@ -6,13 +6,15 @@ using System.IO;
 using System.Text;
 using Microsoft.CSharp;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Tests.Helpers;
 
 namespace Umbraco.CodeGen.Tests
 {
 	[TestFixture]
-	public class ContentTypeCodeGeneratorsAcceptanceTests
+	public class CodeGeneratorAcceptanceTests
 	{
 		[Test]
 		public void BuildCode_GeneratesCodeForDocumentType()
@@ -39,39 +41,22 @@ namespace Umbraco.CodeGen.Tests
 				expectedOutput = goldReader.ReadToEnd();
 			}
 
-			var configuration = new CodeGeneratorConfiguration
-			{
-				TypeMappings = new TypeMappings(new[]
-				{
-				    new TypeMapping { DataTypeId = "1413afcb-d19a-4173-8e9a-68288d2a73b8", Type = "Int32" }
-				}){
-				    DefaultType = "String"
-                }
-			};
-			var typeConfig = new ContentTypeConfiguration(configuration)
-			{
-				ContentTypeName = contentTypeName,
-				BaseClass = "DocumentTypeBase",
-				Namespace = "Umbraco.CodeGen.Models"
-			};
-
-            var options = new CodeGeneratorOptions
-            {
-                BlankLinesBetweenMembers = false,
-                BracingStyle = "C"
-            };
-
-            // TODO: Wrap this
+			var configuration = new CodeGeneratorConfiguration();
+		    configuration.TypeMappings.Add(new TypeMapping("1413afcb-d19a-4173-8e9a-68288d2a73b8", "Int32"));
+		    var typeConfig = configuration.Get(contentTypeName);
+		    typeConfig.BaseClass = "DocumentTypeBase";
+		    typeConfig.Namespace = "Umbraco.CodeGen.Models";
 
 		    var sb = new StringBuilder();
 			var writer = new StringWriter(sb);
-			var generator = new DefaultCodeGeneratorFactory().Create(typeConfig, TestDataTypeProvider.All);
-		    var compileUnit = new CodeCompileUnit();
-            generator.Generate(compileUnit, contentType);
-		    var provider = new CSharpCodeProvider();
-            provider.GenerateCodeFromCompileUnit(compileUnit, writer, options);
-			writer.Flush();
-			Console.WriteLine(sb.ToString());
+
+		    var factory = new DefaultCodeGeneratorFactory();
+		    var dataTypeProvider = new TestDataTypeProvider();
+		    var generator = new CodeGenerator(typeConfig, dataTypeProvider, factory);
+		    generator.Generate(contentType, writer);
+
+            writer.Flush();
+            Console.WriteLine(sb.ToString());
 
 			Assert.AreEqual(expectedOutput, sb.ToString());
 		}

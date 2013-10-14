@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Umbraco.CodeGen.Configuration;
 
 namespace Umbraco.CodeGen.Generators
 {
-    public class DefaultCodeGeneratorFactory
+    public class DefaultCodeGeneratorFactory : CodeGeneratorFactory
     {
-        public CodeGeneratorBase Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
+        public override CodeGeneratorBase Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
         {
             if (configuration.ContentTypeName == "DocumentType")
                 return CreateDocumentTypeGenerator(configuration, dataTypes);

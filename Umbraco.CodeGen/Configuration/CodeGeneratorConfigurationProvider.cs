@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Umbraco.CodeGen
+namespace Umbraco.CodeGen.Configuration
 {
 	public class CodeGeneratorConfigurationProvider : IConfigurationProvider
 	{
@@ -16,13 +16,10 @@ namespace Umbraco.CodeGen
 
 		public CodeGeneratorConfiguration GetConfiguration()
 		{
-			if (configuration == null)
-				configuration = LoadConfiguration();
-
-			return configuration;
+		    return configuration ?? (configuration = LoadConfiguration());
 		}
 
-		private CodeGeneratorConfiguration LoadConfiguration()
+	    private CodeGeneratorConfiguration LoadConfiguration()
 		{
 		    var serializer = new XmlSerializer(typeof (CodeGeneratorConfiguration));
 		    return (CodeGeneratorConfiguration) serializer.Deserialize(new StringReader(inputFileContent));

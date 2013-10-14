@@ -1,4 +1,6 @@
-﻿namespace Umbraco.CodeGen
+﻿using Umbraco.CodeGen.Configuration;
+
+namespace Umbraco.CodeGen
 {
 	public interface IConfigurationProvider
 	{

@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Linq;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 
@@ -15,10 +16,8 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = new ContentTypeConfiguration(null)
-            {
-                Namespace = "MyWeb.Models"
-            };
+            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration.Namespace = "MyWeb.Models";
             ContentType = new MediaType();
             Generator = new NamespaceGenerator(Configuration);
             compileUnit = new CodeCompileUnit();

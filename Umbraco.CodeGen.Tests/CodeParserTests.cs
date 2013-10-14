@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Parsers;
+using Umbraco.CodeGen.Tests.Helpers;
 
 namespace Umbraco.CodeGen.Tests
 {
@@ -33,21 +35,15 @@ namespace Umbraco.CodeGen.Tests
                 code = inputReader.ReadToEnd();
             }
 
-            var configuration = new CodeGeneratorConfiguration
-            {
-                DefaultTypeMapping = "String"
-            };
-            var contentTypeConfiguration = new ContentTypeConfiguration(configuration)
-            {
-                ContentTypeName = contentTypeName,
-                BaseClass = "DocumentTypeBase",
-            };
+            var config = new CodeGeneratorConfiguration().Get(contentTypeName);
+            config.BaseClass = "DocumentTypeBase";
 
             var parser = new CodeParser(
-                contentTypeConfiguration,
+                config,
                 TestDataTypeProvider.All,
                 new DefaultParserFactory()
                 );
+
             var contentType = parser.Parse(new StringReader(code)).SingleOrDefault();
 
             var expectedXml = SerializationHelper.BclSerialize(expectedContentType);

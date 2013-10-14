@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Parsers;
+using Umbraco.CodeGen.Tests.Helpers;
 
 namespace Umbraco.CodeGen.Tests
 {
@@ -32,21 +34,15 @@ namespace Umbraco.CodeGen.Tests
 		private static void TestGeneratedXml(string fileName, string contentTypeName)
 		{
 			ContentType contentType;
-			var expectedOutput = "";
+			string expectedOutput;
+
             using (var goldReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".xml"))
 			{
 				expectedOutput = goldReader.ReadToEnd();
 			}
 
-			var configuration = new CodeGeneratorConfiguration
-			{
-				DefaultTypeMapping = "String"
-			};
-			var contentTypeConfig = new ContentTypeConfiguration(configuration)
-			{
-				ContentTypeName = contentTypeName,
-				BaseClass = "DocumentTypeBase",
-			};
+		    var contentTypeConfig = new CodeGeneratorConfiguration().Get(contentTypeName);
+		    contentTypeConfig.BaseClass = "DocumentTypeBase";
 
             using (var inputReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".cs"))
 			{

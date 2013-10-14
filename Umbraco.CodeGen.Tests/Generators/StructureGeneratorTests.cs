@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 
@@ -18,7 +19,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         public void SetUp()
         {
             Generator = new StructureGenerator(Configuration);
-            Configuration = new ContentTypeConfiguration(null);
+            Configuration = new CodeGeneratorConfiguration().MediaTypes;
             Candidate = Type = new CodeTypeDeclaration();
             ContentType = new MediaType();
         }

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace Umbraco.CodeGen
+namespace Umbraco.CodeGen.Configuration
 {
 	public class ContentTypeConfiguration
 	{
@@ -37,10 +37,11 @@ namespace Umbraco.CodeGen
 	        get { return config; }
 	    }
 
-	    public ContentTypeConfiguration(CodeGeneratorConfiguration config)
-		{
-			this.config = config;
-		}
+	    public ContentTypeConfiguration(CodeGeneratorConfiguration config, string contentTypeName)
+	    {
+	        ContentTypeName = contentTypeName;
+	        this.config = config;
+	    }
 
 	    public ContentTypeConfiguration()
 	    {
@@ -51,28 +52,33 @@ namespace Umbraco.CodeGen
     [XmlRoot("CodeGenerator")]
 	public class CodeGeneratorConfiguration
 	{
-	    private ContentTypeConfiguration documentTypes;
-	    private ContentTypeConfiguration mediaTypes;
+        public static class Keys
+        {
+            public const string DocumentType = "DocumentType";
+            public const string MediaType = "MediaType";
+        }
+
+        private Dictionary<string, ContentTypeConfiguration> configs;
 
 	    public ContentTypeConfiguration DocumentTypes
 	    {
-	        get { return documentTypes; }
+	        get { return configs[Keys.DocumentType]; }
 	        set
 	        {
-	            documentTypes = value;
-	            documentTypes.config = this;
-	            documentTypes.ContentTypeName = "DocumentType";
+	            value.config = this;
+	            value.ContentTypeName = Keys.DocumentType;
+	            configs[Keys.DocumentType] = value;
 	        }
 	    }
 
 	    public ContentTypeConfiguration MediaTypes
 	    {
-	        get { return mediaTypes; }
+	        get { return configs[Keys.MediaType]; }
 	        set
 	        {
-	            mediaTypes = value;
-	            mediaTypes.config = this;
-	            mediaTypes.ContentTypeName = "MediaType";
+	            value.config = this;
+	            value.ContentTypeName = Keys.MediaType;
+	            configs[Keys.MediaType] = value;
 	        }
 	    }
 
@@ -95,11 +101,19 @@ namespace Umbraco.CodeGen
         [XmlAttribute]
         public bool OverwriteReadOnly { get; set; }
 
+        public ContentTypeConfiguration Get(string contentTypeName)
+        {
+            return configs[contentTypeName];
+        }
+
 	    public CodeGeneratorConfiguration()
 	    {
-            DocumentTypes = new ContentTypeConfiguration(this);
-            MediaTypes = new ContentTypeConfiguration(this);
-	        TypeMappings = new TypeMappings(); //new Dictionary<string, string>());
+	        configs = new Dictionary<string, ContentTypeConfiguration>
+	        {
+	            {Keys.DocumentType, new ContentTypeConfiguration(this, Keys.DocumentType)},
+	            {Keys.MediaType, new ContentTypeConfiguration(this, Keys.MediaType)}
+	        };
+            TypeMappings = new TypeMappings(); //new Dictionary<string, string>());
 	    }
 	}
 
@@ -108,7 +122,7 @@ namespace Umbraco.CodeGen
     {
         public static class Defaults
         {
-            public const string DefaultDefinitionId = "0cc0eba1-9960-42c9-bf9b-60e150b429ae";
+            public const string DefaultDefinitionId = "Textstring";
             public const string DefaultType = "String";
         }
 
@@ -166,6 +180,11 @@ namespace Umbraco.CodeGen
         private static Func<TypeMapping, bool> HasDataTypeId(string typeId)
         {
             return tm => String.Compare(tm.DataTypeId, typeId, StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
+        public void Add(TypeMapping typeMapping)
+        {
+            Items.Add(typeMapping);
         }
     }
 

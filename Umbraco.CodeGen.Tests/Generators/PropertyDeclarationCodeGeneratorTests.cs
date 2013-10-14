@@ -2,8 +2,10 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Tests.Helpers;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
@@ -16,20 +18,11 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            codeGenConfig = new CodeGeneratorConfiguration
-            {
-                DefaultTypeMapping = "String",
-                DefaultDefinitionId = "Textstring"
-            };
-            Configuration = new ContentTypeConfiguration(codeGenConfig);
-            var dataTypes = new List<DataTypeDefinition>
-            {
-                new DataTypeDefinition("Textstring", "e4431ff4-89d6-4656-8aea-02daed62074f", "4bb6058a-1199-4a8d-90ec-1d58b1c9bcbf"),
-                new DataTypeDefinition("Numeric", "edc83fe4-c7d5-4c4d-a067-2992a820edbd", "109f1923-3e38-46b0-8fd0-bca30bfb9e51")
-            };
+            codeGenConfig = new CodeGeneratorConfiguration();
+            Configuration = codeGenConfig.MediaTypes;
             Generator = new PropertyDeclarationGenerator(
                 Configuration, 
-                dataTypes,
+                TestDataTypeProvider.All,
                 new EntityDescriptionGenerator(Configuration)
             );
             Candidate = codeProperty = new CodeMemberProperty();
@@ -39,7 +32,6 @@ namespace Umbraco.CodeGen.Tests.Generators
         [Test]
         public void Generate_Type_WhenNotConfigured_IsDefaultType()
         {
-            codeGenConfig.DefaultTypeMapping = "String";
             Generate();
             Assert.AreEqual("String", codeProperty.Type.BaseType);
         }
@@ -56,9 +48,9 @@ namespace Umbraco.CodeGen.Tests.Generators
         public void Generate_Type_WhenConfigured_IsConfiguredType()
         {
             codeGenConfig.TypeMappings = new TypeMappings(new[]{
-                new TypeMapping {DataTypeId = "1413afcb-d19a-4173-8e9a-68288d2a73b8", Type = "Int32"}
+                new TypeMapping("1413afcb-d19a-4173-8e9a-68288d2a73b8", "Int32")
             });
-            property.Type = "EDC83FE4-C7D5-4C4D-A067-2992A820EDBD";
+            property.Type = "1413AFCB-D19A-4173-8E9A-68288D2A73B8";
             Generate();
             Assert.AreEqual("Int32", codeProperty.Type.BaseType);
         }
@@ -66,7 +58,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [Test]
         public void Generate_Definition_WhenDefinitionExists_IsDefinitionName()
         {
-            property.Definition = "109f1923-3e38-46b0-8fd0-bca30bfb9e51";
+            property.Definition = TestDataTypeProvider.Numeric.DefinitionId;
             Generate();
             Assert.AreEqual("Numeric", FindAttributeValue("DataType"));
         }

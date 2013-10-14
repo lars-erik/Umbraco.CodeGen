@@ -2,6 +2,8 @@
 using System.IO;
 using System.Xml.Serialization;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
+using Umbraco.CodeGen.Tests.Helpers;
 
 namespace Umbraco.CodeGen.Tests.Configuration
 {

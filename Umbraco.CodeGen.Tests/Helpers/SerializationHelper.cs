@@ -1,11 +1,10 @@
-using System;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Tests
+namespace Umbraco.CodeGen.Tests.Helpers
 {
     static internal class SerializationHelper
     {

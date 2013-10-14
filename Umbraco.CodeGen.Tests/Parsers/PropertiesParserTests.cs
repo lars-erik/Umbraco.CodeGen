@@ -2,6 +2,7 @@
 using System.Linq;
 using ICSharpCode.NRefactory.CSharp;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Parsers;
 
@@ -23,7 +24,7 @@ namespace Umbraco.CodeGen.Tests.Parsers
             var contentType = new MediaType();
             var propertyParser = new SpyPropertyParser(null);
             var parser = new PropertiesParser(
-                new ContentTypeConfiguration(null),
+                new ContentTypeConfiguration(), 
                 propertyParser
             );
 

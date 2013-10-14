@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Integration;
 
 namespace Umbraco.CodeGen.Tests.Configuration
@@ -11,9 +12,8 @@ namespace Umbraco.CodeGen.Tests.Configuration
 		[Test]
 		public void GetConfiguration_ReturnsConfigurationFromDisk()
 		{
-			var provider =
-				new FileCodeGeneratorConfigurationProvider(Path.Combine(Environment.CurrentDirectory,
-					@"..\..\config\codegen.config"));
+		    var path = Path.Combine(Environment.CurrentDirectory, @"..\..\config\codegen.config");
+		    var provider = new CodeGeneratorConfigurationFileProvider(path);
 			var config = provider.GetConfiguration();
 
 			Assert.AreEqual("SomeBaseClass", config.DocumentTypes.BaseClass);

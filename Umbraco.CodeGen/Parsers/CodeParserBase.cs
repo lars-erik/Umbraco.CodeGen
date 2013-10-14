@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ICSharpCode.NRefactory.CSharp;
+using Umbraco.CodeGen.Configuration;
 
 namespace Umbraco.CodeGen.Parsers
 {

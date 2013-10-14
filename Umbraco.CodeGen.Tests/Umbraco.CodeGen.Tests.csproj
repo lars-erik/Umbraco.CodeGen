@@ -80,7 +80,7 @@
     <Compile Include="Configuration\CodeGeneratorConfigurationTests.cs" />
     <Compile Include="Configuration\FileCodeGeneratorConfigurationProviderTests.cs" />
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
-    <Compile Include="ContentTypeCodeGeneratorsAcceptanceTests.cs" />
+    <Compile Include="CodeGeneratorAcceptanceTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
     <Compile Include="Generators\ClassGeneratorTests.cs" />
     <Compile Include="Generators\CodeGenerationHelper.cs" />
@@ -104,9 +104,9 @@
     <Compile Include="Parsers\PropertyParserTests.cs" />
     <Compile Include="Parsers\StructureParserTests.cs" />
     <Compile Include="Parsers\TabsParserTests.cs" />
-    <Compile Include="SerializationHelper.cs" />
-    <Compile Include="TestDataTypeProvider.cs" />
-    <Compile Include="TestFactory.cs" />
+    <Compile Include="Helpers\SerializationHelper.cs" />
+    <Compile Include="Helpers\TestDataTypeProvider.cs" />
+    <Compile Include="Helpers\TestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="TestFiles\SomeMediaType.cs" />
     <Content Include="TestFiles\SomeDocumentType.cs" />

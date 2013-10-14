@@ -1,6 +1,7 @@
 ﻿using System.CodeDom;
 using System.Linq;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 
@@ -14,7 +15,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = new ContentTypeConfiguration(null);
+            Configuration = new CodeGeneratorConfiguration().MediaTypes;
             Generator = new CommonInfoGenerator(Configuration);
             ContentType = new MediaType { Info = { Alias = "anEntity" } };
             Candidate = Type = new CodeTypeDeclaration();

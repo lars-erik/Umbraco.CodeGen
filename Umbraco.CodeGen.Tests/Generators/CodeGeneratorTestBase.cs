@@ -1,5 +1,6 @@
 ﻿using System.CodeDom;
 using System.Linq;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Generators;
 
 namespace Umbraco.CodeGen.Tests.Generators

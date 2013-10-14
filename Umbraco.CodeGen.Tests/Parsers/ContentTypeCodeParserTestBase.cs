@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using ICSharpCode.NRefactory.CSharp;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Parsers;
 

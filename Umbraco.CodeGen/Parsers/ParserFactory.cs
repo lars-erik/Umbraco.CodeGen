@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Umbraco.CodeGen.Configuration;
 
 namespace Umbraco.CodeGen.Parsers
 {

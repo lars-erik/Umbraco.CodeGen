@@ -2,6 +2,7 @@
 using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Tests.Helpers;
 
 namespace Umbraco.CodeGen.Tests
 {

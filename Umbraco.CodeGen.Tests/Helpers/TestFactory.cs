@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Tests
+namespace Umbraco.CodeGen.Tests.Helpers
 {
     static internal class TestFactory
     {

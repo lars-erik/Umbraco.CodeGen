@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 
@@ -19,7 +20,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = new ContentTypeConfiguration(null);
+            Configuration = new CodeGeneratorConfiguration().MediaTypes;
             Candidate = Type = new CodeTypeDeclaration();
             generator = new DocumentTypeInfoGenerator(Configuration);
             documentType = new DocumentType { Info = { Alias = "aClass" } };

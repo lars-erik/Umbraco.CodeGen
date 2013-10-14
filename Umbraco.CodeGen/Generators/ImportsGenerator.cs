@@ -1,4 +1,5 @@
 ﻿using System.CodeDom;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators

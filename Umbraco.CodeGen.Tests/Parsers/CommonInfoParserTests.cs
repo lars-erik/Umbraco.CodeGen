@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Parsers;
 
@@ -10,7 +11,7 @@ namespace Umbraco.CodeGen.Tests.Parsers
         [SetUp]
         public void SetUp()
         {
-            Configuration = new ContentTypeConfiguration(null);
+            Configuration = new CodeGeneratorConfiguration().MediaTypes;
             Parser = new CommonInfoParser(Configuration);
             ContentType = new MediaType();
             Info = ContentType.Info;

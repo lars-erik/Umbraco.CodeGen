@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Parsers;
+using Umbraco.CodeGen.Tests.Helpers;
 
 namespace Umbraco.CodeGen.Tests.Parsers
 {
@@ -20,18 +22,8 @@ namespace Umbraco.CodeGen.Tests.Parsers
         [SetUp]
         public void SetUp()
         {
-            codeGenConfig = new CodeGeneratorConfiguration
-            {
-                DefaultDefinitionId = "Textstring"
-            };
-            Configuration = new ContentTypeConfiguration(codeGenConfig);
-
-            dataTypeConfiguration = new List<DataTypeDefinition>
-            {
-                new DataTypeDefinition("RTE", "5e9b75ae-face-41c8-b47e-5f4b0fd82f83", "ca90c950-0aff-4e72-b976-a30b1ac57dad"),
-                new DataTypeDefinition("Textstring", "ec15c1e5-9d90-422a-aa52-4f7622c63bea", "0cc0eba1-9960-42c9-bf9b-60e150b429ae"),
-                new DataTypeDefinition("Numeric", "1413afcb-d19a-4173-8e9a-68288d2a73b8", "2e6d3631-066e-44b8-aec4-96f09099b2b5")
-            };
+            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            dataTypeConfiguration = TestDataTypeProvider.All;
 
             Parser = new PropertyParser(Configuration, dataTypeConfiguration);
         }
@@ -146,7 +138,8 @@ namespace Umbraco.CodeGen.Tests.Parsers
         public void Parse_Definition_WhenMissingOrUnknown_AndDefaultIsMissing_Throws()
         {
             codeGenConfig = new CodeGeneratorConfiguration();
-            Configuration = new ContentTypeConfiguration(codeGenConfig);
+            codeGenConfig.DefaultDefinitionId = "";
+            Configuration = codeGenConfig.MediaTypes;
             Parser = new PropertyParser(Configuration, dataTypeConfiguration);
 
             ParseProperty(PureProperty);
