@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using Umbraco.CodeGen;
 
 namespace Umbraco.CodeGen.Integration
 {

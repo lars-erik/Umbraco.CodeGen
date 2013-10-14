@@ -77,8 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGeneratorConfiguration.cs" />
-    <Compile Include="ContentTypeBuilder.cs" />
-    <Compile Include="ContentTypeCodeGenerator.cs" />
+    <Content Include="ContentTypeBuilder.cs" />
+    <Content Include="ContentTypeCodeGenerator.cs" />
     <Compile Include="DataTypeDefinition.cs" />
     <Compile Include="Definitions\ContentType.cs" />
     <Compile Include="ContentTypeSerializer.cs" />
@@ -91,6 +91,7 @@
     <Compile Include="Definitions\MediaType.cs" />
     <Compile Include="Definitions\Tab.cs" />
     <Compile Include="CodeParser.cs" />
+    <Compile Include="FileCodeGeneratorConfigurationProvider.cs" />
     <Compile Include="Generators\ClassGenerator.cs" />
     <Compile Include="Generators\CtorGenerator.cs" />
     <Compile Include="Generators\ImportsGenerator.cs" />

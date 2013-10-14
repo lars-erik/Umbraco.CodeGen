@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Umbraco.CodeGen.Integration
 {
-	public class UmbracoCodeGeneratorConfigurationProvider : IConfigurationProvider
+	public class FileCodeGeneratorConfigurationProvider : IConfigurationProvider
 	{
 		private readonly IConfigurationProvider provider;
 
-		public UmbracoCodeGeneratorConfigurationProvider(string path)
+		public FileCodeGeneratorConfigurationProvider(string path)
 		{
 			using (var reader = File.OpenText(path))
 			{

@@ -77,7 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeParserTests.cs" />
-    <Compile Include="Configuration\UmbracoCodeGeneratorConfigurationProviderTests.cs" />
+    <Compile Include="Configuration\CodeGeneratorConfigurationTests.cs" />
+    <Compile Include="Configuration\FileCodeGeneratorConfigurationProviderTests.cs" />
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="ContentTypeCodeGeneratorsAcceptanceTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
@@ -104,11 +105,12 @@
     <Compile Include="Parsers\StructureParserTests.cs" />
     <Compile Include="Parsers\TabsParserTests.cs" />
     <Compile Include="SerializationHelper.cs" />
+    <Compile Include="TestDataTypeProvider.cs" />
     <Compile Include="TestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="TestFiles\SomeMediaType.cs" />
     <Content Include="TestFiles\SomeDocumentType.cs" />
-    <Compile Include="DocumentTypeXmlGeneratorTests.cs" />
+    <Compile Include="CodeParserToXmlAcceptanceTests.cs" />
     <Content Include="TestFiles\SomeMediaType.xml" />
   </ItemGroup>
   <ItemGroup>

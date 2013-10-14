@@ -55,7 +55,9 @@ namespace Umbraco.CodeGen.Tests.Generators
         [Test]
         public void Generate_Type_WhenConfigured_IsConfiguredType()
         {
-            codeGenConfig.TypeMappings= new Dictionary<string, string>{{"edc83fe4-c7d5-4c4d-a067-2992a820edbd", "Int32"}};
+            codeGenConfig.TypeMappings = new TypeMappings(new[]{
+                new TypeMapping {DataTypeId = "1413afcb-d19a-4173-8e9a-68288d2a73b8", Type = "Int32"}
+            });
             property.Type = "EDC83FE4-C7D5-4C4D-A067-2992A820EDBD";
             Generate();
             Assert.AreEqual("Int32", codeProperty.Type.BaseType);

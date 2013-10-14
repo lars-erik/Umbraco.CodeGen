@@ -27,7 +27,7 @@ namespace Umbraco.CodeGen.Integration
 		public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
 			var uSyncConfigurationProvider = new USyncConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/uSyncSettings.config"), new HttpContextPathResolver());
-			var configurationProvider = new UmbracoCodeGeneratorConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
+			var configurationProvider = new WebCodeGeneratorConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
 
 			uSyncConfiguration = uSyncConfigurationProvider.GetConfiguration();
 			
