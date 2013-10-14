@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Umbraco.CodeGen.Integration;
+using Umbraco.CodeGen.Configuration;
 
-namespace Umbraco.CodeGen.Tests.Helpers
+namespace Umbraco.CodeGen.Tests.TestHelpers
 {
     public class TestDataTypeProvider : IDataTypeProvider
     {

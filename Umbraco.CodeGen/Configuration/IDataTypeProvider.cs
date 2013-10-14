@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Umbraco.CodeGen.Integration
+namespace Umbraco.CodeGen.Configuration
 {
 	public interface IDataTypeProvider
 	{

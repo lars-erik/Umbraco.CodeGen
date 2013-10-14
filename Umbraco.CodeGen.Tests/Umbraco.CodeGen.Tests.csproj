@@ -104,9 +104,9 @@
     <Compile Include="Parsers\PropertyParserTests.cs" />
     <Compile Include="Parsers\StructureParserTests.cs" />
     <Compile Include="Parsers\TabsParserTests.cs" />
-    <Compile Include="Helpers\SerializationHelper.cs" />
-    <Compile Include="Helpers\TestDataTypeProvider.cs" />
-    <Compile Include="Helpers\TestFactory.cs" />
+    <Compile Include="TestHelpers\SerializationHelper.cs" />
+    <Compile Include="TestHelpers\TestDataTypeProvider.cs" />
+    <Compile Include="TestHelpers\TestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="TestFiles\SomeMediaType.cs" />
     <Content Include="TestFiles\SomeDocumentType.cs" />

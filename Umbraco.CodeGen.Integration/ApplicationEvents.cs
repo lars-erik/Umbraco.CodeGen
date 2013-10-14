@@ -5,6 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Umbraco.CodeGen.Configuration;
+using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Parsers;
 using jumps.umbraco.usync.helpers;
 using Microsoft.CSharp;
 using Umbraco.Core;
@@ -18,16 +22,17 @@ namespace Umbraco.CodeGen.Integration
 		private USyncConfiguration uSyncConfiguration;
 		private USyncDataTypeProvider dataTypesProvider;
 
-		private readonly Dictionary<string, string> paths = new Dictionary<string, string>(); 
+		private readonly Dictionary<string, string> paths = new Dictionary<string, string>();
+	    private readonly ContentTypeSerializer serializer = new ContentTypeSerializer();
 
-		public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+	    public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
 		}
 
 		public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
 			var uSyncConfigurationProvider = new USyncConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/uSyncSettings.config"), new HttpContextPathResolver());
-			var configurationProvider = new WebCodeGeneratorConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
+			var configurationProvider = new CodeGeneratorConfigurationFileProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
 
 			uSyncConfiguration = uSyncConfigurationProvider.GetConfiguration();
 			
@@ -49,8 +54,8 @@ namespace Umbraco.CodeGen.Integration
 
 		private void GenerateXml(ContentTypeConfiguration contentTypeConfiguration)
 		{
-			var xmlGenerator = new CodeParser(contentTypeConfiguration, dataTypes);
-			var modelPath = HttpContext.Current.Server.MapPath(contentTypeConfiguration.ModelPath);
+			var parser = new CodeParser(contentTypeConfiguration, dataTypes, new DefaultParserFactory());
+		    var modelPath = HttpContext.Current.Server.MapPath(contentTypeConfiguration.ModelPath);
 			if (!Directory.Exists(modelPath))
 				Directory.CreateDirectory(modelPath);
 			var files = Directory.GetFiles(modelPath, "*.cs");
@@ -59,7 +64,9 @@ namespace Umbraco.CodeGen.Integration
 			{
 				using (var reader = File.OpenText(file))
 				{
-					documents.AddRange(xmlGenerator.Parse(reader));
+				    var contentType = parser.Parse(reader).FirstOrDefault();
+                    if (contentType != null)
+					    documents.Add(XDocument.Parse(serializer.Serialize(contentType)));
 				}
 			}
 
@@ -107,20 +114,20 @@ namespace Umbraco.CodeGen.Integration
 			if (!typeConfig.GenerateClasses)
 				return;
 
-			var codeDomProvider = new CSharpCodeProvider();
-	
-			var doc = XDocument.Load(e.Path);
-			var classGenerator = new ContentTypeCodeGenerator(typeConfig, doc, codeDomProvider);
+		    ContentType contentType;
+		    using (var reader = File.OpenText(e.Path))
+			    contentType = serializer.Deserialize(reader);
+
 			var modelPath = paths[typeConfig.ContentTypeName];
 			if (!Directory.Exists(modelPath))
 				Directory.CreateDirectory(modelPath);
-			var path = Path.Combine(modelPath, doc.XPathSelectElement("//Info/Alias").Value.PascalCase() + ".cs");
+			var path = Path.Combine(modelPath, contentType.Info.Alias.PascalCase() + ".cs");
 				if (configuration.OverwriteReadOnly && File.Exists(path))
 					File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
-			using (var stream = File.CreateText(path))
-			{
-				classGenerator.BuildCode(stream);
-			}
+
+            var classGenerator = new CodeGenerator(typeConfig, dataTypesProvider, new DefaultCodeGeneratorFactory());
+            using (var stream = File.CreateText(path))
+                classGenerator.Generate(contentType, stream);
 		}
 
 		public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)

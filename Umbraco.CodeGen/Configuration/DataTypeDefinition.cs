@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Umbraco.CodeGen
+﻿namespace Umbraco.CodeGen.Configuration
 {
 	public class DataTypeDefinition
 	{

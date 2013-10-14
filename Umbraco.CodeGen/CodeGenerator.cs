@@ -9,7 +9,6 @@ using Microsoft.CSharp;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
-using Umbraco.CodeGen.Integration;
 
 namespace Umbraco.CodeGen
 {
@@ -40,13 +39,14 @@ namespace Umbraco.CodeGen
             this.factory = factory;
         }
 
-        public void Generate(ContentType contentType, StringWriter writer)
+        public void Generate(ContentType contentType, TextWriter writer)
         {
             EnsureGenerator();
 
             var compileUnit = new CodeCompileUnit();
             generator.Generate(compileUnit, contentType);
             CodeProvider.GenerateCodeFromCompileUnit(compileUnit, writer, options);
+            writer.Flush();
         }
 
         private void EnsureGenerator()

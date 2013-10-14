@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Tests.Helpers
+namespace Umbraco.CodeGen.Tests.TestHelpers
 {
     static internal class SerializationHelper
     {

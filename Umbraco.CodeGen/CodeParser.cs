@@ -13,13 +13,13 @@ namespace Umbraco.CodeGen
 	{
 		private readonly ContentTypeConfiguration configuration;
 		private readonly IEnumerable<DataTypeDefinition> dataTypes;
-	    private readonly DefaultParserFactory parserFactory;
+	    private readonly ParserFactory parserFactory;
 	    private readonly CSharpParser parser = new CSharpParser();
 
 		public CodeParser(
             ContentTypeConfiguration configuration, 
             IEnumerable<DataTypeDefinition> dataTypes,
-            DefaultParserFactory parserFactory
+            ParserFactory parserFactory
         )
 		{
 			this.configuration = configuration;
