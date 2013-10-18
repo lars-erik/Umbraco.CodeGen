@@ -24,7 +24,10 @@ Binaries available here: http://lars-erik.github.io/Umbraco.CodeGen/
 
 ##Recommended CodeGen config (~/config/CodeGen.config):
     <?xml version="1.0" encoding="utf-8" ?>
-	<CodeGenerator OverwriteReadOnly="false">
+	<CodeGenerator OverwriteReadOnly="false"
+	  GeneratorFactory="Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory, Umbraco.CodeGen"
+	  ParserFactory="Umbraco.CodeGen.Parsers.DefaultParserFactory, Umbraco.CodeGen"
+	  >
 	  <DocumentTypes ModelPath="~/Models/DocumentTypes" Namespace="MyWeb.Models" BaseClass="SomeBaseClass" GenerateClasses="true" GenerateXml="true" RemovePrefix=""/>
 	  <MediaTypes ModelPath="~/Models/MediaTypes" Namespace="MyWeb.Models" BaseClass="SomeBaseClass" GenerateClasses="true" GenerateXml="true" RemovePrefix=""/>
       <TypeMappings Default="String">
