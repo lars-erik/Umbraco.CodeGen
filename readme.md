@@ -11,6 +11,8 @@ Binaries available at the [project page](http://lars-erik.github.io/Umbraco.Code
 
 Documentation is moving over to the [wiki](https://github.com/lars-erik/Umbraco.CodeGen/wiki)
 
+But there's still quite a bit of useful info below. :)
+
 ##Recommended uSync setup:
     <usync read="true" write="false" attach="true" .../>
 
@@ -26,23 +28,55 @@ Documentation is moving over to the [wiki](https://github.com/lars-erik/Umbraco.
 
 ##Recommended CodeGen config (~/config/CodeGen.config):
     <?xml version="1.0" encoding="utf-8" ?>
-	<CodeGenerator OverwriteReadOnly="false"
-	  GeneratorFactory="Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory, Umbraco.CodeGen"
-	  ParserFactory="Umbraco.CodeGen.Parsers.DefaultParserFactory, Umbraco.CodeGen"
-	  >
-	  <DocumentTypes ModelPath="~/Models/DocumentTypes" Namespace="MyWeb.Models" BaseClass="SomeBaseClass" GenerateClasses="true" GenerateXml="true" RemovePrefix=""/>
-	  <MediaTypes ModelPath="~/Models/MediaTypes" Namespace="MyWeb.Models" BaseClass="SomeBaseClass" GenerateClasses="true" GenerateXml="true" RemovePrefix=""/>
+    <CodeGenerator OverwriteReadOnly="false"
+      GeneratorFactory="Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory, Umbraco.CodeGen"
+      ParserFactory="Umbraco.CodeGen.Parsers.DefaultParserFactory, Umbraco.CodeGen"
+      >
+      <DocumentTypes
+        ModelPath="~/Models/DocumentTypes"
+        Namespace="MyWeb.Models"
+        BaseClass="SomeBaseClass"
+        GenerateClasses="true"
+        GenerateXml="true"
+        RemovePrefix="" />
+      <MediaTypes
+        ModelPath="~/Models/MediaTypes"
+        Namespace="MyWeb.Models"
+        BaseClass="SomeBaseClass"
+        GenerateClasses="true"
+        GenerateXml="true"
+        RemovePrefix="" />
       <TypeMappings Default="String">
-	    <TypeMapping DataTypeId="38B352C1-E9F8-4FD8-9324-9A2EAB06D97A" Type="Boolean" Description="True/false"/>
-	    <TypeMapping DataTypeId="1413AFCB-D19A-4173-8E9A-68288D2A73B8" Type="Int32" Description="Numeric"/>
-	    <TypeMapping DataTypeId="5032A6E6-69E3-491D-BB28-CD31CD11086C" Type="Int32" Description="Upload"/>
-	    <TypeMapping DataTypeId="B6FB1622-AFA5-4BBF-A3CC-D9672A442222" Type="DateTime" Description="Date Picker with time"/>
-	    <TypeMapping DataTypeId="F8D60F68-EC59-4974-B43B-C46EB5677985" Type="System.Drawing.Color" Description="Approved Color"/>
-	    <TypeMapping DataTypeId="CCCD4AE9-F399-4ED2-8038-2E88D19E810C" Type="Object" Description="Folder Browser"/>
-	    <TypeMapping DataTypeId="23E93522-3200-44E2-9F29-E61A6FCBB79A" Type="DateTime" Description="Date Picker"/>
-	    <TypeMapping DataTypeId="158AA029-24ED-4948-939E-C3DA209E5FBA" Type="Int32" Description="Content Picker"/>
-	    <TypeMapping DataTypeId="EAD69342-F06D-4253-83AC-28000225583B" Type="Int32" Description="Media Picker"/>
-	    <TypeMapping DataTypeId="474FCFF8-9D2D-11DE-ABC6-AD7A56D89593" Type="Object" Description="Macro Container"/>
+        <TypeMapping Description="True/false"
+                     DataTypeId="38B352C1-E9F8-4FD8-9324-9A2EAB06D97A" 
+                     Type="Boolean" />
+        <TypeMapping Description="Numeric"
+                     DataTypeId="1413AFCB-D19A-4173-8E9A-68288D2A73B8" 
+                     Type="Int32" />
+        <TypeMapping Description="Upload"
+                     DataTypeId="5032A6E6-69E3-491D-BB28-CD31CD11086C" 
+                     Type="Int32" />
+        <TypeMapping Description="Date Picker with time"
+                     DataTypeId="B6FB1622-AFA5-4BBF-A3CC-D9672A442222" 
+                     Type="DateTime" />
+        <TypeMapping Description="Approved Color"
+                     DataTypeId="F8D60F68-EC59-4974-B43B-C46EB5677985" 
+                     Type="System.Drawing.Color" />
+        <TypeMapping Description="Folder Browser"
+                     DataTypeId="CCCD4AE9-F399-4ED2-8038-2E88D19E810C" 
+                     Type="Object" />
+        <TypeMapping Description="Date Picker"
+                     DataTypeId="23E93522-3200-44E2-9F29-E61A6FCBB79A" 
+                     Type="DateTime" />
+        <TypeMapping Description="Content Picker"
+                     DataTypeId="158AA029-24ED-4948-939E-C3DA209E5FBA" 
+                     Type="Int32" />
+        <TypeMapping Description="Media Picker"
+                     DataTypeId="EAD69342-F06D-4253-83AC-28000225583B" 
+                     Type="Int32" />
+        <TypeMapping Description="Macro Container"
+                     DataTypeId="474FCFF8-9D2D-11DE-ABC6-AD7A56D89593" 
+                     Type="Object" />
       </TypeMappings>
     </CodeGenerator>
 
