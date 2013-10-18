@@ -16,7 +16,7 @@ namespace Umbraco.CodeGen.Models
     using Umbraco.Core.Models;
     using Umbraco.Web;
     
-    public class InheritedMediaFolder : Folder
+    public partial class InheritedMediaFolder : Folder
     {
         private string icon = "folder.gif";
         private string thumbnail = "folder.png";
@@ -26,9 +26,13 @@ namespace Umbraco.CodeGen.Models
                 typeof(Image),
                 typeof(File),
                 typeof(InheritedMediaFolder)};
+        public InheritedMediaFolder(IPublishedContent content) : 
+                base(content)
+        {
+        }
         [DataType("Textstring")]
         [Category("A tab")]
-        private String LetsHaveAProperty
+        public virtual String LetsHaveAProperty
         {
             get
             {
@@ -36,7 +40,7 @@ namespace Umbraco.CodeGen.Models
             }
         }
         [DataType("Textstring")]
-        private String AndATablessProperty
+        public virtual String AndATablessProperty
         {
             get
             {

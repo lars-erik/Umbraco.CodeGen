@@ -30,6 +30,13 @@ namespace Umbraco.CodeGen.Tests.Generators
         }
 
         [Test]
+        public void Generate_PropertyIsPublic()
+        {
+            Generate();
+            Assert.AreEqual(MemberAttributes.Public, codeProperty.Attributes);
+        }
+
+        [Test]
         public void Generate_Type_WhenNotConfigured_IsDefaultType()
         {
             Generate();

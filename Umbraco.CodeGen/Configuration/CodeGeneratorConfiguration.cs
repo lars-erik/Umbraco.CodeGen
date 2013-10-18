@@ -58,9 +58,17 @@ namespace Umbraco.CodeGen.Configuration
             public const string MediaType = "MediaType";
         }
 
-        private Dictionary<string, ContentTypeConfiguration> configs;
+        public static class Defaults
+        {
+            public const string GeneratorFactory = "Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory, Umbraco.CodeGen";
+            public const string ParserFactory = "Umbraco.CodeGen.Parsers.DefaultParserFactory, Umbraco.CodeGen";
+        }
 
-	    public ContentTypeConfiguration DocumentTypes
+        private Dictionary<string, ContentTypeConfiguration> configs;
+        private string generatorFactory = Defaults.GeneratorFactory;
+        private string parserFactory = Defaults.ParserFactory;
+
+        public ContentTypeConfiguration DocumentTypes
 	    {
 	        get { return configs[Keys.DocumentType]; }
 	        set
@@ -100,6 +108,20 @@ namespace Umbraco.CodeGen.Configuration
         
         [XmlAttribute]
         public bool OverwriteReadOnly { get; set; }
+
+        [XmlAttribute, DefaultValue(Defaults.GeneratorFactory)]
+        public string GeneratorFactory
+        {
+            get { return generatorFactory; }
+            set { generatorFactory = value; }
+        }
+
+        [XmlAttribute, DefaultValue(Defaults.ParserFactory)]
+        public string ParserFactory
+        {
+            get { return parserFactory; }
+            set { parserFactory = value; }
+        }
 
         public ContentTypeConfiguration Get(string contentTypeName)
         {

@@ -17,7 +17,7 @@ namespace Umbraco.CodeGen.Models
     using Umbraco.Web;
     
     [Description("A description of some document type")]
-    public class SomeDocumentType : DocumentTypeBase
+    public partial class SomeDocumentType : DocumentTypeBase
     {
         private string icon = "privateMemberIcon.gif";
         private string thumbnail = "privateMemberThumb.png";
@@ -28,12 +28,16 @@ namespace Umbraco.CodeGen.Models
                 "AnotherTemplate"};
         private System.Type[] structure = new System.Type[] {
                 typeof(SomeOtherDocType)};
+        public SomeDocumentType(IPublishedContent content) : 
+                base(content)
+        {
+        }
         [Description("A description")]
         [DataType("RTE")]
         [Category("A tab")]
         [Required()]
         [RegularExpression("[a-z]")]
-        private String SomeProperty
+        public virtual String SomeProperty
         {
             get
             {
@@ -43,7 +47,7 @@ namespace Umbraco.CodeGen.Models
         [Description("Another description")]
         [DataType("RTE")]
         [Category("A tab")]
-        private String AnotherProperty
+        public virtual String AnotherProperty
         {
             get
             {
@@ -51,7 +55,7 @@ namespace Umbraco.CodeGen.Models
             }
         }
         [DataType("Numeric")]
-        private Int32 TablessProperty
+        public virtual Int32 TablessProperty
         {
             get
             {

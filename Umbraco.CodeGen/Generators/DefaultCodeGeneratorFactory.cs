@@ -31,6 +31,7 @@ namespace Umbraco.CodeGen.Generators
                 new ImportsGenerator(c),
                 new ClassGenerator(c,
                     new EntityDescriptionGenerator(c),
+                    new CtorGenerator(c),
                     infoGenerator,
                     new StructureGenerator(c),
                     new PropertiesGenerator(c,

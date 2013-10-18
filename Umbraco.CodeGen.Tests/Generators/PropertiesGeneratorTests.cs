@@ -6,6 +6,7 @@ using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using umbraco.presentation.install.utills;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
@@ -34,7 +35,8 @@ namespace Umbraco.CodeGen.Tests.Generators
         {
             var generator = new PropertiesGenerator(null);
             generator.Generate(type, contentType);
-            Assert.AreEqual(2, type.Members.OfType<CodeMemberProperty>().Count());
+            var properties = type.Members.OfType<CodeMemberProperty>().ToList();
+            Assert.AreEqual(2, properties.Count());
         }
 
         [Test]

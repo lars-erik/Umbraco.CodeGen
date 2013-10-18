@@ -32,10 +32,16 @@ namespace Umbraco.CodeGen.Generators
             foreach (var generator in memberGenerators)
                 generator.Generate(codeObject, property);
 
+            SetPublic(propNode);
             AddDataType(propNode, property);
             AddCategory(propNode, property);
             AddRequired(propNode, property);
             AddValidation(propNode, property);
+        }
+
+        private void SetPublic(CodeTypeMember propNode)
+        {
+            propNode.Attributes = MemberAttributes.Public;
         }
 
         private void SetType(CodeMemberProperty propNode, GenericProperty property)

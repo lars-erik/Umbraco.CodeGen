@@ -34,11 +34,17 @@ namespace Umbraco.CodeGen.Generators
             ns.Types.Add(type);
 
             entityDescriptionGenerator.Generate(type, info);
+            SetPartial(type);
             SetBaseClass(type, info);
 
             if (memberGenerators != null)
                 foreach(var generator in memberGenerators)
                     generator.Generate(type, contentType);
+        }
+
+        private void SetPartial(CodeTypeDeclaration type)
+        {
+            type.IsPartial = true;
         }
 
         protected void SetBaseClass(CodeTypeDeclaration type, Info info)

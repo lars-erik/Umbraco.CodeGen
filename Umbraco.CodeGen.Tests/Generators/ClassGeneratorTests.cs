@@ -34,6 +34,13 @@ namespace Umbraco.CodeGen.Tests.Generators
         }
 
         [Test]
+        public void Generate_ClassIsPartial()
+        {
+            Generate();
+            Assert.IsTrue(Type.IsPartial);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]

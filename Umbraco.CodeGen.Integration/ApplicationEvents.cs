@@ -4,13 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
-using System.Xml.XPath;
+using umbraco.cms.businesslogic.datatype.controls;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Parsers;
 using jumps.umbraco.usync.helpers;
-using Microsoft.CSharp;
 using Umbraco.Core;
 
 namespace Umbraco.CodeGen.Integration
@@ -24,6 +23,8 @@ namespace Umbraco.CodeGen.Integration
 
 		private readonly Dictionary<string, string> paths = new Dictionary<string, string>();
 	    private readonly ContentTypeSerializer serializer = new ContentTypeSerializer();
+	    private CodeGeneratorFactory generatorFactory;
+	    private ParserFactory parserFactory;
 
 	    public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
@@ -41,6 +42,9 @@ namespace Umbraco.CodeGen.Integration
 			dataTypes = dataTypesProvider.GetDataTypes();
 			configuration = configurationProvider.GetConfiguration();
 
+		    generatorFactory = CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
+		    parserFactory = CreateFactory<ParserFactory>(configuration.ParserFactory);
+
 			paths.Add("DocumentType", HttpContext.Current.Server.MapPath(configuration.DocumentTypes.ModelPath));
 			paths.Add("MediaType", HttpContext.Current.Server.MapPath(configuration.MediaTypes.ModelPath));
 
@@ -52,9 +56,24 @@ namespace Umbraco.CodeGen.Integration
 				GenerateXml(configuration.MediaTypes);
 		}
 
-		private void GenerateXml(ContentTypeConfiguration contentTypeConfiguration)
+	    private T CreateFactory<T>(string typeName)
+	    {
+	        try
+	        {
+	            var factoryType = Type.GetType(typeName);
+                if (factoryType == null)
+                    throw new Exception(String.Format("Type {0} not found", typeName));
+	            return (T) Activator.CreateInstance(factoryType);
+	        }
+	        catch (Exception ex)
+	        {
+                throw new Exception(String.Format("Invalid factory '{0}'", typeName), ex);
+	        }
+	    }
+
+	    private void GenerateXml(ContentTypeConfiguration contentTypeConfiguration)
 		{
-			var parser = new CodeParser(contentTypeConfiguration, dataTypes, new DefaultParserFactory());
+			var parser = new CodeParser(contentTypeConfiguration, dataTypes, parserFactory);
 		    var modelPath = HttpContext.Current.Server.MapPath(contentTypeConfiguration.ModelPath);
 			if (!Directory.Exists(modelPath))
 				Directory.CreateDirectory(modelPath);
@@ -125,7 +144,7 @@ namespace Umbraco.CodeGen.Integration
 				if (configuration.OverwriteReadOnly && File.Exists(path))
 					File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
 
-            var classGenerator = new CodeGenerator(typeConfig, dataTypesProvider, new DefaultCodeGeneratorFactory());
+            var classGenerator = new CodeGenerator(typeConfig, dataTypesProvider, generatorFactory);
             using (var stream = File.CreateText(path))
                 classGenerator.Generate(contentType, stream);
 		}

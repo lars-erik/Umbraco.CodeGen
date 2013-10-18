@@ -16,6 +16,8 @@ namespace Umbraco.CodeGen.Tests.Configuration
 		    var provider = new CodeGeneratorConfigurationFileProvider(path);
 			var config = provider.GetConfiguration();
 
+            Assert.AreEqual("Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory, Umbraco.CodeGen", config.GeneratorFactory); // set
+            Assert.AreEqual("Umbraco.CodeGen.Parsers.DefaultParserFactory, Umbraco.CodeGen", config.ParserFactory); // default
 			Assert.AreEqual("SomeBaseClass", config.DocumentTypes.BaseClass);
 			Assert.AreEqual("String", config.DefaultTypeMapping);
             Assert.AreEqual("0cc0eba1-9960-42c9-bf9b-60e150b429ae", config.DefaultDefinitionId);
