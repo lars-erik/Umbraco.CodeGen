@@ -13,6 +13,6 @@ Documentation is all in the [wiki](https://github.com/lars-erik/Umbraco.CodeGen/
 
 ###Gotchas:
 * Generated classes are partial
-    DO NOT write code other than properties in the generated classes!
+    * DO NOT write code other than properties in the generated classes!
 * If document type and property has the same name,
     the class is suffixed with "Class"
