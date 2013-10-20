@@ -4,6 +4,7 @@
 
 Umbraco.CodeGen.Web/*
 *.nupkg
+Packaging/Package/*
 
 #################
 ## Eclipse

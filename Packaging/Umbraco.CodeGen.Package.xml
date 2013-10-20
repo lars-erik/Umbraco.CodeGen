@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<umbPackage>
+  <files>
+    <file>
+      <guid>Umbraco.CodeGen.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>Umbraco.CodeGen.dll</orgName>
+    </file>
+    <file>
+      <guid>Umbraco.CodeGen.Integration.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>Umbraco.CodeGen.Integration.dll</orgName>
+    </file>
+    <file>
+      <guid>ICSharpCode.NRefactory.CSharp.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>ICSharpCode.NRefactory.CSharp.dll</orgName>
+    </file>
+    <file>
+      <guid>ICSharpCode.NRefactory.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>ICSharpCode.NRefactory.dll</orgName>
+    </file>
+    <file>
+      <guid>Mono.Cecil.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>Mono.Cecil.dll</orgName>
+    </file>
+    <file>
+      <guid>CodeGen.config</guid>
+      <orgPath>/config</orgPath>
+      <orgName>CodeGen.config</orgName>
+    </file>
+  </files>
+  <info>
+    <package>
+      <name>Umbraco CodeGen</name>
+      <version>1.0.4937.26953</version>
+      <license url="http://www.opensource.org/licenses/mit-license.php">MIT license</license>
+      <url>http://lars-erik.github.io/Umbraco.CodeGen/</url>
+      <requirements>
+        <major>6</major>
+        <minor>1</minor>
+        <patch>0</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Lars-Erik Aabech</name>
+      <website>http://aabech.no</website>
+    </author>
+    <readme>
+      <![CDATA[Synchronizes C# classes with uSync content type XML files.
+      
+Enables typed models and code-first in your Umbraco project.]]>
+    </readme>
+  </info>
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+  <Actions />
+</umbPackage>
