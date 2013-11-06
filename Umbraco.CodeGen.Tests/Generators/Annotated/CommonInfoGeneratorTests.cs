@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Linq;
+using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
@@ -47,8 +48,12 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         }
 
         [Test]
-        public void Generate_Icon_NoValue_OmitsIconArgument()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Generate_Icon_NoValue_OmitsIconArgument(string value)
         {
+            info.Icon = value;
             Generate();
             Assert.IsNull(FindAttributeArgument(attribute, "Icon"));
         }
@@ -63,8 +68,12 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         }
 
         [Test]
-        public void Generate_Thumbnail_NoValue_OmitsIconArgument()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Generate_Thumbnail_NoValue_OmitsIconArgument(string value)
         {
+            info.Thumbnail = value;
             Generate();
             Assert.IsNull(FindAttributeArgument(attribute, "Thumbnail"));
         }

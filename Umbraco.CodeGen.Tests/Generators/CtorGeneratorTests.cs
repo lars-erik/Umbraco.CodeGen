@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 
-namespace Umbraco.CodeGen.Tests.Generators.Bcl
+namespace Umbraco.CodeGen.Tests.Generators
 {
     [TestFixture]
     public class CtorGeneratorTests

@@ -35,6 +35,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [TestCase(" ")]
         public void Generate_Icon_WhenNullOrEmpty_IsIgnored(string value)
         {
+            info.Icon = value;
             Generate();
             Assert.IsNull(FindField("icon"));
         }
@@ -53,6 +54,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [TestCase(" ")]
         public void Generate_Thumbnail_WhenNullOrEmpty_IsIgnored(string value)
         {
+            info.Thumbnail = value;
             Generate();
             Assert.IsNull(FindField("thumbnail"));
         }

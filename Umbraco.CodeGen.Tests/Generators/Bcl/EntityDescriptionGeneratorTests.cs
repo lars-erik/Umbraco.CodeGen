@@ -1,13 +1,27 @@
 ﻿using System;
+using System.CodeDom;
 using NUnit.Framework;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Generators.Bcl;
 
 namespace Umbraco.CodeGen.Tests.Generators.Bcl
 {
-#warning Check coverage after removing this as base
-    public abstract class EntityDescriptionGeneratorTests : TypeCodeGeneratorTestBase
+    public class EntityDescriptionGeneratorTests : TypeCodeGeneratorTestBase
     {
         protected EntityDescription EntityDescription;
+        private DocumentType documentType;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Candidate = Type = new CodeTypeDeclaration();
+            Generator = new EntityDescriptionGenerator(Configuration);
+            documentType = new DocumentType { Info = { Alias = "anEntity" } };
+            EntityDescription = documentType.Info;
+        }
 
         [Test]
         public void Generate_Alias_PascalCasesName()

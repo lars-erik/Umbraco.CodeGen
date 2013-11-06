@@ -8,7 +8,7 @@ using Umbraco.CodeGen.Tests.TestHelpers;
 
 namespace Umbraco.CodeGen.Tests.Generators.Bcl
 {
-    public class PropertyDeclarationCodeGeneratorTests : EntityDescriptionGeneratorTests
+    public class PropertyDeclarationCodeGeneratorTests : TypeCodeGeneratorTestBase
     {
         private CodeGeneratorConfiguration codeGenConfig;
         private GenericProperty property;
@@ -25,7 +25,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
                 new EntityDescriptionGenerator(Configuration)
             );
             Candidate = codeProperty = new CodeMemberProperty();
-            EntityDescription = property = new GenericProperty{Alias="anEntity"};
+            property = new GenericProperty{Alias="anEntity"};
         }
 
         [Test]
@@ -135,6 +135,11 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
             property.Validation = value;
             Generate();
             Assert.IsNull(FindAttribute("RegularExpression"));
+        }
+
+        protected virtual void Generate()
+        {
+            Generator.Generate(Candidate, property);
         }
     }
 }

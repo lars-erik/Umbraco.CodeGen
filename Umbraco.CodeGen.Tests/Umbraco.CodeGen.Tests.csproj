@@ -85,7 +85,7 @@
     <Compile Include="Generators\Annotated\CommonInfoGeneratorTests.cs" />
     <Compile Include="Generators\ClassGeneratorTests.cs" />
     <Compile Include="Generators\CodeGenerationHelper.cs" />
-    <Compile Include="Generators\Bcl\CtorGeneratorTests.cs" />
+    <Compile Include="Generators\CtorGeneratorTests.cs" />
     <Compile Include="Generators\ImportsGeneratorTests.cs" />
     <Compile Include="Generators\NamespaceGeneratorTests.cs" />
     <Compile Include="Generators\CodeGeneratorTestBase.cs" />
