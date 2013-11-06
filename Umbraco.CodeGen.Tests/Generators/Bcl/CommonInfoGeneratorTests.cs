@@ -1,11 +1,10 @@
 ﻿using System.CodeDom;
-using System.Linq;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Generators.Bcl;
 
-namespace Umbraco.CodeGen.Tests.Generators
+namespace Umbraco.CodeGen.Tests.Generators.Bcl
 {
     [TestFixture]
     public class CommonInfoGeneratorTests : TypeCodeGeneratorTestBase

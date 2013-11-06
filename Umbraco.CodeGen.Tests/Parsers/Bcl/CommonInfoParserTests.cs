@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Parsers;
+using Umbraco.CodeGen.Parsers.Bcl;
 
-namespace Umbraco.CodeGen.Tests.Parsers
+namespace Umbraco.CodeGen.Tests.Parsers.Bcl
 {
     [TestFixture]
     public class CommonInfoParserTests : ContentTypeCodeParserTestBase

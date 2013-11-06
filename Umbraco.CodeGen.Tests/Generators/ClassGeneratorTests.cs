@@ -4,11 +4,12 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Generators.Bcl;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
     [TestFixture]
-    public class ClassGeneratorTests : EntityDescriptionGeneratorTests
+    public class ClassGeneratorTests : TypeCodeGeneratorTestBase
     {
         private Info info;
         private CodeNamespace ns;
@@ -22,7 +23,7 @@ namespace Umbraco.CodeGen.Tests.Generators
                 new EntityDescriptionGenerator(Configuration)
                 );
             ContentType = new MediaType { Info = { Alias = "anEntity" } };
-            EntityDescription = info = ContentType.Info;
+            info = ContentType.Info;
             ns = new CodeNamespace("ANamespace");
         }
 
@@ -71,7 +72,7 @@ namespace Umbraco.CodeGen.Tests.Generators
             Assert.That(spies.All(s => s.Called));
         }
 
-        protected override void Generate()
+        protected void Generate()
         {
             Generator.Generate(ns, ContentType);
             Candidate = Type = ns.Types.Cast<CodeTypeDeclaration>().Single();

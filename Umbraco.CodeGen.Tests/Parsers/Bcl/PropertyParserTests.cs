@@ -4,10 +4,10 @@ using System.Linq;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Parsers;
+using Umbraco.CodeGen.Parsers.Bcl;
 using Umbraco.CodeGen.Tests.TestHelpers;
 
-namespace Umbraco.CodeGen.Tests.Parsers
+namespace Umbraco.CodeGen.Tests.Parsers.Bcl
 {
     public class PropertyParserTests : ContentTypeCodeParserTestBase
     {

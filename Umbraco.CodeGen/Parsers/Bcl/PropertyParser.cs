@@ -5,7 +5,7 @@ using ICSharpCode.NRefactory.CSharp;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Parsers
+namespace Umbraco.CodeGen.Parsers.Bcl
 {
     public class PropertyParser : ContentTypeCodeParserBase
     {

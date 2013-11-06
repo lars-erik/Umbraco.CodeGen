@@ -1,14 +1,12 @@
-﻿using System;
-using System.CodeDom;
+﻿using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Generators.Bcl;
 
-namespace Umbraco.CodeGen.Tests.Generators
+namespace Umbraco.CodeGen.Tests.Generators.Bcl
 {
     [TestFixture]
     public class StructureGeneratorTests : TypeCodeGeneratorTestBase

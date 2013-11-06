@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Umbraco.CodeGen.Configuration;
+using Umbraco.CodeGen.Generators.Bcl;
 
 namespace Umbraco.CodeGen.Generators
 {

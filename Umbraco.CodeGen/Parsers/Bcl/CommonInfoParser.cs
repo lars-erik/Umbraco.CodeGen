@@ -1,7 +1,7 @@
 ﻿using ICSharpCode.NRefactory.CSharp;
 using Umbraco.CodeGen.Configuration;
 
-namespace Umbraco.CodeGen.Parsers
+namespace Umbraco.CodeGen.Parsers.Bcl
 {
     public class CommonInfoParser : InfoParserBase
     {

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.CodeDom;
-using System.Collections.Generic;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Generators.Bcl;
 using Umbraco.CodeGen.Tests.TestHelpers;
 
-namespace Umbraco.CodeGen.Tests.Generators
+namespace Umbraco.CodeGen.Tests.Generators.Bcl
 {
     public class PropertyDeclarationCodeGeneratorTests : EntityDescriptionGeneratorTests
     {

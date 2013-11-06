@@ -2,8 +2,9 @@
 using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Tests.Generators
+namespace Umbraco.CodeGen.Tests.Generators.Bcl
 {
+#warning Check coverage after removing this as base
     public abstract class EntityDescriptionGeneratorTests : TypeCodeGeneratorTestBase
     {
         protected EntityDescription EntityDescription;
