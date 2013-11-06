@@ -16,7 +16,7 @@ namespace Umbraco.CodeGen.Generators
             Config = config;
         }
 
-        public abstract void Generate(CodeObject codeObject, Entity entity);
+        public abstract void Generate(object codeObject, Entity entity);
 
         protected static void AddAttribute(CodeTypeMember type, string attributeName, string value)
         {

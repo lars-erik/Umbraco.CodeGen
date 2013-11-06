@@ -1,8 +1,5 @@
 ﻿using System;
 using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 
@@ -16,19 +13,35 @@ namespace Umbraco.CodeGen.Generators.Annotated
             
         }
 
-        public override void Generate(CodeObject codeObject, Entity entity)
+        public override void Generate(object codeObject, Entity entity)
         {
-            var type = codeObject as CodeAttributeDeclaration;
-            if (type == null)
+            var attribute = codeObject as CodeAttributeDeclaration;
+            if (attribute == null)
                 throw new Exception("Common info generator must be used on an attribute declaration");
 
             var contentType = (ContentType)entity;
             var info = contentType.Info;
 
-            var attribute = type.CustomAttributes.Cast<CodeAttributeDeclaration>().Single();
+            AddAttributeArgumentIfValue(attribute, "Icon", info.Icon);
+            AddAttributeArgumentIfValue(attribute, "Thumbnail", info.Thumbnail);
+            if (info.AllowAtRoot)
+                AddAttributeArgument(attribute, "AllowAtRoot", true);
+        }
 
-            if (!String.IsNullOrWhiteSpace(info.Icon))
-                attribute.Arguments.Add(new CodeAttributeArgument("Icon", new CodePrimitiveExpression(info.Icon)));
+        private static void AddAttributeArgumentIfValue(CodeAttributeDeclaration attribute, string argumentName, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+                AddAttributeArgument(attribute, argumentName, value);
+        }
+
+        private static void AddAttributeArgument(CodeAttributeDeclaration attribute, string argumentName, object value)
+        {
+            attribute.Arguments.Add(
+                new CodeAttributeArgument(
+                    argumentName, 
+                    new CodePrimitiveExpression(value)
+                )
+            );
         }
     }
 }

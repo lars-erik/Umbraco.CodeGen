@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Generators.Bcl
         {
         }
 
-        public override void Generate(CodeObject codeObject, Entity entity)
+        public override void Generate(object codeObject, Entity entity)
         {
             var description = (EntityDescription) entity;
             var type = (CodeTypeMember)codeObject;

@@ -20,7 +20,7 @@ namespace Umbraco.CodeGen.Generators
             this.propertyGenerators = propertyGenerators;
         }
 
-        public override void Generate(CodeObject codeObject, Entity entity)
+        public override void Generate(object codeObject, Entity entity)
         {
             var type = (CodeTypeDeclaration) codeObject;
             var contentType = (ContentType) entity;

@@ -8,13 +8,13 @@ namespace Umbraco.CodeGen.Tests.Generators
     public class SpyGenerator : CodeGeneratorBase
     {
         public bool Called;
-        public List<CodeObject> CodeObjects = new List<CodeObject>();
+        public List<object> CodeObjects = new List<object>();
 
         public SpyGenerator() : base(null)
         {
         }
 
-        public override void Generate(CodeObject codeObject, Entity entity)
+        public override void Generate(object codeObject, Entity entity)
         {
             CodeObjects.Add(codeObject);
             Called = true;

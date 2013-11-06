@@ -1,8 +1,6 @@
 ﻿using System;
 using System.CodeDom;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
@@ -44,9 +42,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         {
             info.Icon = "icon.gif";
             Generate();
-            var attribute = Type.CustomAttributes.Cast<CodeAttributeDeclaration>().Single();
-            var argument = attribute.Arguments.Cast<CodeAttributeArgument>().Single(arg => arg.Name == "Icon");
-            var argValue = ((CodePrimitiveExpression) argument.Value).Value;
+            var argValue = FindAttributeArgumentValue(attribute, "Icon");
             Assert.AreEqual(info.Icon, argValue);
         }
 
@@ -54,13 +50,60 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         public void Generate_Icon_NoValue_OmitsIconArgument()
         {
             Generate();
-            var attribute = Type.CustomAttributes.Cast<CodeAttributeDeclaration>().Single();
-            Assert.That(attribute.Arguments.Cast<CodeAttributeArgument>().All(arg => arg.Name != "Icon"));
+            Assert.IsNull(FindAttributeArgument(attribute, "Icon"));
+        }
+
+        [Test]
+        public void Generate_Thumbnail_WhenHasValue_IsAttributeArgumentWithValue()
+        {
+            info.Thumbnail = "thumb.png";
+            Generate();
+            var argValue = FindAttributeArgumentValue(attribute, "Thumbnail");
+            Assert.AreEqual(info.Thumbnail, argValue);
+        }
+
+        [Test]
+        public void Generate_Thumbnail_NoValue_OmitsIconArgument()
+        {
+            Generate();
+            Assert.IsNull(FindAttributeArgument(attribute, "Thumbnail"));
+        }
+
+        [Test]
+        public void Generate_AllowAtRoot_WhenTrue_IsAttributeArgumentWithValue()
+        {
+            info.AllowAtRoot = true;
+            Generate();
+            var argValue = FindAttributeArgumentValue(attribute, "AllowAtRoot");
+            Assert.That(argValue, Is.True);
+        }
+
+        [Test]
+        public void Generate_AllowAtRoot_False_OmitsAllowAtRootArgument()
+        {
+            Generate();
+            Assert.IsNull(FindAttributeArgument(attribute, "AllowAtRoot"));
         }
 
         private void Generate()
         {
-            Generator.Generate(Type, ContentType);
+            Generator.Generate(attribute, contentType);
+        }
+
+        private static object FindAttributeArgumentValue(CodeAttributeDeclaration attributeDeclaration, string attributeName)
+        {
+            var argument = FindAttributeArgument(attributeDeclaration, attributeName);
+            var argValue = ((CodePrimitiveExpression)argument.Value).Value;
+            return argValue;
+        }
+
+        private static CodeAttributeArgument FindAttributeArgument(CodeAttributeDeclaration attributeDeclaration,
+            string attributeName)
+        {
+            var argument = attributeDeclaration.Arguments
+                .Cast<CodeAttributeArgument>()
+                .SingleOrDefault(arg => arg.Name == attributeName);
+            return argument;
         }
     }
 }

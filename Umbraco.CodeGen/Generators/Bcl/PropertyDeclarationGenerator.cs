@@ -22,7 +22,7 @@ namespace Umbraco.CodeGen.Generators.Bcl
             this.memberGenerators = memberGenerators;
         }
 
-        public override void Generate(CodeObject codeObject, Entity entity)
+        public override void Generate(object codeObject, Entity entity)
         {
             var property = (GenericProperty)entity;
             var propNode = (CodeMemberProperty) codeObject;

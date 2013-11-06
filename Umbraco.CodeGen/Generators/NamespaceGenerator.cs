@@ -17,7 +17,7 @@ namespace Umbraco.CodeGen.Generators
             this.memberGenerators = memberGenerators;
         }
 
-        public override void Generate(CodeObject codeObject, Entity entity)
+        public override void Generate(object codeObject, Entity entity)
         {
             var compileUnit = (CodeCompileUnit) codeObject;
 
