@@ -34,10 +34,8 @@ namespace Umbraco.CodeGen.Generators.Bcl
                 );
             var expressions = 
                 info.AllowedTemplates
-                    .Where(t => !String.IsNullOrWhiteSpace(t))
-                    .Select(t => new CodePrimitiveExpression(t))
-                    .Cast<CodeExpression>()
-                    .ToArray();
+                    .NonNullOrWhiteSpace()
+                    .AsPrimitiveExpressions();
             field.InitExpression = new CodeArrayCreateExpression(
                 typeof(string[]),
                 expressions

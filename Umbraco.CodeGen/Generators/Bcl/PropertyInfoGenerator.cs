@@ -7,58 +7,32 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators.Bcl
 {
-    public class PropertyDeclarationGenerator : CodeGeneratorBase
+    public class PropertyInfoGenerator : PropertyDeclarationGenerator
     {
-        private readonly IList<DataTypeDefinition> dataTypes;
-        private readonly CodeGeneratorBase[] memberGenerators;
-
-        public PropertyDeclarationGenerator(
+        public PropertyInfoGenerator(
             ContentTypeConfiguration config,
             IList<DataTypeDefinition> dataTypes,
             params CodeGeneratorBase[] memberGenerators
-            ) : base(config)
+            ) : base(config, dataTypes, memberGenerators)
         {
-            this.dataTypes = dataTypes;
-            this.memberGenerators = memberGenerators;
         }
 
         public override void Generate(object codeObject, Entity entity)
         {
+            base.Generate(codeObject, entity);
+
             var property = (GenericProperty)entity;
             var propNode = (CodeMemberProperty) codeObject;
             
-            SetType(propNode, property);
-
-            foreach (var generator in memberGenerators)
-                generator.Generate(codeObject, property);
-
-            SetPublic(propNode);
             AddDataType(propNode, property);
             AddCategory(propNode, property);
             AddRequired(propNode, property);
             AddValidation(propNode, property);
         }
 
-        private void SetPublic(CodeTypeMember propNode)
-        {
-            propNode.Attributes = MemberAttributes.Public;
-        }
-
-        private void SetType(CodeMemberProperty propNode, GenericProperty property)
-        {
-            var hasType = property.Type != null &&
-                Config.TypeMappings.ContainsKey(property.Type.ToLower());
-            var typeName = hasType 
-                ? Config.TypeMappings[property.Type.ToLower()]
-                : Config.DefaultTypeMapping;
-            if (typeName == null)
-                throw new Exception("TypeMappings/Default not set. Cannot guess default property type.");
-            propNode.Type = new CodeTypeReference(typeName);
-        }
-
         private void AddDataType(CodeMemberProperty propNode, GenericProperty property)
         {
-            var dataType = dataTypes.SingleOrDefault(dt =>
+            var dataType = DataTypes.SingleOrDefault(dt =>
                 String.Compare(dt.DefinitionId, property.Definition, IgnoreCase) == 0 ||
                 String.Compare(dt.DataTypeName, property.Definition, IgnoreCase) == 0);
             var dataTypeValue = dataType != null

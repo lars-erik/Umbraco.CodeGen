@@ -5,7 +5,7 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators.Bcl
 {
-    public class EntityDescriptionGenerator : CodeGeneratorBase
+    public class EntityDescriptionGenerator : EntityNameGenerator
     {
         public EntityDescriptionGenerator(ContentTypeConfiguration config) : base(config)
         {
@@ -13,24 +13,13 @@ namespace Umbraco.CodeGen.Generators.Bcl
 
         public override void Generate(object codeObject, Entity entity)
         {
+            base.Generate(codeObject, entity);
+
             var description = (EntityDescription) entity;
             var type = (CodeTypeMember)codeObject;
 
-            ValidateAlias(description);
-            SetName(type, description);
             AddDisplayNameIfDifferent(type, description);
             AddDescription(type, description);
-        }
-
-        protected static void ValidateAlias(EntityDescription description)
-        {
-            if (String.IsNullOrWhiteSpace(description.Alias))
-                throw new Exception("Cannot generate entity with alias null or empty");
-        }
-
-        protected static void SetName(CodeTypeMember type, EntityDescription description)
-        {
-            type.Name = description.Alias.PascalCase();
         }
 
         protected static void AddDisplayNameIfDifferent(CodeTypeMember type, EntityDescription description)

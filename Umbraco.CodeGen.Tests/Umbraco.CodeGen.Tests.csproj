@@ -82,7 +82,10 @@
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="CodeGeneratorAcceptanceTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
+    <Compile Include="Generators\Annotated\AnnotationCodeGeneratorTestBase.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGeneratorTests.cs" />
+    <Compile Include="Generators\Annotated\DocumentTypeInfoGeneratorTests.cs" />
+    <Compile Include="Generators\Annotated\EntityDescriptionGeneratorTests.cs" />
     <Compile Include="Generators\ClassGeneratorTests.cs" />
     <Compile Include="Generators\CodeGenerationHelper.cs" />
     <Compile Include="Generators\CtorGeneratorTests.cs" />
@@ -94,7 +97,7 @@
     <Compile Include="Generators\Bcl\EntityDescriptionGeneratorTests.cs" />
     <Compile Include="Generators\PropertiesGeneratorTests.cs" />
     <Compile Include="Generators\PropertyBodyGeneratorTest.cs" />
-    <Compile Include="Generators\Bcl\PropertyDeclarationCodeGeneratorTests.cs" />
+    <Compile Include="Generators\Bcl\PropertyInfoCodeGeneratorTests.cs" />
     <Compile Include="Generators\SpyGenerator.cs" />
     <Compile Include="Generators\Bcl\StructureGeneratorTests.cs" />
     <Compile Include="Generators\TypeCodeGeneratorTestBase.cs" />
@@ -163,7 +166,9 @@
   <ItemGroup>
     <None Include="uSync\DocumentType\SamePropertyName\def.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

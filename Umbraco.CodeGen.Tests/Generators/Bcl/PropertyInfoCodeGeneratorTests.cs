@@ -8,7 +8,7 @@ using Umbraco.CodeGen.Tests.TestHelpers;
 
 namespace Umbraco.CodeGen.Tests.Generators.Bcl
 {
-    public class PropertyDeclarationCodeGeneratorTests : TypeCodeGeneratorTestBase
+    public class PropertyInfoCodeGeneratorTests : TypeCodeGeneratorTestBase
     {
         private CodeGeneratorConfiguration codeGenConfig;
         private GenericProperty property;
@@ -19,7 +19,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         {
             codeGenConfig = new CodeGeneratorConfiguration();
             Configuration = codeGenConfig.MediaTypes;
-            Generator = new PropertyDeclarationGenerator(
+            Generator = new PropertyInfoGenerator(
                 Configuration, 
                 TestDataTypeProvider.All,
                 new EntityDescriptionGenerator(Configuration)

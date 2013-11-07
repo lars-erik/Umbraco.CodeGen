@@ -10,7 +10,7 @@ using Umbraco.CodeGen.Generators.Annotated;
 namespace Umbraco.CodeGen.Tests.Generators.Annotated
 {
     [TestFixture]
-    public class CommonInfoGeneratorTests : CodeGeneratorTestBase
+    public class CommonInfoGeneratorTests : AnnotationCodeGeneratorTestBase
     {
         private Info info;
         private ContentType contentType;
@@ -97,22 +97,6 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         private void Generate()
         {
             Generator.Generate(attribute, contentType);
-        }
-
-        private static object FindAttributeArgumentValue(CodeAttributeDeclaration attributeDeclaration, string attributeName)
-        {
-            var argument = FindAttributeArgument(attributeDeclaration, attributeName);
-            var argValue = ((CodePrimitiveExpression)argument.Value).Value;
-            return argValue;
-        }
-
-        private static CodeAttributeArgument FindAttributeArgument(CodeAttributeDeclaration attributeDeclaration,
-            string attributeName)
-        {
-            var argument = attributeDeclaration.Arguments
-                .Cast<CodeAttributeArgument>()
-                .SingleOrDefault(arg => arg.Name == attributeName);
-            return argument;
         }
     }
 }

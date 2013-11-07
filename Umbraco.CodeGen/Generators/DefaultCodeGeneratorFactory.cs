@@ -36,7 +36,7 @@ namespace Umbraco.CodeGen.Generators
                     infoGenerator,
                     new StructureGenerator(c),
                     new PropertiesGenerator(c,
-                        new PropertyDeclarationGenerator(c, dataTypes.ToList(), new EntityDescriptionGenerator(c)),
+                        new PropertyInfoGenerator(c, dataTypes.ToList(), new EntityDescriptionGenerator(c)),
                         new PropertyBodyGenerator(c)
                         )
                     )

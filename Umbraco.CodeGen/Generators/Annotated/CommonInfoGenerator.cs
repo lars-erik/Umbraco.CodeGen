@@ -25,23 +25,7 @@ namespace Umbraco.CodeGen.Generators.Annotated
             AddAttributeArgumentIfValue(attribute, "Icon", info.Icon);
             AddAttributeArgumentIfValue(attribute, "Thumbnail", info.Thumbnail);
             if (info.AllowAtRoot)
-                AddAttributeArgument(attribute, "AllowAtRoot", true);
-        }
-
-        private static void AddAttributeArgumentIfValue(CodeAttributeDeclaration attribute, string argumentName, string value)
-        {
-            if (!String.IsNullOrWhiteSpace(value))
-                AddAttributeArgument(attribute, argumentName, value);
-        }
-
-        private static void AddAttributeArgument(CodeAttributeDeclaration attribute, string argumentName, object value)
-        {
-            attribute.Arguments.Add(
-                new CodeAttributeArgument(
-                    argumentName, 
-                    new CodePrimitiveExpression(value)
-                )
-            );
+                AddAttributePrimitiveArgument(attribute, "AllowAtRoot", true);
         }
     }
 }

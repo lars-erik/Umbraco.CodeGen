@@ -69,5 +69,28 @@ namespace Umbraco.CodeGen.Generators
             };
             type.Members.Add(field);
         }
+
+        protected static void AddAttributeArgumentIfValue(CodeAttributeDeclaration attribute, string argumentName, string value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+                AddAttributePrimitiveArgument(attribute, argumentName, value);
+        }
+
+        protected static void AddAttributePrimitiveArgument(CodeAttributeDeclaration attribute, string argumentName, object value)
+        {
+            var argumentValue = new CodePrimitiveExpression(value);
+            AddAttributeArgument(attribute, argumentName, argumentValue);
+        }
+
+        protected static void AddAttributeArgument(CodeAttributeDeclaration attribute, string argumentName,
+            CodeExpression argumentValue)
+        {
+            attribute.Arguments.Add(
+                new CodeAttributeArgument(
+                    argumentName,
+                    argumentValue
+                    )
+                );
+        }
     }
 }

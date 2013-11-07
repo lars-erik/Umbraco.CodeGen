@@ -92,7 +92,12 @@
     <Compile Include="Definitions\Tab.cs" />
     <Compile Include="CodeParser.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationFileProvider.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGenerator.cs" />
+    <Compile Include="Generators\Annotated\DocumentTypeInfoGenerator.cs" />
+    <Compile Include="Generators\Annotated\EntityDescriptionGenerator.cs" />
+    <Compile Include="Generators\PropertyDeclarationGenerator.cs" />
+    <Compile Include="Generators\EntityNameGenerator.cs" />
     <Compile Include="Generators\ClassGenerator.cs" />
     <Compile Include="Generators\CodeGeneratorFactory.cs" />
     <Compile Include="Generators\CtorGenerator.cs" />
@@ -105,7 +110,7 @@
     <Compile Include="Generators\Bcl\EntityDescriptionGenerator.cs" />
     <Compile Include="Generators\PropertiesGenerator.cs" />
     <Compile Include="Generators\PropertyBodyGenerator.cs" />
-    <Compile Include="Generators\Bcl\PropertyDeclarationGenerator.cs" />
+    <Compile Include="Generators\Bcl\PropertyInfoGenerator.cs" />
     <Compile Include="Generators\Bcl\StructureGenerator.cs" />
     <Compile Include="Configuration\IConfigurationProvider.cs" />
     <Compile Include="Configuration\IDataTypeProvider.cs" />
