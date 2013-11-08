@@ -13,7 +13,6 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
     public class CommonInfoGeneratorTests : AnnotationCodeGeneratorTestBase
     {
         private Info info;
-        private ContentType contentType;
         private CodeTypeDeclaration type;
         private CodeAttributeDeclaration attribute;
 
@@ -21,9 +20,8 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         public void SetUp()
         {
             Configuration = new CodeGeneratorConfiguration().MediaTypes;
-            contentType = new MediaType { Info = { Alias = "anEntity" } };
             Candidate = type = new CodeTypeDeclaration();
-            info = contentType.Info;
+            info = new Info {Alias = "anEntity"};
 
             attribute = new CodeAttributeDeclaration("MediaType");
             type.CustomAttributes.Add(attribute);
@@ -35,7 +33,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         [ExpectedException(typeof(Exception), ExpectedMessage = "Common info generator must be used on an attribute declaration")]
         public void Generate_NotCodeTypeDeclaration_Throws()
         {
-            Generator.Generate(new CodeMemberProperty(), contentType);;
+            Generator.Generate(new CodeMemberProperty(), info);;
         }
 
         [Test]
@@ -96,7 +94,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
 
         private void Generate()
         {
-            Generator.Generate(attribute, contentType);
+            Generator.Generate(attribute, info);
         }
     }
 }

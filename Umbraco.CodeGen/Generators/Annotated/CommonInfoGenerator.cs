@@ -19,8 +19,7 @@ namespace Umbraco.CodeGen.Generators.Annotated
             if (attribute == null)
                 throw new Exception("Common info generator must be used on an attribute declaration");
 
-            var contentType = (ContentType)entity;
-            var info = contentType.Info;
+            var info = (Info)entity;
 
             AddAttributeArgumentIfValue(attribute, "Icon", info.Icon);
             AddAttributeArgumentIfValue(attribute, "Thumbnail", info.Thumbnail);

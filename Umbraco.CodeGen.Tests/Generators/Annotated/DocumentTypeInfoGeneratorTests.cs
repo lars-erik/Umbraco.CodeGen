@@ -13,7 +13,6 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
     {
         private DocumentTypeInfoGenerator generator;
         private DocumentTypeInfo info;
-        private DocumentType documentType;
         private CodeAttributeDeclaration attribute;
 
         [SetUp]
@@ -22,8 +21,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
             Configuration = new CodeGeneratorConfiguration().MediaTypes;
             attribute = new CodeAttributeDeclaration("DocumentType");
             generator = new DocumentTypeInfoGenerator(Configuration);
-            documentType = new DocumentType { Info = { Alias = "aClass" } };
-            info = (DocumentTypeInfo)documentType.Info;
+            info = new DocumentTypeInfo{ Alias = "aClass" };
         }
 
         [Test]
@@ -92,7 +90,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
 
         private void Generate()
         {
-            generator.Generate(attribute, documentType);
+            generator.Generate(attribute, info);
         }
     }
 }

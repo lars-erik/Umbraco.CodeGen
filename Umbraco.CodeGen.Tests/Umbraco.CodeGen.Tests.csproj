@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnnotationGeneratorAcceptanceTests.cs" />
     <Compile Include="CodeParserTests.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationTests.cs" />
     <Compile Include="Configuration\FileCodeGeneratorConfigurationProviderTests.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="ContentTypeSerializerTests.cs" />
     <Compile Include="Generators\Annotated\AnnotationCodeGeneratorTestBase.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGeneratorTests.cs" />
+    <Compile Include="Generators\AttributeGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\DocumentTypeInfoGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\EntityDescriptionGeneratorTests.cs" />
     <Compile Include="Generators\ClassGeneratorTests.cs" />

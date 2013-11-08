@@ -24,14 +24,16 @@ namespace Umbraco.CodeGen.Generators
             AddAttribute(type, attribute);
         }
 
-        protected void AddAttribute(CodeMemberProperty propNode, string attributeName)
+        protected CodeAttributeDeclaration AddAttribute(CodeTypeMember codeObject, string attributeName)
         {
-            AddAttribute(propNode, CreateAttribute(attributeName));
+            var attribute = CreateAttribute(attributeName);
+            AddAttribute(codeObject, attribute);
+            return attribute;
         }
 
-        private static void AddAttribute(CodeTypeMember type, CodeAttributeDeclaration attribute)
+        protected static void AddAttribute(CodeTypeMember codeObject, CodeAttributeDeclaration attribute)
         {
-            type.CustomAttributes.Add(attribute);
+            codeObject.CustomAttributes.Add(attribute);
         }
 
         private static CodeAttributeDeclaration CreatePrimitiveAttribute<T>(string attributeName, T value)
