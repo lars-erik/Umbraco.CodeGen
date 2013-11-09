@@ -1,14 +1,11 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
+﻿using System.CodeDom;
 using System.Linq;
-using System.Text;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators.Annotated
 {
-    public class DocumentTypeInfoGenerator : CodeGeneratorBase
+    public class DocumentTypeInfoGenerator : CommonInfoGenerator
     {
         public DocumentTypeInfoGenerator(ContentTypeConfiguration config) : base(config)
         {
@@ -16,11 +13,9 @@ namespace Umbraco.CodeGen.Generators.Annotated
 
         public override void Generate(object codeObject, Entity entity)
         {
-            var attribute = codeObject as CodeAttributeDeclaration;
-            if (attribute == null)
-                throw new Exception("Common info generator must be used on an attribute declaration");
+            base.Generate(codeObject, entity);
 
-            //var contentType = (ContentType)entity;
+            var attribute = (CodeAttributeDeclaration)codeObject;
             var info = (DocumentTypeInfo)entity;
 
             AddAttributeArgumentIfValue(attribute, "DefaultTemplate", info.DefaultTemplate);

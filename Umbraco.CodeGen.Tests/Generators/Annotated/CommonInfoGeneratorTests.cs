@@ -30,8 +30,8 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         }
 
         [Test]
-        [ExpectedException(typeof(Exception), ExpectedMessage = "Common info generator must be used on an attribute declaration")]
-        public void Generate_NotCodeTypeDeclaration_Throws()
+        [ExpectedException(typeof(InvalidCastException), ExpectedMessage = "Unable to cast object of type 'System.CodeDom.CodeMemberProperty' to type 'System.CodeDom.CodeAttributeDeclaration'.")]
+        public void Generate_NotCodeAttributeDeclaration_Throws()
         {
             Generator.Generate(new CodeMemberProperty(), info);;
         }

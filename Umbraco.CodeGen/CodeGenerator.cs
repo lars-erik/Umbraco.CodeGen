@@ -43,9 +43,13 @@ namespace Umbraco.CodeGen
         {
             EnsureGenerator();
 
-            var compileUnit = new CodeCompileUnit();
-            generator.Generate(compileUnit, contentType);
-            CodeProvider.GenerateCodeFromCompileUnit(compileUnit, writer, options);
+            //var compileUnit = new CodeCompileUnit();
+            //generator.Generate(compileUnit, contentType);
+            //CodeProvider.GenerateCodeFromCompileUnit(compileUnit, writer, options);
+            var ns = new CodeNamespace();
+            generator.Generate(ns, contentType);
+            CodeProvider.GenerateCodeFromNamespace(ns, writer, options);
+
             writer.Flush();
         }
 

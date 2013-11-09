@@ -19,6 +19,21 @@ namespace Umbraco.CodeGen.Generators
 
         public override void Generate(object codeObject, Entity entity)
         {
+            CodeNamespace ns;
+            if (codeObject is CodeCompileUnit)
+                ns = AddToCompileUnit(codeObject);
+            else
+            { 
+                ns = (CodeNamespace) codeObject;
+                ns.Name = Config.Namespace;
+            }
+
+            foreach(var generator in memberGenerators)
+                generator.Generate(ns, entity);
+        }
+
+        private CodeNamespace AddToCompileUnit(object codeObject)
+        {
             var compileUnit = (CodeCompileUnit) codeObject;
 
             if (String.IsNullOrWhiteSpace(Config.Namespace))
@@ -26,9 +41,7 @@ namespace Umbraco.CodeGen.Generators
 
             var ns = new CodeNamespace(Config.Namespace);
             compileUnit.Namespaces.Add(ns);
-
-            foreach(var generator in memberGenerators)
-                generator.Generate(ns, entity);
+            return ns;
         }
     }
 }

@@ -22,13 +22,11 @@ static internal class CodeGenerationHelper
 
     public static StringBuilder GenerateCode(CodeNamespace ns)
     {
-        var compileUnit = new CodeCompileUnit();
         var codeProvider = new CSharpCodeProvider();
         var builder = new StringBuilder();
         var writer = new StringWriter(builder);
 
-        compileUnit.Namespaces.Add(ns);
-        codeProvider.GenerateCodeFromCompileUnit(compileUnit, writer, new CodeGeneratorOptions());
+        codeProvider.GenerateCodeFromNamespace(ns, writer, new CodeGeneratorOptions());
         writer.Flush();
         return builder;
     }

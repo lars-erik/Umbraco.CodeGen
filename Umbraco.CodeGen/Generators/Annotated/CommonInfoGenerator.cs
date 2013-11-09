@@ -5,7 +5,7 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators.Annotated
 {
-    public class CommonInfoGenerator : CodeGeneratorBase
+    public class CommonInfoGenerator : EntityDescriptionGenerator
     {
         public CommonInfoGenerator(ContentTypeConfiguration configuration)
             : base(configuration)
@@ -15,6 +15,8 @@ namespace Umbraco.CodeGen.Generators.Annotated
 
         public override void Generate(object codeObject, Entity entity)
         {
+            base.Generate(codeObject, entity);
+
             var attribute = codeObject as CodeAttributeDeclaration;
             if (attribute == null)
                 throw new Exception("Common info generator must be used on an attribute declaration");

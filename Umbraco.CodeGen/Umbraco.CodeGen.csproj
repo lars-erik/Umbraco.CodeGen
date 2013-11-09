@@ -94,6 +94,7 @@
     <Compile Include="Configuration\CodeGeneratorConfigurationFileProvider.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGenerator.cs" />
+    <Compile Include="Generators\Annotated\PropertyInfoGenerator.cs" />
     <Compile Include="Generators\AttributeCodeGenerator.cs" />
     <Compile Include="Generators\Annotated\DocumentTypeInfoGenerator.cs" />
     <Compile Include="Generators\Annotated\EntityDescriptionGenerator.cs" />

@@ -24,6 +24,7 @@ namespace Umbraco.CodeGen.Tests
             factory = CreateDocTypeGenerator;
 
             Generate(contentType);
+            Assert.Inconclusive("Not finished yet");
         }
 
         [Test]
@@ -34,6 +35,7 @@ namespace Umbraco.CodeGen.Tests
             contentType.Info.Description = "Oy, need a description to boot!";
 
             Generate(contentType);
+            Assert.Inconclusive("Not finished yet");
         }
 
         private void Generate(ContentType contentType)
@@ -52,7 +54,6 @@ namespace Umbraco.CodeGen.Tests
             generator.Generate(contentType, writer);
 
             Console.WriteLine(stringBuilder.ToString());
-            Assert.Inconclusive("Not finished yet");
         }
 
         public override CodeGeneratorBase Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
@@ -62,40 +63,29 @@ namespace Umbraco.CodeGen.Tests
 
         public CodeGeneratorBase CreateDocTypeGenerator(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
         {
-            return new NamespaceGenerator(
-                configuration,
-                new ImportsGenerator(configuration),
-                new ClassGenerator(configuration,
-                    new CompositeCodeGenerator(
-                        configuration,
-                        new EntityNameGenerator(configuration),
-                        new AttributeCodeGenerator(
-                            "DocumentType",
-                            configuration,
-                            new EntityDescriptionGenerator(configuration),
-                            new CommonInfoGenerator(configuration),
-                            new DocumentTypeInfoGenerator(configuration)
-                        )
-                    ),
-                    new CtorGenerator(configuration),
-                    new PropertiesGenerator(
-                        configuration,
-                        new PropertyDeclarationGenerator(
-                            configuration,
-                            dataTypes.ToList(),
-                            new EntityNameGenerator(configuration),
-                            new AttributeCodeGenerator(
-                                "GenericProperty",
-                                configuration,
-                                new EntityDescriptionGenerator(configuration)
-                                ),
-                            new PropertyBodyGenerator(configuration)
-                           )
-                        )
-                    )
+            return CreateGenerators(
+                configuration, 
+                dataTypes, 
+                "DocumentType", 
+                new DocumentTypeInfoGenerator(configuration)
                 );
         }
+
         public CodeGeneratorBase CreateMediaTypeGenerator(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
+        {
+            return CreateGenerators(
+                configuration,
+                dataTypes,
+                "MediaType",
+                new CommonInfoGenerator(configuration)
+                );
+        }
+
+        private static CodeGeneratorBase CreateGenerators(
+            ContentTypeConfiguration configuration, 
+            IEnumerable<DataTypeDefinition> dataTypes,
+            string attributeName, 
+            CodeGeneratorBase infoGenerator)
         {
             return new NamespaceGenerator(
                 configuration,
@@ -105,12 +95,11 @@ namespace Umbraco.CodeGen.Tests
                         configuration,
                         new EntityNameGenerator(configuration),
                         new AttributeCodeGenerator(
-                            "MediaType",
+                            attributeName,
                             configuration,
-                            new EntityDescriptionGenerator(configuration),
-                            new CommonInfoGenerator(configuration)
-                        )
-                    ),
+                            infoGenerator
+                            )
+                        ),
                     new CtorGenerator(configuration),
                     new PropertiesGenerator(
                         configuration,
@@ -121,10 +110,10 @@ namespace Umbraco.CodeGen.Tests
                             new AttributeCodeGenerator(
                                 "GenericProperty",
                                 configuration,
-                                new EntityDescriptionGenerator(configuration)
+                                new PropertyInfoGenerator(configuration, dataTypes.ToList())
                                 ),
                             new PropertyBodyGenerator(configuration)
-                           )
+                            )
                         )
                     )
                 );
