@@ -30,7 +30,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
 
             Parse(code);
             Assert.That(
-                new[]{"anotherClass", "differentClass"}
+                new[]{"AnotherClass", "DifferentClass"}
                 .SequenceEqual(ContentType.Structure)
                 );
         }

@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Parsers.Bcl;
+using Umbraco.CodeGen.Parsers.Annotated;
 
-namespace Umbraco.CodeGen.Tests.Parsers.Bcl
+namespace Umbraco.CodeGen.Tests.Parsers.Annotated
 {
     [TestFixture]
     public class CommonInfoParserTests : ContentTypeCodeParserTestBase
@@ -28,10 +28,10 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         }
 
         [Test]
-        public void Parse_Name_WhenDisplayNameAttribute_IsAttributeValue()
+        public void Parse_Name_WhenDisplayNameArgument_IsAttributeValue()
         {
             const string code = @"
-                [DisplayName(""It's another name"")]
+                [MediaType(DisplayName=""It's another name"")]
                 public class ItsAName {}
             ";
             Parse(code);
@@ -39,10 +39,10 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         }
 
         [Test]
-        public void Parse_Description_WhenDescriptionAttribute_IsAttributeValue()
+        public void Parse_Description_WhenDescriptionArgument_IsAttributeValue()
         {
             const string code = @"
-                [Description(""It's a description"")]
+                [MediaType(Description=""It's a description"")]
                 public class AClass {}
             ";
             Parse(code);
@@ -50,7 +50,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         }
 
         [Test]
-        public void Parse_Description_WhenAttributeMissing_IsNull()
+        public void Parse_Description_WhenArgumentMissing_IsNull()
         {
             Parse(EmptyClass);
             Assert.IsNull(Info.Description);
@@ -97,11 +97,11 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         }
 
         [Test]
-        public void AllowAtRoot_WhenTrueMember_IsTrue()
+        public void Parse_AllowAtRoot_WhenTrueArgument_IsTrue()
         {
             const string code = @"
+                [MediaType(AllowAtRoot=true)]
                 public class AClass {
-                    bool allowAtRoot = true;
                 }
             ";
             Parse(code);
@@ -109,11 +109,11 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         }
 
         [Test]
-        public void AllowAtRoot_WhenFalse_IsFalse()
+        public void Parse_AllowAtRoot_WhenFalseArgument_IsFalse()
         {
             const string code = @"
+                [MediaType(AllowAtRoot=false)]
                 public class AClass {
-                    bool allowAtRoot = false;
                 }
             ";
             Parse(code);
@@ -121,7 +121,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         }
 
         [Test]
-        public void AllowAtRoot_WhenMissing_IsFalse()
+        public void Parse_AllowAtRoot_WhenMissing_IsFalse()
         {
             Parse(EmptyClass);
             Assert.IsFalse(Info.AllowAtRoot);
@@ -130,37 +130,37 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         [Test]
         [TestCase("Icon", "anIcon.gif")]
         [TestCase("Thumbnail", "folder.png")]
-        public void Parse_StringMember_HasValue(
-            string memberName, 
+        public void Parse_Argument_HasValue(
+            string memberName,
             string memberValue
         )
         {
             var code = @"
+                [MediaType(" + memberName + @" = """ + memberValue + @""")]
                 public class AClass {
-                    const string " + memberName + @" = """ + memberValue + @""";
                 }
             ";
             Parse(code);
-            var value = typeof (DocumentTypeInfo).GetProperty(memberName).GetValue(Info, null);
+            var value = typeof(DocumentTypeInfo).GetProperty(memberName).GetValue(Info, null);
             Assert.AreEqual(memberValue, value);
         }
 
         [Test]
         [TestCase("Icon", "folder.gif")]
         [TestCase("Thumbnail", "folder.png")]
-        public void Parse_Member_IsNullOrMissing_HasDefaultValue(
-            string memberName, 
+        public void Parse_Argument_IsNullOrMissing_HasDefaultValue(
+            string memberName,
             object expectedValue
         )
         {
             var code = new[]{
                 EmptyClass
                 , @"
+                [MediaType(" + memberName + @" = null)]
                 public class AClass {
-                    const string " + memberName + @" = null;
                 }
             "};
-            foreach(var snippet in code)
+            foreach (var snippet in code)
             {
                 Parse(snippet);
                 var value = PropertyValue(memberName);

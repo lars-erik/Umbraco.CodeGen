@@ -32,7 +32,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
             Parse(code);
             Console.WriteLine(String.Join(", ", ContentType.Structure));
             Assert.That(
-                new[] { "anotherClass", "differentClass" }
+                new[] { "AnotherClass", "DifferentClass" }
                 .SequenceEqual(ContentType.Structure)
                 );
         }

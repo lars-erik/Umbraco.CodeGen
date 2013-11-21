@@ -12,10 +12,11 @@ namespace Umbraco.CodeGen.Parsers.Bcl
         protected override void OnParseInfo(TypeDeclaration type, Definitions.ContentType definition)
         {
             var info = definition.Info;
-            info.Alias = type.Name.CamelCase();
+            info.Alias = type.Name.PascalCase();
+            info.Master = FindMaster(type, Configuration).PascalCase();
+
             info.Name = AttributeValue(type, "DisplayName", type.Name.SplitPascalCase());
             info.Description = AttributeValue(type, "Description", null);
-            info.Master = FindMaster(type, Configuration).CamelCase();
             info.AllowAtRoot = BoolFieldValue(type, "AllowAtRoot");
             info.Icon = StringFieldValue(type, "icon", "folder.gif");
             info.Thumbnail = StringFieldValue(type, "thumbnail", "folder.png");

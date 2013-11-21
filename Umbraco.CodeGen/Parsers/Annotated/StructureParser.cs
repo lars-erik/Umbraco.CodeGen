@@ -22,7 +22,7 @@ namespace Umbraco.CodeGen.Parsers.Annotated
             var attribute = FindContentTypeAttribute(type, contentType);
             
             contentType.Structure = TypeArrayValue(attribute, "Structure")
-                .Select(val => val.CamelCase())
+                .Select(val => val.PascalCase())
                 .ToList();
         }
 

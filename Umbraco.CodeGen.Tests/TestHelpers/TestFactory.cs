@@ -12,7 +12,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                 Info = new DocumentTypeInfo
                 {
                     Name = "Some Document Type",
-                    Alias = "someDocumentType",
+                    Alias = "SomeDocumentType",
                     Icon = "privateMemberIcon.gif",
                     Thumbnail = "privateMemberThumb.png",
                     Description = "A description of some document type",
@@ -27,7 +27,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                 },
                 Structure = new List<string>
                 {
-                    "someOtherDocType"
+                    "SomeOtherDocType"
                 },
                 GenericProperties = new List<GenericProperty>
                 {
@@ -79,18 +79,18 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                 Info = new Info
                 {
                     Name = "Inherited Media Folder",
-                    Alias = "inheritedMediaFolder",
+                    Alias = "InheritedMediaFolder",
                     Icon = "folder.gif",
                     Thumbnail = "folder.png",
                     AllowAtRoot = true,
-                    Master = "folder"
+                    Master = "Folder"
                 },
                 Structure = new List<string>
                 {
-                    "folder",
-                    "image",
-                    "file",
-                    "inheritedMediaFolder"
+                    "Folder",
+                    "Image",
+                    "File",
+                    "InheritedMediaFolder"
                 },
                 GenericProperties = new List<GenericProperty>
                 {

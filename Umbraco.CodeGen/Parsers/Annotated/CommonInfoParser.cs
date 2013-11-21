@@ -17,9 +17,10 @@ namespace Umbraco.CodeGen.Parsers.Annotated
 
         protected override void OnParseInfo(TypeDeclaration type, ContentType definition)
         {
+            // TODO: Dry this
             var info = definition.Info;
-            info.Alias = type.Name.CamelCase();
-            info.Master = FindMaster(type, Configuration).CamelCase();
+            info.Alias = type.Name.PascalCase();
+            info.Master = FindMaster(type, Configuration).PascalCase();
 
             var attribute = FindContentTypeAttribute(type, definition);
 

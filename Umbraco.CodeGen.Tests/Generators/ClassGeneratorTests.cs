@@ -56,7 +56,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [Test]
         public void Generate_Master_WhenNotEmpty_IsBaseClassPascalCased()
         {
-            const string expectedMaster = "aBaseClass";
+            const string expectedMaster = "ABaseClass";
             info.Master = expectedMaster;
             Generate();
             Assert.AreEqual(expectedMaster.PascalCase(), Type.BaseTypes[0].BaseType);
