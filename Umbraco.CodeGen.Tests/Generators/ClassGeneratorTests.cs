@@ -67,7 +67,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         {
             var spies = new[] { new SpyGenerator(), new SpyGenerator() };
             var memberGenerators = spies.Cast<CodeGeneratorBase>().ToArray();
-            Generator = new ClassGenerator(Configuration, new EntityDescriptionGenerator(Configuration), memberGenerators);
+            Generator = new ClassGenerator(Configuration, memberGenerators);
             Generate();
             Assert.That(spies.All(s => s.Called));
         }

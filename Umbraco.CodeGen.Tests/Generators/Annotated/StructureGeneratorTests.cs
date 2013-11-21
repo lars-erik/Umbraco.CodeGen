@@ -4,29 +4,31 @@ using System.Linq;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators.Bcl;
+using Umbraco.CodeGen.Generators.Annotated;
 
-namespace Umbraco.CodeGen.Tests.Generators.Bcl
+namespace Umbraco.CodeGen.Tests.Generators.Annotated
 {
     [TestFixture]
-    public class StructureGeneratorTests : TypeCodeGeneratorTestBase
+    public class StructureGeneratorTests : AnnotationCodeGeneratorTestBase
     {
+        private MediaType contentType;
+        private CodeAttributeDeclaration attribute;
+
         [SetUp]
         public void SetUp()
         {
             Generator = new StructureGenerator(Configuration);
             Configuration = new CodeGeneratorConfiguration().MediaTypes;
-            Candidate = Type = new CodeTypeDeclaration();
-            ContentType = new MediaType();
+            attribute = new CodeAttributeDeclaration("MediaType");
+            contentType = new MediaType();
         }
 
         [Test]
         public void Generate_Structure_NonEmpty_IsTypeArrayField()
         {
-            ContentType.Structure = new List<string> { "aClass", "anotherClass" };
+            contentType.Structure = new List<string> { "aClass", "anotherClass" };
             Generate();
-            var field = FindField("structure");
-            var initializer = (CodeArrayCreateExpression)field.InitExpression;
+            var initializer = FindArgument();
             Assert.That(
                 new[] { "AClass", "AnotherClass" }.SequenceEqual(
                 initializer.Initializers.Cast<CodeTypeOfExpression>()
@@ -38,10 +40,9 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [Test]
         public void Generate_Structure_NullOrEmptyItems_OmitsEmpties()
         {
-            ContentType.Structure = new List<string> { null, "", "  ", "aClass" };
+            contentType.Structure = new List<string> { null, "", "  ", "aClass" };
             Generate();
-            var field = FindField("structure");
-            var initializer = (CodeArrayCreateExpression)field.InitExpression;
+            var initializer = FindArgument();
             Assert.That(
                 new[] { "AClass" }.SequenceEqual(
                 initializer.Initializers.Cast<CodeTypeOfExpression>()
@@ -54,21 +55,27 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         public void Generate_Structure_Empty_OmitsField()
         {
             Generate();
-            Assert.IsNull(FindField("structure"));
+            Assert.IsNull(FindAttributeArgument(attribute, "Structure"));
         }
 
         [Test]
         public void Generate_Structure_AllNullOrEmptyItems_OmitsField()
         {
-            ContentType.Structure = new List<string> { null, "", "  " };
+            contentType.Structure = new List<string> { null, "", "  " };
             Generate();
-            Assert.IsNull(FindField("structure"));
+            Assert.IsNull(FindAttributeArgument(attribute, "Structure"));
         }
 
         private void Generate()
         {
-            Generator.Generate(Type, ContentType);
+            Generator.Generate(attribute, contentType);
         }
 
+        private CodeArrayCreateExpression FindArgument()
+        {
+            var argument = FindAttributeArgument(attribute, "Structure");
+            var initializer = (CodeArrayCreateExpression) argument.Value;
+            return initializer;
+        }
     }
 }

@@ -7,7 +7,7 @@
     using Umbraco.Web;
     
     [Description("A description of some document type")]
-    public partial class SomeDocumentType : DocumentTypeBase
+    public partial class SomeDocumentType : Umbraco.Core.Models.TypedModelBase
     {
         private string icon = "privateMemberIcon.gif";
         private string thumbnail = "privateMemberThumb.png";

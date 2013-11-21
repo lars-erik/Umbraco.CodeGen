@@ -1,32 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Parsers;
 using Umbraco.CodeGen.Tests.TestHelpers;
 
 namespace Umbraco.CodeGen.Tests
 {
     [TestFixture]
-    class CodeParserTests
+    public class CodeParserAcceptanceTests
     {
         [Test]
         public void Parse_ReturnsDocumentType()
         {
-            TestParse("SomeDocumentType", "DocumentType", TestFactory.CreateExpectedDocumentType());
+            TestParse("SomeDocumentType", "DocumentType", TestFactory.CreateExpectedDocumentType(), new DefaultParserFactory());
         }
 
         [Test] 
         public void Parse_ReturnsMediaType()
         {
-            TestParse("SomeMediaType", "MediaType", TestFactory.CreateExpectedMediaType());
+            TestParse("SomeMediaType", "MediaType", TestFactory.CreateExpectedMediaType(), new DefaultParserFactory());
         }
 
-        private static void TestParse<T>(string fileName, string contentTypeName, T expectedContentType)
+        [Test]
+        public void Parse_Annotated_ReturnsDocumentType()
+        {
+            TestParse("SomeAnnotatedDocumentType", "DocumentType", TestFactory.CreateExpectedDocumentType(), new AnnotatedParserFactory());
+        }
+
+        [Test]
+        public void Parse_Annotated_ReturnsMediaType()
+        {
+            TestParse("SomeAnnotatedMediaType", "MediaType", TestFactory.CreateExpectedMediaType(), new AnnotatedParserFactory());
+        }
+
+        private static void TestParse<T>(string fileName, string contentTypeName, T expectedContentType, ParserFactory factory)
             where T : ContentType
         {
             string code;
@@ -41,7 +51,7 @@ namespace Umbraco.CodeGen.Tests
             var parser = new CodeParser(
                 config,
                 TestDataTypeProvider.All,
-                new DefaultParserFactory()
+                factory
                 );
 
             var contentType = parser.Parse(new StringReader(code)).SingleOrDefault();

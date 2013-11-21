@@ -16,7 +16,8 @@ namespace Umbraco.CodeGen.Generators.Annotated
             base.Generate(codeObject, entity);
 
             var attribute = (CodeAttributeDeclaration)codeObject;
-            var info = (DocumentTypeInfo)entity;
+            var docType = (DocumentType)entity;
+            var info = (DocumentTypeInfo)docType.Info;
 
             AddAttributeArgumentIfValue(attribute, "DefaultTemplate", info.DefaultTemplate);
 

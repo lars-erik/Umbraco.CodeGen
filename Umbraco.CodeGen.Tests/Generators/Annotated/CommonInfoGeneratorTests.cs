@@ -15,13 +15,17 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         private Info info;
         private CodeTypeDeclaration type;
         private CodeAttributeDeclaration attribute;
+        private MediaType contentType;
 
         [SetUp]
         public void SetUp()
         {
             Configuration = new CodeGeneratorConfiguration().MediaTypes;
             Candidate = type = new CodeTypeDeclaration();
-            info = new Info {Alias = "anEntity"};
+            contentType = new MediaType
+            {
+                Info = info = new Info {Alias = "anEntity"}
+            };
 
             attribute = new CodeAttributeDeclaration("MediaType");
             type.CustomAttributes.Add(attribute);
@@ -33,7 +37,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         [ExpectedException(typeof(InvalidCastException), ExpectedMessage = "Unable to cast object of type 'System.CodeDom.CodeMemberProperty' to type 'System.CodeDom.CodeAttributeDeclaration'.")]
         public void Generate_NotCodeAttributeDeclaration_Throws()
         {
-            Generator.Generate(new CodeMemberProperty(), info);;
+            Generator.Generate(new CodeMemberProperty(), contentType); ;
         }
 
         [Test]
@@ -94,7 +98,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
 
         private void Generate()
         {
-            Generator.Generate(attribute, info);
+            Generator.Generate(attribute, contentType);
         }
     }
 }

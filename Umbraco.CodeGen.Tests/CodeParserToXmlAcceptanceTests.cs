@@ -10,52 +10,58 @@ using Umbraco.CodeGen.Tests.TestHelpers;
 
 namespace Umbraco.CodeGen.Tests
 {
-	[TestFixture]
-	public class CodeParserToXmlAcceptanceTests
-	{
-		[Test]
-		public void Generate_ReturnsXmlForDocumentType()
-		{
-			const string fileName = "SomeDocumentType";
-			const string contentTypeName = "DocumentType";
+    [TestFixture]
+    public class CodeParserToXmlAcceptanceTests
+    {
+        [Test]
+        public void Generate_ReturnsXmlForDocumentType()
+        {
+            TestGeneratedXml("SomeDocumentType", "SomeDocumentType", "DocumentType", new DefaultParserFactory());
+        }
 
-			TestGeneratedXml(fileName, contentTypeName);
-		}
+        [Test]
+        public void Generate_ReturnsXmlForMediaType()
+        {
+            TestGeneratedXml("SomeMediaType", "SomeMediaType", "MediaType", new DefaultParserFactory());
+        }
 
-		[Test]
-		public void Generate_ReturnsXmlForMediaType()
-		{
-			const string fileName = "SomeMediaType";
-			const string contentTypeName = "MediaType";
+        [Test]
+        public void Generate_Annotated_ReturnsXmlForDocumentType()
+        {
+            TestGeneratedXml("SomeAnnotatedDocumentType", "SomeDocumentType", "DocumentType", new AnnotatedParserFactory());
+        }
 
-			TestGeneratedXml(fileName, contentTypeName);
-		}
+        [Test]
+        public void Generate_Annotated_ReturnsXmlForMediaType()
+        {
+            TestGeneratedXml("SomeAnnotatedMediaType", "SomeMediaType", "MediaType", new AnnotatedParserFactory());
+        }
 
-		private static void TestGeneratedXml(string fileName, string contentTypeName)
-		{
-			ContentType contentType;
-			string expectedOutput;
+        private static void TestGeneratedXml(string classFileName, string xmlFileName, string contentTypeName, ParserFactory factory)
+        {
+            ContentType contentType;
+            string expectedOutput;
 
-            using (var goldReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".xml"))
-			{
-				expectedOutput = goldReader.ReadToEnd();
-			}
+            using (var goldReader = File.OpenText(@"..\..\TestFiles\" + xmlFileName + ".xml"))
+            {
+                expectedOutput = goldReader.ReadToEnd();
+            }
 
-		    var contentTypeConfig = new CodeGeneratorConfiguration().Get(contentTypeName);
-		    contentTypeConfig.BaseClass = "DocumentTypeBase";
+            var contentTypeConfig = new CodeGeneratorConfiguration().Get(contentTypeName);
+            contentTypeConfig.BaseClass = "Umbraco.Core.Models.TypedModelBase";
 
-            using (var inputReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".cs"))
-			{
-                var codeParser = new CodeParser(contentTypeConfig, TestDataTypeProvider.All, new DefaultParserFactory());
-			    contentType = codeParser.Parse(inputReader).Single();
-			}
-            
-		    var serializer = new ContentTypeSerializer();
-		    var xml = serializer.Serialize(contentType);
+            using (var inputReader = File.OpenText(@"..\..\TestFiles\" + classFileName + ".cs"))
+            {
+                var codeParser = new CodeParser(contentTypeConfig, TestDataTypeProvider.All, factory);
+                contentType = codeParser.Parse(inputReader).Single();
+            }
+
+            var serializer = new ContentTypeSerializer();
+            var xml = serializer.Serialize(contentType);
 
             Console.WriteLine(xml);
 
-		    Assert.AreEqual(expectedOutput, xml);
-		}
-	}
+            Assert.AreEqual(expectedOutput, xml);
+        }
+    }
 }

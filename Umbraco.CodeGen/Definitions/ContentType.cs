@@ -2,8 +2,12 @@
 
 namespace Umbraco.CodeGen.Definitions
 {
-    public abstract class ContentType : Entity
+    public abstract class ContentType : Entity, IEntityDescription
     {
+        public string Name { get { return Info.Name; } }
+        public string Alias { get { return Info.Alias; } }
+        public string Description { get { return Info.Description; } }
+        
         public Info Info { get; set; }
         public List<GenericProperty> GenericProperties { get; set; }
         public List<Tab> Tabs { get; set; }

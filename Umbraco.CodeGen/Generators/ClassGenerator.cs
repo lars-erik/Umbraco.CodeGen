@@ -8,20 +8,14 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators
 {
-    public class ClassGenerator : CodeGeneratorBase
+    public class ClassGenerator : CompositeCodeGenerator
     {
-        private readonly CodeGeneratorBase entityDescriptionGenerator;
-        private readonly CodeGeneratorBase[] memberGenerators;
-
         public ClassGenerator(
             ContentTypeConfiguration config, 
-            CodeGeneratorBase entityDescriptionGenerator,
             params CodeGeneratorBase[] memberGenerators
             )
-            : base(config)
+            : base(config, memberGenerators)
         {
-            this.entityDescriptionGenerator = entityDescriptionGenerator;
-            this.memberGenerators = memberGenerators;
         }
 
         public override void Generate(object codeObject, Entity entity)
@@ -33,13 +27,10 @@ namespace Umbraco.CodeGen.Generators
             var type = new CodeTypeDeclaration();
             ns.Types.Add(type);
 
-            entityDescriptionGenerator.Generate(type, info);
             SetPartial(type);
             SetBaseClass(type, info);
 
-            if (memberGenerators != null)
-                foreach(var generator in memberGenerators)
-                    generator.Generate(type, contentType);
+            base.Generate(type, entity);
         }
 
         private void SetPartial(CodeTypeDeclaration type)

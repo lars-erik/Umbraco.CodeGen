@@ -11,20 +11,20 @@ namespace Umbraco.CodeGen.Generators
         {
         }
 
-        protected static void ValidateAlias(EntityDescription description)
+        protected static void ValidateAlias(IEntityDescription description)
         {
             if (String.IsNullOrWhiteSpace(description.Alias))
                 throw new Exception("Cannot generate entity with alias null or empty");
         }
 
-        protected static void SetName(CodeTypeMember type, EntityDescription description)
+        protected static void SetName(CodeTypeMember type, IEntityDescription description)
         {
             type.Name = description.Alias.PascalCase();
         }
 
         public override void Generate(object codeObject, Entity entity)
         {
-            var description = (EntityDescription)entity;
+            var description = (IEntityDescription)entity;
             var type = (CodeTypeMember)codeObject;
 
             ValidateAlias(description);

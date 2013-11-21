@@ -15,14 +15,14 @@ namespace Umbraco.CodeGen.Generators.Bcl
         {
             base.Generate(codeObject, entity);
 
-            var description = (EntityDescription) entity;
+            var description = (IEntityDescription) entity;
             var type = (CodeTypeMember)codeObject;
 
             AddDisplayNameIfDifferent(type, description);
             AddDescription(type, description);
         }
 
-        protected static void AddDisplayNameIfDifferent(CodeTypeMember type, EntityDescription description)
+        protected static void AddDisplayNameIfDifferent(CodeTypeMember type, IEntityDescription description)
         {
             var name = description.Name;
             if (String.Compare(name, description.Alias, IgnoreCase) == 0 ||
@@ -31,7 +31,7 @@ namespace Umbraco.CodeGen.Generators.Bcl
             AddAttribute(type, "DisplayName", name);
         }
 
-        protected void AddDescription(CodeTypeMember type, EntityDescription description)
+        protected void AddDescription(CodeTypeMember type, IEntityDescription description)
         {
             if (String.IsNullOrWhiteSpace(description.Description))
                 return;

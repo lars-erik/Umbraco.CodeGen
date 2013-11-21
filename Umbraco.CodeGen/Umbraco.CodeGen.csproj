@@ -77,6 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\ContentTypeAttribute.cs" />
+    <Compile Include="Annotations\DocumentTypeAttribute.cs" />
+    <Compile Include="Annotations\EntityDescriptionAttribute.cs" />
+    <Compile Include="Annotations\GenericPropertyAttribute.cs" />
+    <Compile Include="Annotations\MediaTypeAttribute.cs" />
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="Configuration\CodeGeneratorConfiguration.cs" />
     <Compile Include="Configuration\DataTypeDefinition.cs" />
@@ -87,14 +92,18 @@
     <Compile Include="Definitions\Entity.cs" />
     <Compile Include="Definitions\EntityDescription.cs" />
     <Compile Include="Definitions\GenericProperty.cs" />
+    <Compile Include="Definitions\IEntityDescription.cs" />
     <Compile Include="Definitions\Info.cs" />
     <Compile Include="Definitions\MediaType.cs" />
     <Compile Include="Definitions\Tab.cs" />
     <Compile Include="CodeParser.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationFileProvider.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Generators\AnnotatedCodeGeneratorFactory.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGenerator.cs" />
+    <Compile Include="Generators\Annotated\ImportsGenerator.cs" />
     <Compile Include="Generators\Annotated\PropertyInfoGenerator.cs" />
+    <Compile Include="Generators\Annotated\StructureGenerator.cs" />
     <Compile Include="Generators\AttributeCodeGenerator.cs" />
     <Compile Include="Generators\Annotated\DocumentTypeInfoGenerator.cs" />
     <Compile Include="Generators\Annotated\EntityDescriptionGenerator.cs" />
@@ -104,7 +113,7 @@
     <Compile Include="Generators\ClassGenerator.cs" />
     <Compile Include="Generators\CodeGeneratorFactory.cs" />
     <Compile Include="Generators\CtorGenerator.cs" />
-    <Compile Include="Generators\ImportsGenerator.cs" />
+    <Compile Include="Generators\Bcl\ImportsGenerator.cs" />
     <Compile Include="Generators\NamespaceGenerator.cs" />
     <Compile Include="Generators\CodeGeneratorBase.cs" />
     <Compile Include="Generators\Bcl\CommonInfoGenerator.cs" />
@@ -117,6 +126,11 @@
     <Compile Include="Generators\Bcl\StructureGenerator.cs" />
     <Compile Include="Configuration\IConfigurationProvider.cs" />
     <Compile Include="Configuration\IDataTypeProvider.cs" />
+    <Compile Include="Parsers\AnnotatedParserFactory.cs" />
+    <Compile Include="Parsers\Annotated\CommonInfoParser.cs" />
+    <Compile Include="Parsers\Annotated\DocumentTypeInfoParser.cs" />
+    <Compile Include="Parsers\Annotated\PropertyParser.cs" />
+    <Compile Include="Parsers\Annotated\StructureParser.cs" />
     <Compile Include="Parsers\CodeParserBase.cs" />
     <Compile Include="Parsers\Bcl\CommonInfoParser.cs" />
     <Compile Include="Parsers\ContentTypeCodeParser.cs" />

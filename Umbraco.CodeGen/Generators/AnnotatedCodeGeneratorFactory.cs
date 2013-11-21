@@ -1,72 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
-using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Generators.Annotated;
-using Umbraco.CodeGen.Tests.TestHelpers;
 
-namespace Umbraco.CodeGen.Tests
+namespace Umbraco.CodeGen.Generators
 {
-    [TestFixture]
-    public class AnnotationGeneratorAcceptanceTests : CodeGeneratorFactory
+    public class AnnotatedCodeGeneratorFactory : CodeGeneratorFactory
     {
-        private Func<ContentTypeConfiguration, IEnumerable<DataTypeDefinition>, CodeGeneratorBase> factory;
-            
-        [Test]
-        public void BuildCode_GeneratesCodeForDocumentType()
-        {
-            var contentType = TestFactory.CreateExpectedDocumentType();
-            factory = CreateDocTypeGenerator;
-
-            Generate(contentType);
-            Assert.Inconclusive("Not finished yet");
-        }
-
-        [Test]
-        public void BuildCode_GeneratesCodeForMediaType()
-        {
-            var contentType = TestFactory.CreateExpectedMediaType();
-            factory = CreateMediaTypeGenerator;
-            contentType.Info.Description = "Oy, need a description to boot!";
-
-            Generate(contentType);
-            Assert.Inconclusive("Not finished yet");
-        }
-
-        private void Generate(ContentType contentType)
-        {
-            var configuration = new CodeGeneratorConfiguration().DocumentTypes;
-            var dataTypeProvider = new TestDataTypeProvider();
-
-            var generator = new CodeGenerator(configuration, dataTypeProvider, this);
-
-            var stringBuilder = new StringBuilder();
-            var writer = new StringWriter(stringBuilder);
-
-            configuration.Namespace = "A.Namespace";
-            configuration.BaseClass = "ABaseClass";
-
-            generator.Generate(contentType, writer);
-
-            Console.WriteLine(stringBuilder.ToString());
-        }
-
         public override CodeGeneratorBase Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
         {
-            return factory(configuration, dataTypes);
+            if (configuration.ContentTypeName == "DocumentType")
+                return CreateDocTypeGenerator(configuration, dataTypes);
+            return CreateMediaTypeGenerator(configuration, dataTypes);
         }
 
         public CodeGeneratorBase CreateDocTypeGenerator(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
         {
             return CreateGenerators(
-                configuration, 
-                dataTypes, 
-                "DocumentType", 
+                configuration,
+                dataTypes,
+                "DocumentType",
                 new DocumentTypeInfoGenerator(configuration)
                 );
         }
@@ -82,9 +35,9 @@ namespace Umbraco.CodeGen.Tests
         }
 
         private static CodeGeneratorBase CreateGenerators(
-            ContentTypeConfiguration configuration, 
+            ContentTypeConfiguration configuration,
             IEnumerable<DataTypeDefinition> dataTypes,
-            string attributeName, 
+            string attributeName,
             CodeGeneratorBase infoGenerator)
         {
             return new NamespaceGenerator(
@@ -97,7 +50,8 @@ namespace Umbraco.CodeGen.Tests
                         new AttributeCodeGenerator(
                             attributeName,
                             configuration,
-                            infoGenerator
+                            infoGenerator,
+                            new StructureGenerator(configuration)
                             )
                         ),
                     new CtorGenerator(configuration),

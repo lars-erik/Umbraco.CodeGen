@@ -13,14 +13,14 @@ namespace Umbraco.CodeGen.Generators.Annotated
 
         public override void Generate(object codeObject, Entity entity)
         {
-            var description = (EntityDescription)entity;
+            var description = (IEntityDescription)entity;
             var attribute = (CodeAttributeDeclaration)codeObject;
 
             AddDisplayNameIfDifferent(attribute, description);
             AddAttributeArgumentIfValue(attribute, "Description", description.Description);
         }
 
-        protected static void AddDisplayNameIfDifferent(CodeAttributeDeclaration attribute, EntityDescription description)
+        protected static void AddDisplayNameIfDifferent(CodeAttributeDeclaration attribute, IEntityDescription description)
         {
             var name = description.Name;
             if (String.Compare(name, description.Alias, IgnoreCase) == 0 ||

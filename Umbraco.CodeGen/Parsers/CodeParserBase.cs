@@ -1,8 +1,10 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using ICSharpCode.NRefactory.CSharp;
 using Umbraco.CodeGen.Configuration;
+using Attribute = ICSharpCode.NRefactory.CSharp.Attribute;
 
 namespace Umbraco.CodeGen.Parsers
 {
@@ -31,41 +33,45 @@ namespace Umbraco.CodeGen.Parsers
         protected static string StringFieldValue(TypeDeclaration type, string fieldName, string defaultValue = null)
         {
             var fieldVariable = FindFieldVariable(type, fieldName);
-            return WithInitializer(fieldVariable, ex => ex.GetText().Trim('"'), defaultValue);
+            return WithVariableInitializer(fieldVariable, ex => ex.GetText().Trim('"'), defaultValue);
         }
 
         protected static IEnumerable<string> StringArrayValue(TypeDeclaration type, string fieldName)
         {
             var fieldVariable = FindFieldVariable(type, fieldName);
-            return WithInitializer(fieldVariable, ex =>
-                ((ArrayCreateExpression)ex).Initializer.Elements
-                    .OfType<PrimitiveExpression>()
-                    .Select(e => e.Value as string)
-                    .ToArray(),
-                new string[0]
-            );
+            return WithVariableInitializer(fieldVariable, StringArrayInitializerToArray, new string[0]);
         }
 
         protected static IEnumerable<string> TypeArrayValue(TypeDeclaration type, string fieldName)
         {
             var fieldVariable = FindFieldVariable(type, fieldName);
-            return WithInitializer(fieldVariable, ex =>
-                ((ArrayCreateExpression)ex).Initializer.Elements
-                    .OfType<TypeOfExpression>()
-                    .Where(e => e.Type is SimpleType)
-                    .Select(e => ((SimpleType)e.Type).Identifier)
-                    .ToArray(),
-                new string[0]
-            );
+            return WithVariableInitializer(fieldVariable, TypeArrayInitializerToArray, new string[0]);
+        }
+
+        protected static IEnumerable<string> StringArrayInitializerToArray(Expression ex)
+        {
+            return ((ArrayCreateExpression)ex).Initializer.Elements
+                .OfType<PrimitiveExpression>()
+                .Select(e => e.Value as string)
+                .ToArray();
+        }
+
+        protected static IEnumerable<string> TypeArrayInitializerToArray(Expression ex)
+        {
+            return ((ArrayCreateExpression) ex).Initializer.Elements
+                .OfType<TypeOfExpression>()
+                .Where(e => e.Type is SimpleType)
+                .Select(e => ((SimpleType) e.Type).Identifier)
+                .ToArray();
         }
 
         protected static bool BoolFieldValue(TypeDeclaration type, string fieldName)
         {
             var fieldVariable = FindFieldVariable(type, fieldName);
-            return WithInitializer(fieldVariable, ex => Convert.ToBoolean(ex.GetText()), false);
+            return WithVariableInitializer(fieldVariable, ex => Convert.ToBoolean(ex.GetText()), false);
         }
 
-        protected static T WithInitializer<T>(VariableInitializer variable, Func<Expression, T> valueGetter, T defaultValue)
+        protected static T WithVariableInitializer<T>(VariableInitializer variable, Func<Expression, T> valueGetter, T defaultValue)
         {
             if (variable == null || variable.Initializer == null || variable.Initializer.GetText() == "null")
                 return defaultValue;
@@ -101,6 +107,50 @@ namespace Umbraco.CodeGen.Parsers
                 .SelectMany(att => att.Attributes)
                 .Where(att => att.Type is SimpleType)
                 .SingleOrDefault(att => ((SimpleType)att.Type).Identifier == attributeName);
+        }
+
+        protected T AttributeArgumentValue<T>(Attribute attribute, string argumentName, T defaultValue)
+        {
+            var argument = FindAttributeArgument(attribute, argumentName);
+            return PrimitiveAttributeArgumentValueOrDefault(argument, defaultValue);
+        }
+
+        // TODO: Dry these two
+        protected static IEnumerable<string> StringArrayValue(Attribute attribute, string argumentName)
+        {
+            var argument = FindAttributeArgument(attribute, argumentName);
+            if (argument == null) return new string[0];
+            var array = argument.Expression as ArrayCreateExpression;
+            if (array != null)
+                return StringArrayInitializerToArray(array);
+            return new string[0];
+        }
+
+        protected static IEnumerable<string> TypeArrayValue(Attribute attribute, string argumentName)
+        {
+            var argument = FindAttributeArgument(attribute, argumentName);
+            if (argument == null) return new string[0];
+            var array = argument.Expression as ArrayCreateExpression;
+            if (array != null)
+                return TypeArrayInitializerToArray(array);
+            return new string[0];
+        }
+
+        private T PrimitiveAttributeArgumentValueOrDefault<T>(NamedExpression argument, T defaultValue)
+        {
+            if (argument == null)
+                return defaultValue;
+            var primitive = argument.Expression as PrimitiveExpression;
+            if (primitive != null)
+                return (T)primitive.Value;
+            return defaultValue; // (T)argument.Va
+        }
+
+        private static NamedExpression FindAttributeArgument(Attribute attribute, string argumentName)
+        {
+            if (attribute == null)
+                return null;
+            return attribute.Arguments.OfType<NamedExpression>().FirstOrDefault(expr => expr.Name == argumentName);
         }
     }
 }

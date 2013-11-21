@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Generators.Annotated;
 
-namespace Umbraco.CodeGen.Tests.Generators
+namespace Umbraco.CodeGen.Tests.Generators.Annotated
 {
     [TestFixture]
     public class ImportsGeneratorTests
@@ -22,8 +21,7 @@ namespace Umbraco.CodeGen.Tests.Generators
                 new[]
                 {
                     "System",
-                    "System.ComponentModel",
-                    "System.ComponentModel.DataAnnotations",
+                    "Umbraco.CodeGen.Annotations",
                     "Umbraco.Core.Models",
                     "Umbraco.Web"
                 }.SequenceEqual(
