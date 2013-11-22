@@ -1,12 +1,9 @@
-﻿using System;
-using System.CodeDom;
+﻿using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
-using umbraco.presentation.install.utills;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
