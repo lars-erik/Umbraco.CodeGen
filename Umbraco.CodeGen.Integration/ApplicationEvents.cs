@@ -159,17 +159,6 @@ namespace Umbraco.CodeGen.Integration
 		}
 	}
 
-    public class UmbracoDataTypeProvider : IDataTypeProvider
-    {
-        public IEnumerable<DataTypeDefinition> GetDataTypes()
-        {
-            var dataTypeDefinitions = ApplicationContext.Current.Services.DataTypeService
-                .GetAllDataTypeDefinitions()
-                .Select(dt => new DataTypeDefinition(dt.Name, dt.PropertyEditorAlias, dt.Name));
-            return dataTypeDefinitions;
-        }
-    }
-
     public class HttpContextPathResolver : IRelativePathResolver
 	{
 		public string Resolve(string relativePath)

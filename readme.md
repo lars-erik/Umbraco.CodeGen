@@ -2,9 +2,13 @@
 
 Synchronizes C# classes with uSync DocumentType files.
 
-# Umbraco 7 codegen.config
+# Umbraco 7 usage
 
-New DataTypeIds etc. in U7.
+Build USync development branch. :)  
+
+Build CodeGen against it and U7.  
+
+New DataTypeIds etc. in U7, so need new config below.  
 Invalid Descriptions in this config, but they aren't used.  
 
     <?xml version="1.0" encoding="utf-8" ?>
@@ -27,9 +31,10 @@ Invalid Descriptions in this config, but they aren't used.
       </TypeMappings>
     </CodeGenerator>
 
-Reference Umbraco.CodeGen.WaitForSixTwo, which is built as Umbraco.Tests.dll for Typed model factory  
-Create this class in your web ~/Models, then derive your models from it.  
-Models will be fed to UmbracoViewPage<YourModel> automatically. Just waiting for Stephane to be happy with the factory stuff.  
+Reference Umbraco.CodeGen.WaitForSixTwo in addition to core/integration.
+Umbraco.CodeGen.WaitForSixTwo is built as Umbraco.Tests.dll for Typed model factory support.  
+Create the following class in your web ~/Models, then derive your models from it.  
+Models will be fed to `UmbracoViewPage<YourModel>` automatically. Just waiting for Stephane to be happy with the factory stuff.  
 In the mean time tearing a rift in the space time continuum by faking trusted assembly. :)  
 
     public class PublishedContentModel : Umbraco.CodeGen.WaitForSixTwo.PublishedContentModel
