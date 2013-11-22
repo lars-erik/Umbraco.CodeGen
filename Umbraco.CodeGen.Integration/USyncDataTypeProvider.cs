@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using Umbraco.CodeGen.Configuration;
 
 namespace Umbraco.CodeGen.Integration
@@ -28,7 +29,7 @@ namespace Umbraco.CodeGen.Integration
 		private static DataTypeDefinition CreateDefinition(string configPath)
 		{
 			var doc = XDocument.Load(configPath);
-			var dataType = doc.Element("DataType");
+		    var dataType = doc.XPathSelectElement("DataTypes/DataType");
 			if (dataType == null) return null;
 			var name = AttributeValue(dataType, "Name");
 			var dataTypeId = AttributeValue(dataType, "Id");

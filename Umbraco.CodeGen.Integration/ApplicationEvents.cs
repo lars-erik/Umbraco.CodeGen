@@ -19,7 +19,7 @@ namespace Umbraco.CodeGen.Integration
 		private IEnumerable<DataTypeDefinition> dataTypes;
 		private CodeGeneratorConfiguration configuration;
 		private USyncConfiguration uSyncConfiguration;
-		private USyncDataTypeProvider dataTypesProvider;
+		private IDataTypeProvider dataTypesProvider;
 
 		private readonly Dictionary<string, string> paths = new Dictionary<string, string>();
 	    private readonly ContentTypeSerializer serializer = new ContentTypeSerializer();
@@ -36,8 +36,13 @@ namespace Umbraco.CodeGen.Integration
 			var configurationProvider = new CodeGeneratorConfigurationFileProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
 
 			uSyncConfiguration = uSyncConfigurationProvider.GetConfiguration();
-			
-			dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
+
+		    dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
+
+		    if (!dataTypesProvider.GetDataTypes().Any())
+		        return;
+                //new UmbracoDataTypeProvider();
+                //new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
 	
 			dataTypes = dataTypesProvider.GetDataTypes();
 			configuration = configurationProvider.GetConfiguration();
@@ -154,7 +159,18 @@ namespace Umbraco.CodeGen.Integration
 		}
 	}
 
-	public class HttpContextPathResolver : IRelativePathResolver
+    public class UmbracoDataTypeProvider : IDataTypeProvider
+    {
+        public IEnumerable<DataTypeDefinition> GetDataTypes()
+        {
+            var dataTypeDefinitions = ApplicationContext.Current.Services.DataTypeService
+                .GetAllDataTypeDefinitions()
+                .Select(dt => new DataTypeDefinition(dt.Name, dt.PropertyEditorAlias, dt.Name));
+            return dataTypeDefinitions;
+        }
+    }
+
+    public class HttpContextPathResolver : IRelativePathResolver
 	{
 		public string Resolve(string relativePath)
 		{
