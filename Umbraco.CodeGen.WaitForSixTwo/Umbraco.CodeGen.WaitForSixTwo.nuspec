@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Umbraco.CodeGen.U7</id>
+    <version>$version$</version>
+    <title>Umbraco CodeGen for Umbraco 7</title>
+    <authors>LEA</authors>
+    <owners>MarkedsPartner AS</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Temp package until all features are there.</description>
+    <releaseNotes>Should work..</releaseNotes>
+    <copyright>Copyright 2013 MarkedsPartner AS</copyright>
+    <tags/>
+  </metadata>
+</package>

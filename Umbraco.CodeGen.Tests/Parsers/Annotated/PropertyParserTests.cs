@@ -152,11 +152,11 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
         {
             const string code = @"
                 public class AClass {
-                    [GenericProperty(DataType=""Textstring"")]
+                    [GenericProperty(Definition=""RTE"")]
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("ec15c1e5-9d90-422a-aa52-4f7622c63bea", property.Type);
+            Assert.AreEqual(TestDataTypeProvider.Rte.DataTypeId, property.Type);
         }
 
         [Test]
