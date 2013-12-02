@@ -11,6 +11,7 @@ using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Parsers;
 using jumps.umbraco.usync.helpers;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 
 namespace Umbraco.CodeGen.Integration
 {
@@ -25,6 +26,9 @@ namespace Umbraco.CodeGen.Integration
 	    private readonly ContentTypeSerializer serializer = new ContentTypeSerializer();
 	    private CodeGeneratorFactory generatorFactory;
 	    private ParserFactory parserFactory;
+
+	    private DateTime globalStart;
+	    private DateTime itemStart;
 
 	    public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
@@ -50,10 +54,20 @@ namespace Umbraco.CodeGen.Integration
 
 			XmlDoc.Saved += OnDocumentTypeSaved;
 
-			if (configuration.DocumentTypes.GenerateXml)
-				GenerateXml(configuration.DocumentTypes);
-			if (configuration.MediaTypes.GenerateXml)
-				GenerateXml(configuration.MediaTypes);
+		    if (configuration.DocumentTypes.GenerateXml)
+		    {
+		        globalStart = DateTime.Now;
+		        LogHelper.Info<CodeGenerator>(() => "Parsing typed documenttype models");
+                GenerateXml(configuration.DocumentTypes);
+                LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed documenttype models done. Took {0:MM:ss}", DateTime.Now - globalStart));
+		    }
+		    if (configuration.MediaTypes.GenerateXml)
+		    {
+                globalStart = DateTime.Now;
+                LogHelper.Info<CodeGenerator>(() => "Parsing typed mediatype models");
+		        GenerateXml(configuration.MediaTypes);
+                LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed mediatype models done. Took {0:MM:ss}", DateTime.Now - globalStart));
+		    }
 		}
 
 	    private T CreateFactory<T>(string typeName)
@@ -81,18 +95,24 @@ namespace Umbraco.CodeGen.Integration
 			var documents = new List<XDocument>();
 			foreach(var file in files)
 			{
+			    itemStart = DateTime.Now;
+                LogHelper.Debug<CodeGenerator>(() => String.Format("Parsing file {0}", file));
 				using (var reader = File.OpenText(file))
 				{
 				    var contentType = parser.Parse(reader).FirstOrDefault();
                     if (contentType != null)
 					    documents.Add(XDocument.Parse(serializer.Serialize(contentType)));
 				}
-			}
+                LogHelper.Debug<CodeGenerator>(() => String.Format("Parsing file {0} done. Took {1:MM:ss}", file, DateTime.Now - itemStart));
+            }
 
 			var documentTypeRoot = Path.Combine(uSyncConfiguration.USyncFolder, contentTypeConfiguration.ContentTypeName);
 			if (!Directory.Exists(documentTypeRoot))
 				Directory.CreateDirectory(documentTypeRoot);
+	        itemStart = DateTime.Now;
+            LogHelper.Info<CodeGenerator>(() => "Writing uSync definitions");
 			WriteDocuments(contentTypeConfiguration, documents, documentTypeRoot, "");
+            LogHelper.Info<CodeGenerator>(() => String.Format("Writing uSync definitions done. Took {0:MM:ss}", DateTime.Now - itemStart));
 		}
 
 		private void WriteDocuments(
@@ -133,11 +153,16 @@ namespace Umbraco.CodeGen.Integration
 			if (!typeConfig.GenerateClasses)
 				return;
 
+		    itemStart = DateTime.Now;
+            LogHelper.Debug<CodeGenerator>(() => String.Format("Content type {0} saved, generating typed model", e.Path));
+
 		    ContentType contentType;
 		    using (var reader = File.OpenText(e.Path))
 			    contentType = serializer.Deserialize(reader);
 
-			var modelPath = paths[typeConfig.ContentTypeName];
+            LogHelper.Info<CodeGenerator>(() => String.Format("Generating typed model for {0}", contentType.Alias));
+            
+            var modelPath = paths[typeConfig.ContentTypeName];
 			if (!Directory.Exists(modelPath))
 				Directory.CreateDirectory(modelPath);
 			var path = Path.Combine(modelPath, contentType.Info.Alias.PascalCase() + ".cs");
@@ -147,7 +172,9 @@ namespace Umbraco.CodeGen.Integration
             var classGenerator = new CodeGenerator(typeConfig, dataTypesProvider, generatorFactory);
             using (var stream = File.CreateText(path))
                 classGenerator.Generate(contentType, stream);
-		}
+
+            LogHelper.Debug<CodeGenerator>(() => String.Format("Typed model for {0} generated. Took {1:MM:ss}", contentType.Alias, DateTime.Now - itemStart));
+        }
 
 		public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
