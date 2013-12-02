@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Xml.Linq;
 using umbraco.cms.businesslogic.datatype.controls;
@@ -36,38 +37,45 @@ namespace Umbraco.CodeGen.Integration
 
 		public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
-			var uSyncConfigurationProvider = new USyncConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/uSyncSettings.config"), new HttpContextPathResolver());
-			var configurationProvider = new CodeGeneratorConfigurationFileProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
+            try
+            {
+			    var uSyncConfigurationProvider = new USyncConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/uSyncSettings.config"), new HttpContextPathResolver());
+			    var configurationProvider = new CodeGeneratorConfigurationFileProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
 
-			uSyncConfiguration = uSyncConfigurationProvider.GetConfiguration();
+			    uSyncConfiguration = uSyncConfigurationProvider.GetConfiguration();
 			
-			dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
+			    dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
 	
-			dataTypes = dataTypesProvider.GetDataTypes();
-			configuration = configurationProvider.GetConfiguration();
+			    dataTypes = dataTypesProvider.GetDataTypes();
+			    configuration = configurationProvider.GetConfiguration();
 
-		    generatorFactory = CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
-		    parserFactory = CreateFactory<ParserFactory>(configuration.ParserFactory);
+		        generatorFactory = CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
+		        parserFactory = CreateFactory<ParserFactory>(configuration.ParserFactory);
 
-			paths.Add("DocumentType", HttpContext.Current.Server.MapPath(configuration.DocumentTypes.ModelPath));
-			paths.Add("MediaType", HttpContext.Current.Server.MapPath(configuration.MediaTypes.ModelPath));
+			    paths.Add("DocumentType", HttpContext.Current.Server.MapPath(configuration.DocumentTypes.ModelPath));
+			    paths.Add("MediaType", HttpContext.Current.Server.MapPath(configuration.MediaTypes.ModelPath));
 
-			XmlDoc.Saved += OnDocumentTypeSaved;
+			    XmlDoc.Saved += OnDocumentTypeSaved;
 
-		    if (configuration.DocumentTypes.GenerateXml)
-		    {
-		        globalStart = DateTime.Now;
-		        LogHelper.Info<CodeGenerator>(() => "Parsing typed documenttype models");
-                GenerateXml(configuration.DocumentTypes);
-                LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed documenttype models done. Took {0:MM:ss}", DateTime.Now - globalStart));
-		    }
-		    if (configuration.MediaTypes.GenerateXml)
-		    {
-                globalStart = DateTime.Now;
-                LogHelper.Info<CodeGenerator>(() => "Parsing typed mediatype models");
-		        GenerateXml(configuration.MediaTypes);
-                LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed mediatype models done. Took {0:MM:ss}", DateTime.Now - globalStart));
-		    }
+		        if (configuration.DocumentTypes.GenerateXml)
+		        {
+		            globalStart = DateTime.Now;
+		            LogHelper.Info<CodeGenerator>(() => "Parsing typed documenttype models");
+                    GenerateXml(configuration.DocumentTypes);
+                    LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed documenttype models done. Took {0:MM\\:ss}", DateTime.Now - globalStart));
+		        }
+		        if (configuration.MediaTypes.GenerateXml)
+		        {
+                    globalStart = DateTime.Now;
+                    LogHelper.Info<CodeGenerator>(() => "Parsing typed mediatype models");
+		            GenerateXml(configuration.MediaTypes);
+                    LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed mediatype models done. Took {0:MM\\:ss}", DateTime.Now - globalStart));
+		        }
+            }
+            catch(Exception ex)
+	        {
+	            LogHelper.Error<CodeGenerator>("Parsing typed models failed", ex);
+	        }
 		}
 
 	    private T CreateFactory<T>(string typeName)
@@ -103,7 +111,7 @@ namespace Umbraco.CodeGen.Integration
                     if (contentType != null)
 					    documents.Add(XDocument.Parse(serializer.Serialize(contentType)));
 				}
-                LogHelper.Debug<CodeGenerator>(() => String.Format("Parsing file {0} done. Took {1:MM:ss}", file, DateTime.Now - itemStart));
+                LogHelper.Debug<CodeGenerator>(() => String.Format("Parsing file {0} done. Took {1:MM\\:ss}", file, DateTime.Now - itemStart));
             }
 
 			var documentTypeRoot = Path.Combine(uSyncConfiguration.USyncFolder, contentTypeConfiguration.ContentTypeName);
@@ -112,7 +120,7 @@ namespace Umbraco.CodeGen.Integration
 	        itemStart = DateTime.Now;
             LogHelper.Info<CodeGenerator>(() => "Writing uSync definitions");
 			WriteDocuments(contentTypeConfiguration, documents, documentTypeRoot, "");
-            LogHelper.Info<CodeGenerator>(() => String.Format("Writing uSync definitions done. Took {0:MM:ss}", DateTime.Now - itemStart));
+            LogHelper.Info<CodeGenerator>(() => String.Format("Writing uSync definitions done. Took {0:MM\\:ss}", DateTime.Now - itemStart));
 		}
 
 		private void WriteDocuments(
@@ -143,38 +151,48 @@ namespace Umbraco.CodeGen.Integration
 
 		private void OnDocumentTypeSaved(XmlDocFileEventArgs e)
 		{
-			if (!e.Path.Contains("DocumentType") && !e.Path.Contains("MediaType"))
-				return;
+		    try
+		    {
+		        if (!e.Path.Contains("DocumentType") && !e.Path.Contains("MediaType"))
+		            return;
 
-			var typeConfig = e.Path.Contains("DocumentType")
-				? configuration.DocumentTypes
-				: configuration.MediaTypes;
+		        var typeConfig = e.Path.Contains("DocumentType")
+		            ? configuration.DocumentTypes
+		            : configuration.MediaTypes;
 
-			if (!typeConfig.GenerateClasses)
-				return;
+		        if (!typeConfig.GenerateClasses)
+		            return;
 
-		    itemStart = DateTime.Now;
-            LogHelper.Debug<CodeGenerator>(() => String.Format("Content type {0} saved, generating typed model", e.Path));
+		        itemStart = DateTime.Now;
+		        LogHelper.Debug<CodeGenerator>(() => String.Format("Content type {0} saved, generating typed model", e.Path));
 
-		    ContentType contentType;
-		    using (var reader = File.OpenText(e.Path))
-			    contentType = serializer.Deserialize(reader);
+		        ContentType contentType;
+		        using (var reader = File.OpenText(e.Path))
+		            contentType = serializer.Deserialize(reader);
 
-            LogHelper.Info<CodeGenerator>(() => String.Format("Generating typed model for {0}", contentType.Alias));
-            
-            var modelPath = paths[typeConfig.ContentTypeName];
-			if (!Directory.Exists(modelPath))
-				Directory.CreateDirectory(modelPath);
-			var path = Path.Combine(modelPath, contentType.Info.Alias.PascalCase() + ".cs");
-				if (configuration.OverwriteReadOnly && File.Exists(path))
-					File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
+		        LogHelper.Info<CodeGenerator>(() => String.Format("Generating typed model for {0}", contentType.Alias));
 
-            var classGenerator = new CodeGenerator(typeConfig, dataTypesProvider, generatorFactory);
-            using (var stream = File.CreateText(path))
-                classGenerator.Generate(contentType, stream);
+		        var modelPath = paths[typeConfig.ContentTypeName];
+		        if (!Directory.Exists(modelPath))
+		            Directory.CreateDirectory(modelPath);
+		        var path = Path.Combine(modelPath, contentType.Info.Alias.PascalCase() + ".cs");
+		        if (configuration.OverwriteReadOnly && File.Exists(path))
+		            File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
 
-            LogHelper.Debug<CodeGenerator>(() => String.Format("Typed model for {0} generated. Took {1:MM:ss}", contentType.Alias, DateTime.Now - itemStart));
-        }
+		        var classGenerator = new CodeGenerator(typeConfig, dataTypesProvider, generatorFactory);
+		        using (var stream = File.CreateText(path))
+		            classGenerator.Generate(contentType, stream);
+
+		        LogHelper.Debug<CodeGenerator>(
+		            () =>
+		                String.Format("Typed model for {0} generated. Took {1:MM\\:ss}", contentType.Alias,
+		                    DateTime.Now - itemStart));
+		    }
+		    catch (Exception ex)
+		    {
+                LogHelper.Error<CodeGenerator>("Generating typed model failed", ex);
+		    }
+		}
 
 		public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
