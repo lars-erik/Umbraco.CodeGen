@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Umbraco.CodeGen.U7</id>
-    <version>$version$</version>
+    <version>1.0.5084.2</version>
     <title>Umbraco CodeGen for Umbraco 7</title>
     <authors>LEA</authors>
     <owners>MarkedsPartner AS</owners>
