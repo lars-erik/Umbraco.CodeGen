@@ -66,14 +66,14 @@ namespace Umbraco.CodeGen.Integration
 		            globalStart = DateTime.Now;
 		            LogHelper.Info<CodeGenerator>(() => "Parsing typed documenttype models");
                     GenerateXml(configuration.DocumentTypes);
-                    LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed documenttype models done. Took {0:MM\\:ss}", DateTime.Now - globalStart));
+                    LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed documenttype models done. Took {0}", DateTime.Now - globalStart));
 		        }
 		        if (configuration.MediaTypes.GenerateXml)
 		        {
                     globalStart = DateTime.Now;
                     LogHelper.Info<CodeGenerator>(() => "Parsing typed mediatype models");
 		            GenerateXml(configuration.MediaTypes);
-                    LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed mediatype models done. Took {0:MM\\:ss}", DateTime.Now - globalStart));
+                    LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed mediatype models done. Took {0}", DateTime.Now - globalStart));
 		        }
             }
             catch(Exception ex)
@@ -115,7 +115,7 @@ namespace Umbraco.CodeGen.Integration
                     if (contentType != null)
 					    documents.Add(XDocument.Parse(serializer.Serialize(contentType)));
 				}
-                LogHelper.Debug<CodeGenerator>(() => String.Format("Parsing file {0} done. Took {1:MM\\:ss}", file, DateTime.Now - itemStart));
+                LogHelper.Debug<CodeGenerator>(() => String.Format("Parsing file {0} done. Took {1}", file, DateTime.Now - itemStart));
             }
 
 			var documentTypeRoot = Path.Combine(uSyncConfiguration.USyncFolder, contentTypeConfiguration.ContentTypeName);
@@ -124,7 +124,7 @@ namespace Umbraco.CodeGen.Integration
 	        itemStart = DateTime.Now;
             LogHelper.Info<CodeGenerator>(() => "Writing uSync definitions");
 			WriteDocuments(contentTypeConfiguration, documents, documentTypeRoot, "");
-            LogHelper.Info<CodeGenerator>(() => String.Format("Writing uSync definitions done. Took {0:MM\\:ss}", DateTime.Now - itemStart));
+            LogHelper.Info<CodeGenerator>(() => String.Format("Writing uSync definitions done. Took {0}", DateTime.Now - itemStart));
         }
 
 		private void WriteDocuments(
@@ -187,7 +187,7 @@ namespace Umbraco.CodeGen.Integration
                 using (var stream = File.CreateText(path))
                     classGenerator.Generate(contentType, stream);
 
-                LogHelper.Debug<CodeGenerator>(() => String.Format("Typed model for {0} generated. Took {1:MM\\:ss}", contentType.Alias, DateTime.Now - itemStart));
+                LogHelper.Debug<CodeGenerator>(() => String.Format("Typed model for {0} generated. Took {1}", contentType.Alias, DateTime.Now - itemStart));
             }
             catch (Exception ex)
             {
