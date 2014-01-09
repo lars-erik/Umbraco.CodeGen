@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseSupportedAnnotatedCodeGeneratorAcceptanceTests.cs" />
     <Compile Include="AnnotatedCodeGeneratorAcceptanceTests.cs" />
     <Compile Include="CodeParserAcceptanceTests.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationTests.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="CodeGeneratorAcceptanceTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
     <Compile Include="Generators\Annotated\AnnotationCodeGeneratorTestBase.cs" />
+    <Compile Include="Generators\BaseSupportedAnnotated\ImportsGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\ImportsGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\PropertyInfoCodeGeneratorTests.cs" />
@@ -93,6 +95,8 @@
     <Compile Include="Generators\AttributeGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\DocumentTypeInfoGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\EntityDescriptionGeneratorTests.cs" />
+    <Compile Include="Generators\BaseSupportedAnnotated\PropertyBodyGeneratorTests.cs" />
+    <Compile Include="Generators\BaseSupportedAnnotated\CtorGeneratorTests.cs" />
     <Compile Include="Generators\ClassGeneratorTests.cs" />
     <Compile Include="Generators\CodeGenerationHelper.cs" />
     <Compile Include="Generators\CtorGeneratorTests.cs" />
@@ -105,6 +109,7 @@
     <Compile Include="Generators\PropertiesGeneratorTests.cs" />
     <Compile Include="Generators\PropertyBodyGeneratorTest.cs" />
     <Compile Include="Generators\Bcl\PropertyInfoCodeGeneratorTests.cs" />
+    <Compile Include="Generators\PropertyBodyGeneratorTestBase.cs" />
     <Compile Include="Generators\SpyGenerator.cs" />
     <Compile Include="Generators\Bcl\StructureGeneratorTests.cs" />
     <Compile Include="Generators\TypeCodeGeneratorTestBase.cs" />
@@ -121,6 +126,8 @@
     <Compile Include="Parsers\TabsParserTests.cs" />
     <Content Include="TestFiles\SomeAnnotatedDocumentType.cs" />
     <Content Include="TestFiles\SomeAnnotatedMediaType.cs" />
+    <Content Include="TestFiles\SomeBaseSupportedAnnotatedDocumentType.cs" />
+    <Content Include="TestFiles\SomeBaseSupportedAnnotatedMediaType.cs" />
     <Compile Include="TestHelpers\SerializationHelper.cs" />
     <Compile Include="TestHelpers\TestDataTypeProvider.cs" />
     <Compile Include="TestHelpers\TestFactory.cs" />

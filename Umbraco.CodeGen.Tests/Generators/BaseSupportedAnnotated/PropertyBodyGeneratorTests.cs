@@ -1,19 +1,20 @@
 ﻿using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Generators;
+using PropertyBodyGenerator = Umbraco.CodeGen.Generators.BaseSupportedAnnotated.PropertyBodyGenerator;
 
-namespace Umbraco.CodeGen.Tests.Generators
+namespace Umbraco.CodeGen.Tests.Generators.BaseSupportedAnnotated
 {
     [TestFixture]
-    public class PropertyBodyGeneratorTest : PropertyBodyGeneratorTestBase
+    public class PropertyBodyGeneratorTests : PropertyBodyGeneratorTestBase
     {
         [Test]
-        public void Generate_Body_GetsContentPropertyValueOfType()
+        public void Generate_Body_GetsValueFromBaseMethodGetValue()
         {
             var body = GeneratePropertyAndGetBodyText();
 
             Assert.AreEqual(
-                "return Content.GetPropertyValue<String>(\"aProperty\");",
+                "return GetValue<String>(\"aProperty\");",
                 body
                 );
         }
