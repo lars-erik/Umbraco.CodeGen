@@ -2,6 +2,8 @@
 
 Synchronizes C# classes with uSync DocumentType files.
 
+Release available from the [releases page](https://github.com/lars-erik/Umbraco.CodeGen/releases)
+
 # Umbraco 7 usage
 
 Build USync development branch. :)  
