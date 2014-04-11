@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen", "Umbraco.CodeGen\Umbraco.CodeGen.csproj", "{132E2FC4-B509-4204-9DA2-D688BEA75D4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Tests", "Umbraco.CodeGen.Tests\Umbraco.CodeGen.Tests.csproj", "{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}"
@@ -30,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Packager", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.WaitForSixTwo", "Umbraco.CodeGen.WaitForSixTwo\Umbraco.CodeGen.WaitForSixTwo.csproj", "{96E54592-1154-4696-9B9A-5A9DC0D06777}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Web", "Umbraco.CodeGen.Web\Umbraco.CodeGen.Web.csproj", "{BD5E19B6-0550-4B7B-919A-A6677E123CDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,10 @@ Global
 		{96E54592-1154-4696-9B9A-5A9DC0D06777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96E54592-1154-4696-9B9A-5A9DC0D06777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96E54592-1154-4696-9B9A-5A9DC0D06777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
