@@ -41,7 +41,7 @@ namespace Umbraco.CodeGen.Tests
             }
 
             var configuration = new CodeGeneratorConfiguration();
-            configuration.TypeMappings.Add(new TypeMapping("1413afcb-d19a-4173-8e9a-68288d2a73b8", "Int32"));
+            configuration.TypeMappings.Add(new TypeMapping("Umbraco.Integer", "Int32"));
             var typeConfig = configuration.Get(contentTypeName);
             typeConfig.BaseClass = "Umbraco.Core.Models.TypedModelBase";
             typeConfig.Namespace = "Umbraco.CodeGen.Models";

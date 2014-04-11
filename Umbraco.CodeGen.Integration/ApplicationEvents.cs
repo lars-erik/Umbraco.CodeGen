@@ -46,10 +46,10 @@ namespace Umbraco.CodeGen.Integration
 		        dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
 
 		        if (!dataTypesProvider.GetDataTypes().Any())
-		            return;
-                    //new UmbracoDataTypeProvider();
-                    //new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
-	
+                {
+                    LogHelper.Error<CodeGenerator>("Could not find data types in usync folder", new Exception());
+                    return;
+                }	
 			    dataTypes = dataTypesProvider.GetDataTypes();
 			    configuration = configurationProvider.GetConfiguration();
 
@@ -78,7 +78,7 @@ namespace Umbraco.CodeGen.Integration
             }
             catch(Exception ex)
 	        {
-	            LogHelper.Error<CodeGenerator>("Parsing typed models failed", ex);
+	            LogHelper.Error<CodeGenerator>("Initialization failed", ex);
     		}
 		}
 

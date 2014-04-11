@@ -1,35 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
-using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Parsers;
 using Umbraco.CodeGen.Parsers.Annotated;
 using Umbraco.CodeGen.Tests.TestHelpers;
 
 namespace Umbraco.CodeGen.Tests.Parsers.Annotated
 {
     [TestFixture]
-    public class PropertyParserTests : ContentTypeCodeParserTestBase
+    public class PropertyParserTests : PropertyParserTestBase
     {
-        private const string PureProperty = @"
-            public class AClass {
-                public string AProperty {get;set;}
-            }";
-        private GenericProperty property;
-        private List<DataTypeDefinition> dataTypeConfiguration;
-        private CodeGeneratorConfiguration codeGenConfig;
-
-        [SetUp]
-        public void SetUp()
-        {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
-            dataTypeConfiguration = TestDataTypeProvider.All;
-
-            Parser = new PropertyParser(Configuration, dataTypeConfiguration);
-        }
-
         [Test]
         public void Parse_PropertyNode_AddsGenericProperty()
         {
@@ -41,14 +21,14 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
         public void Parse_Alias_IsPropertyNameInCamelCase()
         {
             ParseProperty(PureProperty);
-            Assert.AreEqual("aProperty", property.Alias);
+            Assert.AreEqual("aProperty", Property.Alias);
         }
 
         [Test]
         public void Parse_Name_WhenPureProperty_IsSplitPascalCase()
         {
             ParseProperty(PureProperty);
-            Assert.AreEqual("A Property", property.Name);
+            Assert.AreEqual("A Property", Property.Name);
         }
 
         [Test]
@@ -60,7 +40,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("A description", property.Description);
+            Assert.AreEqual("A description", Property.Description);
         }
 
         [Test]
@@ -72,14 +52,14 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("", property.Description);
+            Assert.AreEqual("", Property.Description);
         }
 
         [Test]
         public void Parse_Description_WhenArgumentMissing_IsNull()
         {
             ParseProperty(PureProperty);
-            Assert.IsNull(property.Description);
+            Assert.IsNull(Property.Description);
         }
 
         [Test]
@@ -91,7 +71,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("2e6d3631-066e-44b8-aec4-96f09099b2b5", property.Definition);
+            Assert.AreEqual("2e6d3631-066e-44b8-aec4-96f09099b2b5", Property.Definition);
         }
 
         [Test]
@@ -103,19 +83,19 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("2e6d3631-066e-44b8-aec4-96f09099b2b5", property.Definition);
+            Assert.AreEqual("2e6d3631-066e-44b8-aec4-96f09099b2b5", Property.Definition);
         }
 
         [Test]
-        public void Parse_Definition_WhenKnownName_IsGuid()
+        public void Parse_Definition_WhenKnownName_IsDefinitionId()
         {
             const string code = @"
                 public class AClass {
-                    [GenericProperty(Definition=""RTE"")]
+                    [GenericProperty(Definition=""Richtext editor"")]
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("ca90c950-0aff-4e72-b976-a30b1ac57dad", property.Definition);
+            Assert.AreEqual("ca90c950-0aff-4e72-b976-a30b1ac57dad", Property.Definition);
         }
 
         [Test]
@@ -131,7 +111,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
             foreach (var snippet in code)
             {
                 ParseProperty(snippet);
-                Assert.AreEqual("0cc0eba1-9960-42c9-bf9b-60e150b429ae", property.Definition);
+                Assert.AreEqual("0cc0eba1-9960-42c9-bf9b-60e150b429ae", Property.Definition);
             }
         }
 
@@ -139,10 +119,10 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
         [ExpectedException(typeof(Exception), ExpectedMessage = "Default datatype could not be found. Set a known datatype in TypeMappings.DefaultDefinitionId.")]
         public void Parse_Definition_WhenMissingOrUnknown_AndDefaultIsMissing_Throws()
         {
-            codeGenConfig = new CodeGeneratorConfiguration();
-            codeGenConfig.DefaultDefinitionId = "";
-            Configuration = codeGenConfig.MediaTypes;
-            Parser = new PropertyParser(Configuration, dataTypeConfiguration);
+            CodeGenConfig = new CodeGeneratorConfiguration();
+            CodeGenConfig.DefaultDefinitionId = "";
+            Configuration = CodeGenConfig.MediaTypes;
+            Parser = new PropertyParser(Configuration, DataTypeConfiguration);
 
             ParseProperty(PureProperty);
         }
@@ -152,11 +132,11 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
         {
             const string code = @"
                 public class AClass {
-                    [GenericProperty(Definition=""RTE"")]
+                    [GenericProperty(Definition=""Richtext editor"")]
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual(TestDataTypeProvider.Rte.DataTypeId, property.Type);
+            Assert.AreEqual(TestDataTypeProvider.Richtexteditor.DataTypeId, Property.Type);
         }
 
         [Test]
@@ -168,14 +148,14 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("A tab", property.Tab);
+            Assert.AreEqual("A tab", Property.Tab);
         }
 
         [Test]
         public void Parse_Tab_WhenArgumentMissing_IsNull()
         {
             ParseProperty(PureProperty);
-            Assert.IsNull(property.Tab);
+            Assert.IsNull(Property.Tab);
         }
 
         [Test]
@@ -187,7 +167,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.IsTrue(property.Mandatory);
+            Assert.IsTrue(Property.Mandatory);
         }
 
         [Test]
@@ -199,14 +179,14 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.IsFalse(property.Mandatory);
+            Assert.IsFalse(Property.Mandatory);
         }
 
         [Test]
         public void Parse_Mandatory_WhenArgumentMissing_IsFalse()
         {
             ParseProperty(PureProperty);
-            Assert.IsFalse(property.Mandatory);
+            Assert.IsFalse(Property.Mandatory);
         }
 
         [Test]
@@ -218,24 +198,19 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
                     public string AProperty {get;set;}
                 }";
             ParseProperty(code);
-            Assert.AreEqual("[a-z]", property.Validation);
+            Assert.AreEqual("[a-z]", Property.Validation);
         }
 
         [Test]
         public void Parse_Validation_WhenMissingArgument_IsNull()
         {
             ParseProperty(PureProperty);
-            Assert.IsNull(property.Validation);
+            Assert.IsNull(Property.Validation);
         }
 
-        private void ParseProperty(string code)
+        protected override ContentTypeCodeParserBase CreateParser()
         {
-            const string propertyName = "AProperty";
-            ContentType = new MediaType();
-            var type = ParseType(code);
-            var prop = type.Members.SingleOrDefault(m => m.Name == propertyName);
-            Parser.Parse(prop, ContentType);
-            property = ContentType.GenericProperties.SingleOrDefault(p => p.Alias == propertyName.CamelCase());
+            return new PropertyParser(Configuration, DataTypeConfiguration);
         }
     }
 }

@@ -16,13 +16,13 @@ namespace Umbraco.CodeGen.Tests
         [Test]
         public void Generate_ReturnsXmlForDocumentType()
         {
-            TestGeneratedXml("SomeDocumentType", "SomeDocumentType", "DocumentType", new DefaultParserFactory());
+            TestGeneratedXml("SomeDocumentType", "SomeDocumentType", "DocumentType", new BclParserFactory());
         }
 
         [Test]
         public void Generate_ReturnsXmlForMediaType()
         {
-            TestGeneratedXml("SomeMediaType", "SomeMediaType", "MediaType", new DefaultParserFactory());
+            TestGeneratedXml("SomeMediaType", "SomeMediaType", "MediaType", new BclParserFactory());
         }
 
         [Test]

@@ -15,7 +15,7 @@
                 base(content)
         {
         }
-        [GenericProperty(Description="A description", Definition="RTE", Tab="A tab", Mandatory=true, Validation="[a-z]")]
+        [GenericProperty(Description="A description", Definition="Richtext editor", Tab="A tab", Mandatory=true, Validation="[a-z]")]
         public virtual String SomeProperty
         {
             get
@@ -23,7 +23,7 @@
                 return Content.GetPropertyValue<String>("someProperty");
             }
         }
-        [GenericProperty(Description="Another description", Definition="RTE", Tab="A tab")]
+        [GenericProperty(Description="Another description", Definition="Richtext editor", Tab="A tab")]
         public virtual String AnotherProperty
         {
             get

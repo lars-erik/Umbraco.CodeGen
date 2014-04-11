@@ -23,7 +23,7 @@
         {
         }
         [Description("A description")]
-        [DataType("RTE")]
+        [DataType("Richtext editor")]
         [Category("A tab")]
         [Required()]
         [RegularExpression("[a-z]")]
@@ -35,7 +35,7 @@
             }
         }
         [Description("Another description")]
-        [DataType("RTE")]
+        [DataType("Richtext editor")]
         [Category("A tab")]
         public virtual String AnotherProperty
         {

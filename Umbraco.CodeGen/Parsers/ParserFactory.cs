@@ -9,7 +9,7 @@ namespace Umbraco.CodeGen.Parsers
         protected ContentTypeConfiguration Configuration;
         protected IList<DataTypeDefinition> DataTypes;
 
-        public ContentTypeCodeParser Create(
+        public virtual ContentTypeCodeParser Create(
             ContentTypeConfiguration configuration,
             IEnumerable<DataTypeDefinition> dataTypes 
             )
@@ -22,7 +22,7 @@ namespace Umbraco.CodeGen.Parsers
             return typedParser;
         }
 
-        protected abstract ContentTypeCodeParser CreateMediaTypeParser();
-        protected abstract ContentTypeCodeParser CreateDocumentTypeParser();
+        public abstract ContentTypeCodeParser CreateMediaTypeParser();
+        public abstract ContentTypeCodeParser CreateDocumentTypeParser();
     }
 }

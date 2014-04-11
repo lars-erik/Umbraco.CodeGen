@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ICSharpCode.NRefactory.CSharp;
+﻿using ICSharpCode.NRefactory.CSharp;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Attribute = ICSharpCode.NRefactory.CSharp.Attribute;
 
 namespace Umbraco.CodeGen.Parsers
 {

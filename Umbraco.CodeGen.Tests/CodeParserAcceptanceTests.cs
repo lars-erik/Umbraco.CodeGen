@@ -15,13 +15,13 @@ namespace Umbraco.CodeGen.Tests
         [Test]
         public void Parse_ReturnsDocumentType()
         {
-            TestParse("SomeDocumentType", "DocumentType", TestFactory.CreateExpectedDocumentType(), new DefaultParserFactory());
+            TestParse("SomeDocumentType", "DocumentType", TestFactory.CreateExpectedDocumentType(), new BclParserFactory());
         }
 
         [Test] 
         public void Parse_ReturnsMediaType()
         {
-            TestParse("SomeMediaType", "MediaType", TestFactory.CreateExpectedMediaType(), new DefaultParserFactory());
+            TestParse("SomeMediaType", "MediaType", TestFactory.CreateExpectedMediaType(), new BclParserFactory());
         }
 
         [Test]

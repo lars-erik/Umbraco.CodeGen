@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Umbraco.Core;
 using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace Umbraco.CodeGen.WaitForSixTwo
 {
@@ -81,8 +82,10 @@ namespace Umbraco.CodeGen.WaitForSixTwo
         }
     }
 
-    public abstract class PublishedContentModel : Umbraco.Core.Models.PublishedContent.PublishedContentExtended
+    public abstract class PublishedContentModel : Core.Models.PublishedContent.PublishedContentExtended
     {
+        private UmbracoHelper helper;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PublishedContentModel"/> class with
         /// an original <see cref="IPublishedContent"/> instance.
@@ -91,5 +94,16 @@ namespace Umbraco.CodeGen.WaitForSixTwo
         protected PublishedContentModel(IPublishedContent content)
             : base(content)
         { }
+
+        public virtual T GetValue<T>(string alias)
+        {
+            return this.GetPropertyValue<T>(alias);
+        }
+
+        public virtual UmbracoHelper Umbraco
+        {
+            get { return helper ?? (helper = new UmbracoHelper(UmbracoContext.Current, this)); }
+        }
+
     }
 }

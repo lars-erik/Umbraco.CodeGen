@@ -35,7 +35,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "Some Property",
                         Alias = "someProperty",
-                        Type = "5e9b75ae-face-41c8-b47e-5f4b0fd82f83",
+                        Type = "Umbraco.TinyMCEv3",
                         Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
                         Tab = "A tab",
                         Mandatory = true,
@@ -46,7 +46,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "Another Property",
                         Alias = "anotherProperty",
-                        Type = "5e9b75ae-face-41c8-b47e-5f4b0fd82f83",
+                        Type = "Umbraco.TinyMCEv3",
                         Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
                         Tab = "A tab",
                         Description = "Another description"
@@ -57,7 +57,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                         Alias = "tablessProperty",
                         Description = null,
                         Tab = null,
-                        Type = "1413afcb-d19a-4173-8e9a-68288d2a73b8",
+                        Type = "Umbraco.Integer",
                         Definition = "2e6d3631-066e-44b8-aec4-96f09099b2b5"
                     }
                 },
@@ -98,7 +98,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "Lets Have A Property",
                         Alias = "letsHaveAProperty",
-                        Type = "ec15c1e5-9d90-422a-aa52-4f7622c63bea",
+                        Type = "Umbraco.Textbox",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
                         Tab = "A tab"
                     },
@@ -106,7 +106,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "And A Tabless Property",
                         Alias = "andATablessProperty",
-                        Type = "ec15c1e5-9d90-422a-aa52-4f7622c63bea",
+                        Type = "Umbraco.Textbox",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
                     }
                 },

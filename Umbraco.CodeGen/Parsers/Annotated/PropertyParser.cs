@@ -10,14 +10,14 @@ namespace Umbraco.CodeGen.Parsers.Annotated
 {
     public class PropertyParser : ContentTypeCodeParserBase
     {
-        private readonly IEnumerable<DataTypeDefinition> dataTypes;
-        private readonly DataTypeDefinition defaultDataType;
+        protected readonly IEnumerable<DataTypeDefinition> DataTypes;
+        protected readonly DataTypeDefinition DefaultDataType;
 
         public PropertyParser(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
             : base(configuration)
         {
-            this.dataTypes = dataTypes;
-            defaultDataType = FindDataTypeDefinition(configuration.DefaultDefinitionId);
+            this.DataTypes = dataTypes;
+            DefaultDataType = FindDataTypeDefinition(configuration.DefaultDefinitionId);
         }
 
         public override void Parse(AstNode node, ContentType contentType)
@@ -26,7 +26,7 @@ namespace Umbraco.CodeGen.Parsers.Annotated
             var attribute = FindAttribute(propNode.Attributes, "GenericProperty");
 
             var definitionId = AttributeArgumentValue<string>(attribute, "Definition", null);
-            var dataType = FindDataTypeDefinition(definitionId) ?? defaultDataType;
+            var dataType = FindDataTypeDefinition(definitionId) ?? DefaultDataType;
 
             if (dataType == null)
                 throw new Exception("Default datatype could not be found. Set a known datatype in TypeMappings.DefaultDefinitionId.");
@@ -50,7 +50,7 @@ namespace Umbraco.CodeGen.Parsers.Annotated
         {
             Guid parsedDefId;
             bool definitionIsGuid = Guid.TryParse(definitionId, out parsedDefId);
-            var dataType = dataTypes.SingleOrDefault(dt =>
+            var dataType = DataTypes.SingleOrDefault(dt =>
                 definitionIsGuid
                     ? String.Compare(dt.DefinitionId, definitionId, IgnoreCase) == 0
                     : String.Compare(dt.DataTypeName, definitionId, IgnoreCase) == 0

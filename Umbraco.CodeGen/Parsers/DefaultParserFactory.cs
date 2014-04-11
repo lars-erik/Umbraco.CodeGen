@@ -1,39 +1,26 @@
 ﻿using System.Collections.Generic;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Parsers.Bcl;
 
 namespace Umbraco.CodeGen.Parsers
 {
     public class DefaultParserFactory : ParserFactory
     {
-        protected override ContentTypeCodeParser CreateMediaTypeParser()
+        private readonly ParserFactory inner = new AnnotatedParserFactory();
+
+        public override ContentTypeCodeParser Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
         {
-            var parsers = CreateParsers(new CommonInfoParser(Configuration));
-            return new MediaTypeCodeParser(Configuration, parsers.ToArray());
+            return inner.Create(configuration, dataTypes);
         }
 
-        protected override ContentTypeCodeParser CreateDocumentTypeParser()
+        public override ContentTypeCodeParser CreateDocumentTypeParser()
         {
-            var parsers = CreateParsers(new DocumentTypeInfoParser(Configuration));
-            return new DocumentTypeCodeParser(Configuration, parsers.ToArray());
+            return inner.CreateDocumentTypeParser();
         }
 
-        protected List<ContentTypeCodeParserBase> CreateParsers(InfoParserBase infoParser)
+        public override ContentTypeCodeParser CreateMediaTypeParser()
         {
-            var parsers = CreateDefaultParsers();
-            parsers.Insert(0, infoParser);
-            return parsers;
-        }
-
-        protected List<ContentTypeCodeParserBase> CreateDefaultParsers()
-        {
-            return new List<ContentTypeCodeParserBase>
-            {
-                new StructureParser(Configuration),
-                new PropertiesParser(Configuration,
-                    new PropertyParser(Configuration, DataTypes)
-                ),
-                new TabsParser(Configuration)
-            };
+            return inner.CreateMediaTypeParser();
         }
     }
 }

@@ -12,4 +12,7 @@
     <copyright>Copyright 2013 MarkedsPartner AS</copyright>
     <tags/>
   </metadata>
+  <files>
+    <file src="../Umbraco.CodeGen.Integration/config/CodeGen.config" target="content/config/CodeGen.config"/>
+  </files>
 </package>
