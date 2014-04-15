@@ -17,7 +17,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Generator = new ClassGenerator(
                 Configuration,
                 new EntityDescriptionGenerator(Configuration)

@@ -16,7 +16,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().DocumentTypes;
+            Configuration = CodeGeneratorConfiguration.Create().DocumentTypes;
             spy1 = new SpyGenerator();
             spy2 = new SpyGenerator();
         }

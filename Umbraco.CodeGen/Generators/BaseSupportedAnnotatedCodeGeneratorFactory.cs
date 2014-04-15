@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Generators.Annotated;
 using Umbraco.CodeGen.Generators.BaseSupportedAnnotated;
+using Umbraco.CodeGen.Parsers;
 using ImportsGenerator = Umbraco.CodeGen.Generators.BaseSupportedAnnotated.ImportsGenerator;
 
 namespace Umbraco.CodeGen.Generators
 {
+    [Parser(typeof(AnnotatedParserFactory))]
+    [Description("Models depend on CodeGen for metadata. Requires Umbraco.Core.Models namespace usage to stay in base class, making naming less restricted.")]
     public class BaseSupportedAnnotatedCodeGeneratorFactory : CodeGeneratorFactory
     {
         public override CodeGeneratorBase Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)

@@ -40,7 +40,7 @@ namespace Umbraco.CodeGen.Tests
                 expectedOutput = goldReader.ReadToEnd();
             }
 
-            var configuration = new CodeGeneratorConfiguration();
+            var configuration = CodeGeneratorConfiguration.Create();
             configuration.TypeMappings.Add(new TypeMapping("Umbraco.Integer", "Int32"));
             var typeConfig = configuration.Get(contentTypeName);
             typeConfig.BaseClass = "Umbraco.Core.Models.TypedModelBase";

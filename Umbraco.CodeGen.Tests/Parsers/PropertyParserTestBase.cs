@@ -21,7 +21,7 @@ namespace Umbraco.CodeGen.Tests.Parsers
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             DataTypeConfiguration = TestDataTypeProvider.All;
 
             Parser = CreateParser();

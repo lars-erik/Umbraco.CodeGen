@@ -40,7 +40,7 @@ namespace Umbraco.CodeGen.Generators.Annotated
             String.Compare(dt.DataTypeName, property.Definition, IgnoreCase) == 0);
             var dataTypeValue = dataType != null
                 ? dataType.DataTypeName
-                : Config.DefaultDefinitionId;
+                : Config.TypeMappings.DefaultDefinitionId;
             if (dataTypeValue == null)
                 throw new Exception("TypeMappings/DefaultDefinitionId not set. Cannot guess default definition.");
 

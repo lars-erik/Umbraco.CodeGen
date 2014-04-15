@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace Umbraco.CodeGen.Configuration
@@ -8,8 +9,7 @@ namespace Umbraco.CodeGen.Configuration
 		private readonly string inputFileContent;
 		private CodeGeneratorConfiguration configuration;
 
-
-		public CodeGeneratorConfigurationProvider(string inputFileContent)
+        public CodeGeneratorConfigurationProvider(string inputFileContent)
 		{
 			this.inputFileContent = inputFileContent;
 		}
@@ -24,5 +24,12 @@ namespace Umbraco.CodeGen.Configuration
 		    var serializer = new XmlSerializer(typeof (CodeGeneratorConfiguration));
 		    return (CodeGeneratorConfiguration) serializer.Deserialize(new StringReader(inputFileContent));
 		}
+
+        public static void SerializeConfiguration(CodeGeneratorConfiguration newConfiguration, StreamWriter writer)
+        {
+            var serializer = new XmlSerializer(typeof(CodeGeneratorConfiguration));
+            serializer.Serialize(writer, newConfiguration);
+            writer.Flush();
+        }
 	}
 }

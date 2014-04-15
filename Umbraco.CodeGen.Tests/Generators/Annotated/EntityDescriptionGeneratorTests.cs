@@ -16,7 +16,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             attribute = new CodeAttributeDeclaration();
             Generator = new EntityDescriptionGenerator(Configuration);
             documentType = new DocumentType { Info = { Alias = "anEntity" } };

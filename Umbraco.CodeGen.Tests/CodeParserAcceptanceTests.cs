@@ -45,7 +45,7 @@ namespace Umbraco.CodeGen.Tests
                 code = inputReader.ReadToEnd();
             }
 
-            var config = new CodeGeneratorConfiguration().Get(contentTypeName);
+            var config = CodeGeneratorConfiguration.Create().Get(contentTypeName);
             config.BaseClass = "DocumentTypeBase";
 
             var parser = new CodeParser(

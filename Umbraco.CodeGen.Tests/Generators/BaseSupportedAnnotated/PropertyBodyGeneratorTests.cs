@@ -21,7 +21,7 @@ namespace Umbraco.CodeGen.Tests.Generators.BaseSupportedAnnotated
 
         protected override CodeGeneratorBase CreateGenerator()
         {
-            return new PropertyBodyGenerator(new CodeGeneratorConfiguration().MediaTypes);
+            return new PropertyBodyGenerator(CodeGeneratorConfiguration.Create().MediaTypes);
         }
     }
 }

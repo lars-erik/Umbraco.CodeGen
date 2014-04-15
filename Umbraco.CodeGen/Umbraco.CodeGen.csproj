@@ -68,8 +68,14 @@
     <Reference Include="Mono.Cecil.Rocks">
       <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,6 +91,7 @@
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="Configuration\CodeGeneratorConfiguration.cs" />
     <Compile Include="Configuration\DataTypeDefinition.cs" />
+    <Compile Include="Configuration\ParserAttribute.cs" />
     <Compile Include="Definitions\ContentType.cs" />
     <Compile Include="ContentTypeSerializer.cs" />
     <Compile Include="Definitions\DocumentType.cs" />

@@ -17,7 +17,7 @@ namespace Umbraco.CodeGen.Parsers.Annotated
             : base(configuration)
         {
             this.DataTypes = dataTypes;
-            DefaultDataType = FindDataTypeDefinition(configuration.DefaultDefinitionId);
+            DefaultDataType = FindDataTypeDefinition(configuration.TypeMappings.DefaultDefinitionId);
         }
 
         public override void Parse(AstNode node, ContentType contentType)

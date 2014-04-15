@@ -16,7 +16,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Configuration.Namespace = "MyWeb.Models";
             ContentType = new MediaType();
             Generator = new NamespaceGenerator(Configuration);

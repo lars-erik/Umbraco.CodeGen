@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Parser = new CommonInfoParser(Configuration);
             ContentType = new MediaType();
             Info = ContentType.Info;

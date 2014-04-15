@@ -45,7 +45,7 @@ namespace Umbraco.CodeGen.Generators
                           Config.TypeMappings.ContainsKey(property.Type.ToLower());
             var typeName = hasType 
                 ? Config.TypeMappings[property.Type.ToLower()]
-                : Config.DefaultTypeMapping;
+                : Config.TypeMappings.DefaultType;
             if (typeName == null)
                 throw new Exception("TypeMappings/Default not set. Cannot guess default property type.");
             propNode.Type = new CodeTypeReference(typeName);

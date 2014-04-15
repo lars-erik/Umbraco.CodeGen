@@ -14,5 +14,6 @@
   </metadata>
   <files>
     <file src="../Umbraco.CodeGen.Integration/config/CodeGen.config" target="content/config/CodeGen.config"/>
+    <file src="../Umbraco.CodeGen.Web/App_Plugins/CodeGen/*.*" target="content/App_Plugins/CodeGen/*.*"/>
   </files>
 </package>

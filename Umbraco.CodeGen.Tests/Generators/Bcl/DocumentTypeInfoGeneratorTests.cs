@@ -18,7 +18,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Candidate = Type = new CodeTypeDeclaration();
             generator = new DocumentTypeInfoGenerator(Configuration);
             documentType = new DocumentType { Info = { Alias = "aClass" } };

@@ -17,7 +17,6 @@ namespace Umbraco.CodeGen.Tests.Configuration
                 <MediaTypes/>
                 <TypeMappings/>
             </CodeGenerator>")]
-        [TestCase("<CodeGenerator />")]
         public void Deserialize_CodeGeneratorConfiguration_Empties_IsAllDefaultInstancesWithReferences(string xml)
         {
             var config = Deserialize<CodeGeneratorConfiguration>(xml);
@@ -28,6 +27,17 @@ namespace Umbraco.CodeGen.Tests.Configuration
             Assert.AreSame(config, config.MediaTypes.Config);
             Assert.IsNotNull(config.TypeMappings);
             Assert.IsNotNull(config.TypeMappings.Items);
+        }
+
+        [Test]
+        [TestCase("<CodeGenerator />")]
+        public void Deserialize_CodeGeneratorConfiguration_Empty_IsAllNull(string xml)
+        {
+            var config = Deserialize<CodeGeneratorConfiguration>(xml);
+            Assert.IsNotNull(config);
+            Assert.IsNull(config.DocumentTypes);
+            Assert.IsNull(config.MediaTypes);
+            Assert.IsNull(config.TypeMappings);
         }
 
         [Test]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Umbraco.CodeGen.Configuration
 {
@@ -22,16 +23,15 @@ namespace Umbraco.CodeGen.Configuration
         public string Namespace { get; set; }
         
         [XmlIgnore]
+        [JsonIgnore]
         public string ContentTypeName { get; set; }
 
         [XmlIgnore]
-        public string DefaultTypeMapping { get { return config.TypeMappings.DefaultType; } }
-        [XmlIgnore]
-        public string DefaultDefinitionId { get { return config.TypeMappings.DefaultDefinitionId; } }
-        [XmlIgnore]
+        [JsonIgnore]
         public TypeMappings TypeMappings { get { return config.TypeMappings; } }
 
         [XmlIgnore]
+        [JsonIgnore]
 	    public CodeGeneratorConfiguration Config
 	    {
 	        get { return config; }
@@ -70,38 +70,24 @@ namespace Umbraco.CodeGen.Configuration
 
         public ContentTypeConfiguration DocumentTypes
 	    {
-	        get { return configs[Keys.DocumentType]; }
-	        set
-	        {
-	            value.config = this;
-	            value.ContentTypeName = Keys.DocumentType;
-	            configs[Keys.DocumentType] = value;
-	        }
+	        get { return Configs.ContainsKey(Keys.DocumentType) ? Configs[Keys.DocumentType] : null; }
+	        set { SetConfig(value, Keys.DocumentType); }
 	    }
 
-	    public ContentTypeConfiguration MediaTypes
+        public ContentTypeConfiguration MediaTypes
 	    {
-	        get { return configs[Keys.MediaType]; }
-	        set
-	        {
-	            value.config = this;
-	            value.ContentTypeName = Keys.MediaType;
-	            configs[Keys.MediaType] = value;
-	        }
+	        get { return Configs.ContainsKey(Keys.MediaType) ? Configs[Keys.MediaType] : null; }
+            set { SetConfig(value, Keys.MediaType); }
 	    }
 
-        [XmlIgnore]
-        public string DefaultTypeMapping
+        private void SetConfig(ContentTypeConfiguration value, string contentTypeName)
         {
-            get { return TypeMappings.DefaultType; }
-            set { TypeMappings.DefaultType = value; }
-        }
-
-        [XmlIgnore]
-        public string DefaultDefinitionId
-        {
-            get { return TypeMappings.DefaultDefinitionId; }
-            set { TypeMappings.DefaultDefinitionId = value; }
+            value.config = this;
+            value.ContentTypeName = contentTypeName;
+            if (!Configs.ContainsKey(contentTypeName))
+                Configs.Add(contentTypeName, value);
+            else
+                Configs[contentTypeName] = value;
         }
 
         public TypeMappings TypeMappings { get; set; } 
@@ -123,20 +109,38 @@ namespace Umbraco.CodeGen.Configuration
             set { parserFactory = value; }
         }
 
-        public ContentTypeConfiguration Get(string contentTypeName)
+        protected Dictionary<string, ContentTypeConfiguration> Configs
         {
-            return configs[contentTypeName];
+            get { return configs ?? (configs = new Dictionary<string, ContentTypeConfiguration>()); }
         }
 
-	    public CodeGeneratorConfiguration()
-	    {
-	        configs = new Dictionary<string, ContentTypeConfiguration>
+        public ContentTypeConfiguration Get(string contentTypeName)
+        {
+            return Configs[contentTypeName];
+        }
+
+        public CodeGeneratorConfiguration()
+        {
+            configs = new Dictionary<string, ContentTypeConfiguration>
 	        {
 	            {Keys.DocumentType, new ContentTypeConfiguration(this, Keys.DocumentType)},
 	            {Keys.MediaType, new ContentTypeConfiguration(this, Keys.MediaType)}
 	        };
-            TypeMappings = new TypeMappings(); //new Dictionary<string, string>());
-	    }
+        }
+
+        public static CodeGeneratorConfiguration Create()
+        {
+            var configuration = new CodeGeneratorConfiguration
+            {
+                TypeMappings = new TypeMappings()
+            };
+            configuration.configs = new Dictionary<string, ContentTypeConfiguration>
+	        {
+	            {Keys.DocumentType, new ContentTypeConfiguration(configuration, Keys.DocumentType)},
+	            {Keys.MediaType, new ContentTypeConfiguration(configuration, Keys.MediaType)}
+	        };
+            return configuration;
+        }
 	}
 
     [XmlRoot("TypeMappings", Namespace = "")]

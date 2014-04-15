@@ -40,8 +40,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Api\ConfigurationController.cs" />
+    <Compile Include="Api\FactoriesDto.cs" />
     <Compile Include="ApplicationEvents.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="USyncConfigurationProvider.cs" />
     <Compile Include="USyncDataTypeProvider.cs" />
   </ItemGroup>

@@ -18,7 +18,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         public void SetUp()
         {
             Generator = new StructureGenerator(Configuration);
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             attribute = new CodeAttributeDeclaration("MediaType");
             contentType = new MediaType();
         }

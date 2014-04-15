@@ -17,11 +17,6 @@ namespace Umbraco.CodeGen.Integration
 {
 	public class ApplicationEvents : IApplicationEventHandler
 	{
-		private IEnumerable<DataTypeDefinition> dataTypes;
-		private CodeGeneratorConfiguration configuration;
-		private USyncConfiguration uSyncConfiguration;
-		private IDataTypeProvider dataTypesProvider;
-
 		private readonly Dictionary<string, string> paths = new Dictionary<string, string>();
 	    private readonly ContentTypeSerializer serializer = new ContentTypeSerializer();
 	    private CodeGeneratorFactory generatorFactory;
@@ -38,41 +33,28 @@ namespace Umbraco.CodeGen.Integration
 		{
             try
             {
-			    var uSyncConfigurationProvider = new USyncConfigurationProvider(HttpContext.Current.Server.MapPath("~/config/uSyncSettings.config"), new HttpContextPathResolver());
-			    var configurationProvider = new CodeGeneratorConfigurationFileProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
+                Configuration.Load();
 
-			    uSyncConfiguration = uSyncConfigurationProvider.GetConfiguration();
+                generatorFactory = CreateFactory<CodeGeneratorFactory>(Configuration.CodeGen.GeneratorFactory);
+                parserFactory = CreateFactory<ParserFactory>(Configuration.CodeGen.ParserFactory);
 
-		        dataTypesProvider = new USyncDataTypeProvider(uSyncConfiguration.USyncFolder);
-
-		        if (!dataTypesProvider.GetDataTypes().Any())
-                {
-                    LogHelper.Error<CodeGenerator>("Could not find data types in usync folder", new Exception());
-                    return;
-                }	
-			    dataTypes = dataTypesProvider.GetDataTypes();
-			    configuration = configurationProvider.GetConfiguration();
-
-		        generatorFactory = CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
-		        parserFactory = CreateFactory<ParserFactory>(configuration.ParserFactory);
-
-			    paths.Add("DocumentType", HttpContext.Current.Server.MapPath(configuration.DocumentTypes.ModelPath));
-			    paths.Add("MediaType", HttpContext.Current.Server.MapPath(configuration.MediaTypes.ModelPath));
+                paths.Add("DocumentType", HttpContext.Current.Server.MapPath(Configuration.CodeGen.DocumentTypes.ModelPath));
+                paths.Add("MediaType", HttpContext.Current.Server.MapPath(Configuration.CodeGen.MediaTypes.ModelPath));
 
 			    XmlDoc.Saved += OnDocumentTypeSaved;
 
-		        if (configuration.DocumentTypes.GenerateXml)
+                if (Configuration.CodeGen.DocumentTypes.GenerateXml)
 		        {
 		            globalStart = DateTime.Now;
 		            LogHelper.Info<CodeGenerator>(() => "Parsing typed documenttype models");
-                    GenerateXml(configuration.DocumentTypes);
+                    GenerateXml(Configuration.CodeGen.DocumentTypes);
                     LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed documenttype models done. Took {0}", DateTime.Now - globalStart));
 		        }
-		        if (configuration.MediaTypes.GenerateXml)
+                if (Configuration.CodeGen.MediaTypes.GenerateXml)
 		        {
                     globalStart = DateTime.Now;
                     LogHelper.Info<CodeGenerator>(() => "Parsing typed mediatype models");
-		            GenerateXml(configuration.MediaTypes);
+                    GenerateXml(Configuration.CodeGen.MediaTypes);
                     LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed mediatype models done. Took {0}", DateTime.Now - globalStart));
 		        }
             }
@@ -99,7 +81,7 @@ namespace Umbraco.CodeGen.Integration
 
 	    private void GenerateXml(ContentTypeConfiguration contentTypeConfiguration)
 		{
-			var parser = new CodeParser(contentTypeConfiguration, dataTypes, parserFactory);
+            var parser = new CodeParser(contentTypeConfiguration, Configuration.DataTypes, parserFactory);
 		    var modelPath = HttpContext.Current.Server.MapPath(contentTypeConfiguration.ModelPath);
 			if (!Directory.Exists(modelPath))
 				Directory.CreateDirectory(modelPath);
@@ -118,7 +100,7 @@ namespace Umbraco.CodeGen.Integration
                 LogHelper.Debug<CodeGenerator>(() => String.Format("Parsing file {0} done. Took {1}", file, DateTime.Now - itemStart));
             }
 
-			var documentTypeRoot = Path.Combine(uSyncConfiguration.USyncFolder, contentTypeConfiguration.ContentTypeName);
+            var documentTypeRoot = Path.Combine(Configuration.USync.USyncFolder, contentTypeConfiguration.ContentTypeName);
 			if (!Directory.Exists(documentTypeRoot))
 				Directory.CreateDirectory(documentTypeRoot);
 	        itemStart = DateTime.Now;
@@ -144,7 +126,7 @@ namespace Umbraco.CodeGen.Integration
 					Directory.CreateDirectory(directoryPath);
 				var defPath = Path.Combine(directoryPath, "def.config");
 
-				if (configuration.OverwriteReadOnly && File.Exists(defPath))
+				if (Configuration.CodeGen.OverwriteReadOnly && File.Exists(defPath))
 					File.SetAttributes(defPath, File.GetAttributes(defPath) & ~FileAttributes.ReadOnly);
 
 				doc.Save(defPath);
@@ -161,8 +143,8 @@ namespace Umbraco.CodeGen.Integration
 				    return;
 
 			    var typeConfig = e.Path.Contains("DocumentType")
-				    ? configuration.DocumentTypes
-				    : configuration.MediaTypes;
+				    ? Configuration.CodeGen.DocumentTypes
+                    : Configuration.CodeGen.MediaTypes;
 
 			    if (!typeConfig.GenerateClasses)
 				    return;
@@ -180,10 +162,10 @@ namespace Umbraco.CodeGen.Integration
 			    if (!Directory.Exists(modelPath))
 				    Directory.CreateDirectory(modelPath);
 			    var path = Path.Combine(modelPath, contentType.Info.Alias.PascalCase() + ".cs");
-				    if (configuration.OverwriteReadOnly && File.Exists(path))
+                if (Configuration.CodeGen.OverwriteReadOnly && File.Exists(path))
 					    File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
 
-                var classGenerator = new CodeGenerator(typeConfig, dataTypesProvider, generatorFactory);
+                var classGenerator = new CodeGenerator(typeConfig, Configuration.DataTypesProvider, generatorFactory);
                 using (var stream = File.CreateText(path))
                     classGenerator.Generate(contentType, stream);
 

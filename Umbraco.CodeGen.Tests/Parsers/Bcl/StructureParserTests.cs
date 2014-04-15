@@ -12,7 +12,7 @@ namespace Umbraco.CodeGen.Tests.Parsers.Bcl
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Parser = new StructureParser(Configuration);
             ContentType = new MediaType();
         }

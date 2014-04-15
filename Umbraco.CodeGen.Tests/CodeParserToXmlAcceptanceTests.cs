@@ -47,7 +47,7 @@ namespace Umbraco.CodeGen.Tests
                 expectedOutput = goldReader.ReadToEnd();
             }
 
-            var contentTypeConfig = new CodeGeneratorConfiguration().Get(contentTypeName);
+            var contentTypeConfig = CodeGeneratorConfiguration.Create().Get(contentTypeName);
             contentTypeConfig.BaseClass = "Umbraco.Core.Models.TypedModelBase";
 
             using (var inputReader = File.OpenText(@"..\..\TestFiles\" + classFileName + ".cs"))

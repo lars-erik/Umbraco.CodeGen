@@ -2,21 +2,31 @@
 
 namespace Umbraco.CodeGen.Configuration
 {
-	public class CodeGeneratorConfigurationFileProvider : IConfigurationProvider
+    public class CodeGeneratorConfigurationFileProvider : IConfigurationProvider, IConfigurationPersister
 	{
-		private readonly IConfigurationProvider provider;
+	    private readonly string path;
+	    private readonly IConfigurationProvider provider;
 
 		public CodeGeneratorConfigurationFileProvider(string path)
 		{
-			using (var reader = File.OpenText(path))
+		    this.path = path;
+		    using (var reader = File.OpenText(path))
 			{
 				provider = new CodeGeneratorConfigurationProvider(reader.ReadToEnd());
 			}
 		}
 
-		public CodeGeneratorConfiguration GetConfiguration()
+	    public CodeGeneratorConfiguration GetConfiguration()
 		{
 			return provider.GetConfiguration();
 		}
+
+	    public void SaveConfiguration(CodeGeneratorConfiguration configuration)
+	    {
+	        using (var writer = File.CreateText(path))
+	        {
+                CodeGeneratorConfigurationProvider.SerializeConfiguration(configuration, writer);
+	        }
+	    }
 	}
 }

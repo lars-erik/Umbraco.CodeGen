@@ -98,7 +98,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "Lets Have A Property",
                         Alias = "letsHaveAProperty",
-                        Type = "Umbraco.Textbox",
+                        Type = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
                         Tab = "A tab"
                     },
@@ -106,7 +106,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "And A Tabless Property",
                         Alias = "andATablessProperty",
-                        Type = "Umbraco.Textbox",
+                        Type = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
                     }
                 },

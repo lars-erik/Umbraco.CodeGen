@@ -17,7 +17,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [SetUp]
         public void SetUp()
         {
-            codeGenConfig = new CodeGeneratorConfiguration();
+            codeGenConfig = CodeGeneratorConfiguration.Create();
             Configuration = codeGenConfig.MediaTypes;
             Generator = new PropertyInfoGenerator(
                 Configuration, 
@@ -46,7 +46,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [ExpectedException(typeof(Exception), ExpectedMessage = "TypeMappings/Default not set. Cannot guess default property type.")]
         public void Generate_Type_WhenNotConfigured_DefaultNotConfigured_Throws()
         {
-            codeGenConfig.DefaultTypeMapping = null;
+            codeGenConfig.TypeMappings.DefaultType = null;
             Generate();
         }
 
@@ -80,7 +80,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [ExpectedException(typeof(Exception), ExpectedMessage = "TypeMappings/DefaultDefinitionId not set. Cannot guess default definition.")]
         public void Generate_Definition_WhenDefinitionDoesNotExist_DefaultNotConfigured_Throws()
         {
-            codeGenConfig.DefaultDefinitionId = null;
+            codeGenConfig.TypeMappings.DefaultDefinitionId = null;
             Generate();
         }
 

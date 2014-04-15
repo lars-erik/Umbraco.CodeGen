@@ -19,7 +19,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             attribute = new CodeAttributeDeclaration("DocumentType");
             generator = new DocumentTypeInfoGenerator(Configuration);
             documentType = new DocumentType

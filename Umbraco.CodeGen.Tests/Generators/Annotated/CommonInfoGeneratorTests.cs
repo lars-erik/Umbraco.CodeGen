@@ -20,7 +20,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         [SetUp]
         public void SetUp()
         {
-            Configuration = new CodeGeneratorConfiguration().MediaTypes;
+            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Candidate = type = new CodeTypeDeclaration();
             contentType = new MediaType
             {

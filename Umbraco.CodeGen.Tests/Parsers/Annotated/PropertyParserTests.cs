@@ -119,8 +119,8 @@ namespace Umbraco.CodeGen.Tests.Parsers.Annotated
         [ExpectedException(typeof(Exception), ExpectedMessage = "Default datatype could not be found. Set a known datatype in TypeMappings.DefaultDefinitionId.")]
         public void Parse_Definition_WhenMissingOrUnknown_AndDefaultIsMissing_Throws()
         {
-            CodeGenConfig = new CodeGeneratorConfiguration();
-            CodeGenConfig.DefaultDefinitionId = "";
+            CodeGenConfig = CodeGeneratorConfiguration.Create();
+            CodeGenConfig.TypeMappings.DefaultDefinitionId = "";
             Configuration = CodeGenConfig.MediaTypes;
             Parser = new PropertyParser(Configuration, DataTypeConfiguration);
 

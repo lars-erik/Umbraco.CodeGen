@@ -15,7 +15,7 @@ namespace Umbraco.CodeGen.Parsers.Bcl
         public PropertyParser(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes) : base(configuration)
         {
             this.dataTypes = dataTypes;
-            defaultDataType = FindDataTypeDefinition(configuration.DefaultDefinitionId);
+            defaultDataType = FindDataTypeDefinition(configuration.TypeMappings.DefaultDefinitionId);
         }
 
         public override void Parse(AstNode node, ContentType contentType)
