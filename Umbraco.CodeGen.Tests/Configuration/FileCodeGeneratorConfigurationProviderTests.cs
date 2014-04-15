@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Integration;
@@ -29,5 +31,28 @@ namespace Umbraco.CodeGen.Tests.Configuration
 			Assert.AreNotEqual(0, config.TypeMappings.Count);
 			Assert.AreEqual("Int32", config.TypeMappings["1413afcb-d19a-4173-8e9a-68288d2a73b8"]);
 		}
+
+	    [Test]
+	    public void SaveConfiguration_WritesXml()
+	    {
+            var path = Path.Combine(Environment.CurrentDirectory, @"..\..\config\codegen.config");
+            var provider = new CodeGeneratorConfigurationFileProvider(path);
+            var config = provider.GetConfiguration();
+	        var content = "";
+
+	        using (var reader = File.OpenText(path))
+	        {
+	            content = reader.ReadToEnd();
+	        }
+
+	        var builder = new StringBuilder();
+	        var writer = new StringWriter(builder);
+	        var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings {OmitXmlDeclaration = true, Encoding = Encoding.UTF8, Indent = true});
+	        CodeGeneratorConfigurationProvider.SerializeConfiguration(config, xmlWriter);
+
+            Console.WriteLine(builder.ToString());
+
+            Assert.AreEqual(content, builder.ToString());
+	    }
 	}
 }

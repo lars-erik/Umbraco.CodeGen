@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Umbraco.CodeGen.Configuration
@@ -25,10 +26,10 @@ namespace Umbraco.CodeGen.Configuration
 		    return (CodeGeneratorConfiguration) serializer.Deserialize(new StringReader(inputFileContent));
 		}
 
-        public static void SerializeConfiguration(CodeGeneratorConfiguration newConfiguration, StreamWriter writer)
+        public static void SerializeConfiguration(CodeGeneratorConfiguration newConfiguration, XmlWriter writer)
         {
-            var serializer = new XmlSerializer(typeof(CodeGeneratorConfiguration));
-            serializer.Serialize(writer, newConfiguration);
+            var serializer = new XmlSerializer(typeof(CodeGeneratorConfiguration), new XmlRootAttribute("CodeGenerator") {Namespace=""});
+            serializer.Serialize(writer, newConfiguration, new XmlSerializerNamespaces(new[] { new XmlQualifiedName("", "") }));
             writer.Flush();
         }
 	}

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 using ICSharpCode.NRefactory.CSharp;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
@@ -53,6 +55,7 @@ namespace Umbraco.CodeGen
 		}
 	}
 
+    [Serializable]
 	public class AnalysisException : Exception
 	{
 		public IEnumerable<string> Errors { get; private set; }
@@ -62,5 +65,18 @@ namespace Umbraco.CodeGen
 		{
 			Errors = tree.Errors.Select(e => e.Region.BeginLine + ": " + e.Message);
 		}
+
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue("errors", String.Join(";", Errors ?? new string[0]));
+        }
+
+        protected AnalysisException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            Errors = ((string)info.GetValue("errors", typeof (string)) ?? "").Split(new []{';'}, StringSplitOptions.RemoveEmptyEntries);
+        }
 	}
 }

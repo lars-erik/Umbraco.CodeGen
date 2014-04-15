@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Text;
+using System.Xml;
 
 namespace Umbraco.CodeGen.Configuration
 {
@@ -25,7 +27,8 @@ namespace Umbraco.CodeGen.Configuration
 	    {
 	        using (var writer = File.CreateText(path))
 	        {
-                CodeGeneratorConfigurationProvider.SerializeConfiguration(configuration, writer);
+                var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings { OmitXmlDeclaration = true, Encoding = Encoding.UTF8, Indent = true });
+                CodeGeneratorConfigurationProvider.SerializeConfiguration(configuration, xmlWriter);
 	        }
 	    }
 	}
