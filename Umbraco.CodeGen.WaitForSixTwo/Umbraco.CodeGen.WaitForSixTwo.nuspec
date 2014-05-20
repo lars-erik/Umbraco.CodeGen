@@ -15,5 +15,6 @@
   <files>
     <file src="..\Umbraco.CodeGen.Web\config\*.*" target="content\config" exclude="..\Umbraco.CodeGen.Web\config\dashboard.config;..\Umbraco.CodeGen.Web\config\uSyncSettings.config"/>
     <file src="..\Umbraco.CodeGen.Web\App_Plugins\CodeGen\*.*" target="content\App_Plugins\CodeGen"/>
+    <file src="..\Umbraco.CodeGen.Web\App_Plugins\CodeGen\backoffice\codegen\*.*" target="content\App_Plugins\CodeGen\backoffice\codegen"/>
   </files>
 </package>

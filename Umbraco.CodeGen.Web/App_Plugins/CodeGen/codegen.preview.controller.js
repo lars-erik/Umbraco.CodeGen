@@ -24,7 +24,7 @@
         }
 
         return {
-            link: function (scope, jqElem, model) {
+            link: function (scope, jqElem, attrs) {
                 jqElem.hide();
                 assetsService
                     .load([
@@ -47,6 +47,12 @@
                             enterMode: "keep",
                             lineWrapping: false,
                             lineNumbers: true
+                        });
+
+                        scope.$watch(function () {
+                            return scope.$parent[attrs.ngModel];
+                        }, function (newValue) {
+                            mirror.setValue(newValue);
                         });
 
                         $(window).resize(function () {

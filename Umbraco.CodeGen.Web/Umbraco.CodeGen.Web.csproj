@@ -246,7 +246,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="config\dashboard.config.uninstall.xdt" />
     <Content Include="config\uSyncSettings.config" />
-    <None Include="config\trees.config.uninstall.xdt" />
+    <Content Include="config\trees.config.uninstall.xdt" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
