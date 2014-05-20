@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<trees xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <add alias="codegen" xdt:Transform="Remove" xdt:Locator="Match(alias)" />
+</trees>

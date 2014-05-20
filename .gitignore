@@ -2,9 +2,9 @@
 ## Project specific
 #################
 
-Umbraco.CodeGen.Web/*
 *.nupkg
 Packaging/Package/*
+Umbraco.CodeGen.Web/App_Data/*
 
 #################
 ## Eclipse
