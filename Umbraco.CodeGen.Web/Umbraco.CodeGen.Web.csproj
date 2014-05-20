@@ -82,6 +82,12 @@
     <Reference Include="interfaces">
       <HintPath>..\packages\UmbracoCms.Core.7.1.1\lib\interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="jumoo.usync.ui">
+      <HintPath>..\packages\uSync.2.2.6\lib\net45\jumoo.usync.ui.dll</HintPath>
+    </Reference>
+    <Reference Include="jumps.umbraco.usync">
+      <HintPath>..\packages\uSync.2.2.6\lib\net45\jumps.umbraco.usync.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\UmbracoCms.Core.7.1.1\lib\log4net.dll</HintPath>
     </Reference>
@@ -209,9 +215,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\CodeGen\backoffice\codegen\codegen.preview.html" />
     <Content Include="App_Plugins\CodeGen\codegen.configuration.contentType.html" />
     <Content Include="App_Plugins\CodeGen\codegen.configuration.controller.js" />
-    <Content Include="App_Plugins\CodeGen\codegen.configuration.html" />
+    <Content Include="App_Plugins\CodeGen\backoffice\codegen\codegen.configuration.html" />
+    <Content Include="App_Plugins\CodeGen\codegen.preview.controller.js" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -236,9 +244,14 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="config\dashboard.config" />
+    <Content Include="config\dashboard.config.install.xdt" />
+    <Content Include="config\dashboard.config.uninstall.xdt" />
+    <Content Include="config\uSyncSettings.config" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <Content Include="Umbraco\Plugins\uSync\uSyncUi.ascx" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="config\CodeGen.config" />

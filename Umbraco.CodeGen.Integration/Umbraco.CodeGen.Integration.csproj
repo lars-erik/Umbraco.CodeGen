@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Api\ConfigurationController.cs" />
     <Compile Include="Api\FactoriesDto.cs" />
+    <Compile Include="Api\PreviewController.cs" />
     <Compile Include="ApplicationEvents.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Configuration.cs" />
@@ -101,9 +102,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\UmbracoCms.Core.7.1.1\lib\interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="jumoo.usync.ui">
+      <HintPath>..\packages\uSync.2.2.6\lib\net45\jumoo.usync.ui.dll</HintPath>
+    </Reference>
     <Reference Include="jumps.umbraco.usync">
-      <HintPath>..\lib\jumps.umbraco.usync.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\uSync.2.2.6\lib\net45\jumps.umbraco.usync.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
@@ -260,8 +263,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\CodeGen.config" />
+    <None Include="config\CodeGen.config" />
     <None Include="app.config" />
+    <None Include="config\uSyncSettings.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -121,7 +121,7 @@
                         .success(function(values) {
                             console.log("result");
                             dropDown.html($.map(values, function (val) {
-                                return "<li><a href=\"#\">" + val + "</a></li>";
+                                return "<li><a href=\"javascript:void(null);\">" + val + "</a></li>";
                             }));
                             dropDown.children("li").click(function () {
                                 var val = $(this).children("a").text();

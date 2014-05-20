@@ -8,6 +8,7 @@ using umbraco.cms.businesslogic.datatype.controls;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Integration.Api;
 using Umbraco.CodeGen.Parsers;
 using jumps.umbraco.usync.helpers;
 using Umbraco.Core;
@@ -57,6 +58,8 @@ namespace Umbraco.CodeGen.Integration
                     GenerateXml(Configuration.CodeGen.MediaTypes);
                     LogHelper.Info<CodeGenerator>(() => String.Format("Parsing typed mediatype models done. Took {0}", DateTime.Now - globalStart));
 		        }
+
+                PreviewController.RegisterMenu();
             }
             catch(Exception ex)
 	        {
@@ -64,11 +67,13 @@ namespace Umbraco.CodeGen.Integration
     		}
 		}
 
-	    private T CreateFactory<T>(string typeName)
+	    internal static T CreateFactory<T>(string typeName)
 	    {
 	        try
 	        {
 	            var factoryType = Type.GetType(typeName);
+	            if (factoryType == null)
+	                factoryType = Type.GetType(String.Format("{0}, Umbraco.CodeGen", typeName));
                 if (factoryType == null)
                     throw new Exception(String.Format("Type {0} not found", typeName));
 	            return (T) Activator.CreateInstance(factoryType);
@@ -137,12 +142,13 @@ namespace Umbraco.CodeGen.Integration
 
 		private void OnDocumentTypeSaved(XmlDocFileEventArgs e)
 		{
-		    try
+            var inputPath = e.Path;
+            try
 		    {
-			    if (!e.Path.Contains("DocumentType") && !e.Path.Contains("MediaType"))
+		        if (!inputPath.Contains("DocumentType") && !inputPath.Contains("MediaType"))
 				    return;
 
-			    var typeConfig = e.Path.Contains("DocumentType")
+			    var typeConfig = inputPath.Contains("DocumentType")
 				    ? Configuration.CodeGen.DocumentTypes
                     : Configuration.CodeGen.MediaTypes;
 
@@ -150,10 +156,10 @@ namespace Umbraco.CodeGen.Integration
 				    return;
 
 		        itemStart = DateTime.Now;
-                LogHelper.Debug<CodeGenerator>(() => String.Format("Content type {0} saved, generating typed model", e.Path));
+                LogHelper.Debug<CodeGenerator>(() => String.Format("Content type {0} saved, generating typed model", inputPath));
 
 		        ContentType contentType;
-		        using (var reader = File.OpenText(e.Path))
+		        using (var reader = File.OpenText(inputPath))
 			        contentType = serializer.Deserialize(reader);
 
                 LogHelper.Info<CodeGenerator>(() => String.Format("Generating typed model for {0}", contentType.Alias));
