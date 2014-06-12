@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
+using jumps.umbraco.usync;
 using umbraco.cms.businesslogic.datatype.controls;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
@@ -144,38 +145,12 @@ namespace Umbraco.CodeGen.Integration
 		{
             var inputPath = e.Path;
             try
-		    {
-		        if (!inputPath.Contains("DocumentType") && !inputPath.Contains("MediaType"))
-				    return;
+            {
+                if (inputPath.Contains("DocumentType") || inputPath.Contains("MediaType"))
+                    GenerateModels(inputPath);
 
-			    var typeConfig = inputPath.Contains("DocumentType")
-				    ? Configuration.CodeGen.DocumentTypes
-                    : Configuration.CodeGen.MediaTypes;
-
-			    if (!typeConfig.GenerateClasses)
-				    return;
-
-		        itemStart = DateTime.Now;
-                LogHelper.Debug<CodeGenerator>(() => String.Format("Content type {0} saved, generating typed model", inputPath));
-
-		        ContentType contentType;
-		        using (var reader = File.OpenText(inputPath))
-			        contentType = serializer.Deserialize(reader);
-
-                LogHelper.Info<CodeGenerator>(() => String.Format("Generating typed model for {0}", contentType.Alias));
-            
-                var modelPath = paths[typeConfig.ContentTypeName];
-			    if (!Directory.Exists(modelPath))
-				    Directory.CreateDirectory(modelPath);
-			    var path = Path.Combine(modelPath, contentType.Info.Alias.PascalCase() + ".cs");
-                if (Configuration.CodeGen.OverwriteReadOnly && File.Exists(path))
-					    File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
-
-                var classGenerator = new CodeGenerator(typeConfig, Configuration.DataTypesProvider, generatorFactory);
-                using (var stream = File.CreateText(path))
-                    classGenerator.Generate(contentType, stream);
-
-                LogHelper.Debug<CodeGenerator>(() => String.Format("Typed model for {0} generated. Took {1}", contentType.Alias, DateTime.Now - itemStart));
+                if (inputPath.Contains("DataTypeDefinition"))
+                    EnsureReloadDataTypes();
             }
             catch (Exception ex)
             {
@@ -183,7 +158,45 @@ namespace Umbraco.CodeGen.Integration
             }
         }
 
-		public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+	    private void EnsureReloadDataTypes()
+	    {
+            Configuration.DataTypesProvider.Reset();
+        }
+
+	    private void GenerateModels(string inputPath)
+	    {
+	        var typeConfig = inputPath.Contains("DocumentType")
+	            ? Configuration.CodeGen.DocumentTypes
+	            : Configuration.CodeGen.MediaTypes;
+
+	        if (!typeConfig.GenerateClasses)
+	            return;
+
+	        itemStart = DateTime.Now;
+	        LogHelper.Debug<CodeGenerator>(() => String.Format("Content type {0} saved, generating typed model", inputPath));
+
+	        ContentType contentType;
+	        using (var reader = File.OpenText(inputPath))
+	            contentType = serializer.Deserialize(reader);
+
+	        LogHelper.Info<CodeGenerator>(() => String.Format("Generating typed model for {0}", contentType.Alias));
+
+	        var modelPath = paths[typeConfig.ContentTypeName];
+	        if (!Directory.Exists(modelPath))
+	            Directory.CreateDirectory(modelPath);
+	        var path = Path.Combine(modelPath, contentType.Info.Alias.PascalCase() + ".cs");
+	        if (Configuration.CodeGen.OverwriteReadOnly && File.Exists(path))
+	            File.SetAttributes(path, File.GetAttributes(path) & ~FileAttributes.ReadOnly);
+
+	        var classGenerator = new CodeGenerator(typeConfig, Configuration.DataTypesProvider, generatorFactory);
+	        using (var stream = File.CreateText(path))
+	            classGenerator.Generate(contentType, stream);
+
+	        LogHelper.Debug<CodeGenerator>(
+	            () => String.Format("Typed model for {0} generated. Took {1}", contentType.Alias, DateTime.Now - itemStart));
+	    }
+
+	    public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
 		{
 		}
 	}

@@ -20,6 +20,11 @@ namespace Umbraco.CodeGen.Integration
 			this.uSyncPath = uSyncPath;
 		}
 
+	    public void Reset()
+	    {
+	        dataTypeDefinitions = null;
+	    }
+
 		public IEnumerable<DataTypeDefinition> GetDataTypes()
 		{
 		    if (dataTypeDefinitions == null)
