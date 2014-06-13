@@ -4,13 +4,15 @@
     <id>Umbraco.CodeGen.U7</id>
     <version>$version$</version>
     <title>Umbraco CodeGen for Umbraco 7</title>
-    <authors>LEA</authors>
-    <owners>MarkedsPartner AS</owners>
+    <authors>Lars-Erik Aabech</authors>
+    <owners>Lars-Erik Aabech</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/lars-erik/Umbraco.CodeGen</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Temp package until all features are there.</description>
-    <releaseNotes>Should work..</releaseNotes>
-    <copyright>Copyright 2013 MarkedsPartner AS</copyright>
-    <tags/>
+    <description>Generates and parses typed models in Umbraco.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2014 Lars-Erik Aabech</copyright>
+    <tags>Umbraco typed models</tags>
   </metadata>
   <files>
     <file src="..\Umbraco.CodeGen.Web\config\*.*" target="content\config" exclude="..\Umbraco.CodeGen.Web\config\dashboard.config;..\Umbraco.CodeGen.Web\config\uSyncSettings.config"/>
