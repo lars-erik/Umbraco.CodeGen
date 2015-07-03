@@ -98,6 +98,7 @@
     <Compile Include="Definitions\DocumentTypeInfo.cs" />
     <Compile Include="Definitions\Entity.cs" />
     <Compile Include="Definitions\EntityDescription.cs" />
+    <Compile Include="Definitions\EnumerableExtensions.cs" />
     <Compile Include="Definitions\GenericProperty.cs" />
     <Compile Include="Definitions\IEntityDescription.cs" />
     <Compile Include="Definitions\Info.cs" />
