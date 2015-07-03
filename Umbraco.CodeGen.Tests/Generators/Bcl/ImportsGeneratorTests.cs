@@ -17,11 +17,11 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
             Assert.That(
                 new[]
                 {
-                    "System",
-                    "System.ComponentModel",
-                    "System.ComponentModel.DataAnnotations",
-                    "Umbraco.Core.Models",
-                    "Umbraco.Web"
+                    "global::System",
+                    "global::System.ComponentModel",
+                    "global::System.ComponentModel.DataAnnotations",
+                    "global::Umbraco.Core.Models",
+                    "global::Umbraco.Web"
                 }.SequenceEqual(
                     ns.Imports.Cast<CodeNamespaceImport>()
                         .Select(import => import.Namespace)

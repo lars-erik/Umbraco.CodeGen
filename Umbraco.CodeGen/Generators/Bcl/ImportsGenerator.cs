@@ -18,11 +18,11 @@ namespace Umbraco.CodeGen.Generators.Bcl
 
         private static void AddImports(CodeNamespace ns)
         {
-            ns.Imports.Add(new CodeNamespaceImport("System"));
-            ns.Imports.Add(new CodeNamespaceImport("System.ComponentModel"));
-            ns.Imports.Add(new CodeNamespaceImport("System.ComponentModel.DataAnnotations"));
-            ns.Imports.Add(new CodeNamespaceImport("Umbraco.Core.Models"));
-            ns.Imports.Add(new CodeNamespaceImport("Umbraco.Web"));
+            ns.Imports.Add(new CodeNamespaceImport("global::System"));
+            ns.Imports.Add(new CodeNamespaceImport("global::System.ComponentModel"));
+            ns.Imports.Add(new CodeNamespaceImport("global::System.ComponentModel.DataAnnotations"));
+            ns.Imports.Add(new CodeNamespaceImport("global::Umbraco.Core.Models"));
+            ns.Imports.Add(new CodeNamespaceImport("global::Umbraco.Web"));
         }
     }
 }

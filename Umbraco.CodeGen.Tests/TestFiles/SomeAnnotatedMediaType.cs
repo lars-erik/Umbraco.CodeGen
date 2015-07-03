@@ -1,9 +1,9 @@
 ﻿namespace Umbraco.CodeGen.Models
 {
-    using System;
-    using Umbraco.CodeGen.Annotations;
-    using Umbraco.Core.Models;
-    using Umbraco.Web;
+    using global::System;
+    using global::Umbraco.CodeGen.Annotations;
+    using global::Umbraco.Core.Models;
+    using global::Umbraco.Web;
     
     [MediaType(Icon="folder.gif", Thumbnail="folder.png", AllowAtRoot=true, Structure=new System.Type[] {
             typeof(Folder),

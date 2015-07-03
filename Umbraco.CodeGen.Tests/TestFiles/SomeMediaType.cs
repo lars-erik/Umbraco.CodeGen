@@ -1,10 +1,10 @@
 ﻿namespace Umbraco.CodeGen.Models
 {
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using Umbraco.Core.Models;
-    using Umbraco.Web;
+    using global::System;
+    using global::System.ComponentModel;
+    using global::System.ComponentModel.DataAnnotations;
+    using global::Umbraco.Core.Models;
+    using global::Umbraco.Web;
     
     public partial class InheritedMediaFolder : Folder
     {

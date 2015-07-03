@@ -19,8 +19,8 @@ namespace Umbraco.CodeGen.Generators.BaseSupportedAnnotated
 
         private static void AddImports(CodeNamespace ns)
         {
-            ns.Imports.Add(new CodeNamespaceImport("System"));
-            ns.Imports.Add(new CodeNamespaceImport("Umbraco.CodeGen.Annotations"));
+            ns.Imports.Add(new CodeNamespaceImport("global::System"));
+            ns.Imports.Add(new CodeNamespaceImport("global::Umbraco.CodeGen.Annotations"));
         }
     }
 }

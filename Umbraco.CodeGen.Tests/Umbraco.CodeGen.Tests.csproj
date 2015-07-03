@@ -267,6 +267,7 @@
     <Compile Include="Configuration\USyncDataTypeProviderTests.cs" />
     <Compile Include="CodeGeneratorAcceptanceTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
+    <Compile Include="GenerateOnlyCodeGeneratorAcceptanceTests.cs" />
     <Compile Include="Generators\Annotated\AnnotationCodeGeneratorTestBase.cs" />
     <Compile Include="Generators\BaseSupportedAnnotated\ImportsGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGeneratorTests.cs" />
@@ -312,6 +313,7 @@
     <Content Include="TestFiles\SomeAnnotatedMediaType.cs" />
     <Content Include="TestFiles\SomeBaseSupportedAnnotatedDocumentType.cs" />
     <Content Include="TestFiles\SomeBaseSupportedAnnotatedMediaType.cs" />
+    <None Include="TestFiles\GenerateOnlyDocumentType.cs" />
     <Compile Include="TestHelpers\SerializationHelper.cs" />
     <Compile Include="TestHelpers\TestDataTypeProvider.cs" />
     <Compile Include="TestHelpers\TestFactory.cs" />

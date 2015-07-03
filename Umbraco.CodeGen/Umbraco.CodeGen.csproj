@@ -120,6 +120,8 @@
     <Compile Include="Generators\BaseSupportedAnnotated\CtorGenerator.cs" />
     <Compile Include="Generators\BclCodeGeneratorFactory.cs" />
     <Compile Include="Generators\CompositeCodeGenerator.cs" />
+    <Compile Include="Generators\GenerateOnlyGeneratorFactory.cs" />
+    <Compile Include="Generators\GenerateOnly\ImportsGenerator.cs" />
     <Compile Include="Generators\PropertyDeclarationGenerator.cs" />
     <Compile Include="Generators\EntityNameGenerator.cs" />
     <Compile Include="Generators\ClassGenerator.cs" />

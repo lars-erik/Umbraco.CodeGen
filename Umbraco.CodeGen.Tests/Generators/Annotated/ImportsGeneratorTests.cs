@@ -20,10 +20,10 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
             Assert.That(
                 new[]
                 {
-                    "System",
-                    "Umbraco.CodeGen.Annotations",
-                    "Umbraco.Core.Models",
-                    "Umbraco.Web"
+                    "global::System",
+                    "global::Umbraco.CodeGen.Annotations",
+                    "global::Umbraco.Core.Models",
+                    "global::Umbraco.Web"
                 }.SequenceEqual(
                     ns.Imports.Cast<CodeNamespaceImport>()
                         .Select(import => import.Namespace)

@@ -1,7 +1,7 @@
 ﻿namespace Umbraco.CodeGen.Models
 {
-    using System;
-    using Umbraco.CodeGen.Annotations;
+    using global::System;
+    using global::Umbraco.CodeGen.Annotations;
     
     [DocumentType(Description="A description of some document type", Icon="privateMemberIcon.gif", Thumbnail="privateMemberThumb.png", AllowAtRoot=true, DefaultTemplate="ATemplate", AllowedTemplates=new String[] {
             "ATemplate",
