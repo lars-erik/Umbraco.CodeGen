@@ -31,12 +31,12 @@ namespace Umbraco.CodeGen.Tests.Configuration
 
         [Test]
         [TestCase("<CodeGenerator />")]
-        public void Deserialize_CodeGeneratorConfiguration_Empty_IsAllNull(string xml)
+        public void Deserialize_CodeGeneratorConfiguration_Empty_IsAllDefaults(string xml)
         {
             var config = Deserialize<CodeGeneratorConfiguration>(xml);
             Assert.IsNotNull(config);
-            Assert.IsNull(config.DocumentTypes);
-            Assert.IsNull(config.MediaTypes);
+            Assert.IsNotNull(config.DocumentTypes);
+            Assert.IsNotNull(config.MediaTypes);
             Assert.IsNull(config.TypeMappings);
         }
 

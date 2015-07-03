@@ -11,7 +11,7 @@ using Umbraco.CodeGen.Tests.TestHelpers;
 namespace Umbraco.CodeGen.Tests
 {
     [TestFixture]
-    public class CodeGeneratorAcceptanceTests
+    public class CodeGeneratorAcceptanceTests : CodeGeneratorAcceptanceTestBase
     {
         [Test]
         public void BuildCode_GeneratesCodeForDocumentType()
@@ -25,37 +25,9 @@ namespace Umbraco.CodeGen.Tests
             TestBuildCode("SomeMediaType", "MediaType");
         }
 
-        private static void TestBuildCode(string fileName, string contentTypeName)
+        protected override CodeGeneratorFactory CreateGeneratorFactory()
         {
-            ContentType contentType;
-            var expectedOutput = "";
-            using (var inputReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".xml"))
-            {
-                contentType = new ContentTypeSerializer().Deserialize(inputReader);
-            }
-            using (var goldReader = File.OpenText(@"..\..\TestFiles\" + fileName + ".cs"))
-            {
-                expectedOutput = goldReader.ReadToEnd();
-            }
-
-            var configuration = CodeGeneratorConfiguration.Create();
-            configuration.TypeMappings.Add(new TypeMapping("Umbraco.Integer", "Int32"));
-            var typeConfig = configuration.Get(contentTypeName);
-            typeConfig.BaseClass = "Umbraco.Core.Models.TypedModelBase";
-            typeConfig.Namespace = "Umbraco.CodeGen.Models";
-
-            var sb = new StringBuilder();
-            var writer = new StringWriter(sb);
-
-            var factory = new BclCodeGeneratorFactory();
-            var dataTypeProvider = new TestDataTypeProvider();
-            var generator = new CodeGenerator(typeConfig, dataTypeProvider, factory);
-            generator.Generate(contentType, writer);
-
-            writer.Flush();
-            Console.WriteLine(sb.ToString());
-
-            Assert.AreEqual(expectedOutput, sb.ToString());
+            return new BclCodeGeneratorFactory();
         }
     }
 }

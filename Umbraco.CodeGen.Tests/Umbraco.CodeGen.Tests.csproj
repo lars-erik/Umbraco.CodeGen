@@ -260,6 +260,7 @@
   <ItemGroup>
     <Compile Include="BaseSupportedAnnotatedCodeGeneratorAcceptanceTests.cs" />
     <Compile Include="AnnotatedCodeGeneratorAcceptanceTests.cs" />
+    <Compile Include="CodeGeneratorAcceptanceTestBase.cs" />
     <Compile Include="CodeParserAcceptanceTests.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationTests.cs" />
     <Compile Include="Configuration\FileCodeGeneratorConfigurationProviderTests.cs" />
