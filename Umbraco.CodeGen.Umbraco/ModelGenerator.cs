@@ -38,25 +38,11 @@ namespace Umbraco.CodeGen.Umbraco
         public void GenerateModelAndDependants(IContentTypeService service, IContentTypeComposition umbracoContentType)
         {
             var contentType = ContentTypeMapping.Map(umbracoContentType);
-
-            var id = umbracoContentType.Id;
             var allContentTypes = service.GetAllContentTypes().ToList();
-            var composedOfThis = allContentTypes
-                .Where(ct => ct.CompositionIds().Contains(id) && ct.ParentId != id)
-                .ToList();
 
-            var compositionIds = umbracoContentType.CompositionIds();
-            var thisIsComposedOf = allContentTypes
-                .Where(ct => compositionIds.Contains(ct.Id) && umbracoContentType.ParentId != ct.Id)
-                .ToList();
+            GenerateDependencies(umbracoContentType, allContentTypes);
 
-            foreach (var composition in thisIsComposedOf)
-            {
-                var compositionType = ContentTypeMapping.Map(composition);
-                compositionType.IsMixin = true;
-                GenerateClass(compositionType);
-                GenerateInterface(compositionType);
-            }
+            var composedOfThis = GetDependants(umbracoContentType, allContentTypes);
 
             var isMixin = composedOfThis.Any();
             
@@ -70,12 +56,41 @@ namespace Umbraco.CodeGen.Umbraco
             if (isMixin)
             {
                 GenerateInterface(contentType);
+                GenerateDependants(composedOfThis);
+            }
+        }
 
-                foreach (var umbracoCompositeType in composedOfThis)
-                {
-                    var compositeType = ContentTypeMapping.Map(umbracoCompositeType);
-                    GenerateClass(compositeType);
-                }
+        private void GenerateDependants(IEnumerable<IContentType> composedOfThis)
+        {
+            foreach (var umbracoCompositeType in composedOfThis)
+            {
+                var compositeType = ContentTypeMapping.Map(umbracoCompositeType);
+                GenerateClass(compositeType);
+            }
+        }
+
+        private static List<IContentType> GetDependants(IContentTypeComposition umbracoContentType, IEnumerable<IContentType> allContentTypes)
+        {
+            var id = umbracoContentType.Id;
+            var composedOfThis = allContentTypes
+                .Where(ct => ct.CompositionIds().Contains(id) && ct.ParentId != id)
+                .ToList();
+            return composedOfThis;
+        }
+
+        private void GenerateDependencies(IContentTypeComposition umbracoContentType, IEnumerable<IContentType> allContentTypes)
+        {
+            var compositionIds = umbracoContentType.CompositionIds();
+            var thisIsComposedOf = allContentTypes
+                .Where(ct => compositionIds.Contains(ct.Id) && umbracoContentType.ParentId != ct.Id)
+                .ToList();
+
+            foreach (var composition in thisIsComposedOf)
+            {
+                var compositionType = ContentTypeMapping.Map(composition);
+                compositionType.IsMixin = true;
+                GenerateClass(compositionType);
+                GenerateInterface(compositionType);
             }
         }
 
