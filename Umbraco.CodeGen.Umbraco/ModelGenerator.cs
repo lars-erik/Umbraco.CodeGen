@@ -40,12 +40,14 @@ namespace Umbraco.CodeGen.Umbraco
             var contentType = ContentTypeMapping.Map(umbracoContentType);
 
             var id = umbracoContentType.Id;
-            var composedOfThis = service.GetAllContentTypes()
+            var allContentTypes = service.GetAllContentTypes().ToList();
+            var composedOfThis = allContentTypes
                 .Where(ct => ct.CompositionIds().Contains(id) && ct.ParentId != id)
                 .ToList();
 
-            var thisIsComposedOf = service.GetAllContentTypes()
-                .Where(ct => umbracoContentType.CompositionIds().Contains(ct.Id) && umbracoContentType.ParentId != ct.Id)
+            var compositionIds = umbracoContentType.CompositionIds();
+            var thisIsComposedOf = allContentTypes
+                .Where(ct => compositionIds.Contains(ct.Id) && umbracoContentType.ParentId != ct.Id)
                 .ToList();
 
             foreach (var composition in thisIsComposedOf)
