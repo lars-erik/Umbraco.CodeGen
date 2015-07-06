@@ -46,7 +46,7 @@ namespace Umbraco.CodeGen.Generators
                     new CtorGenerator(configuration),
                     new PropertiesGenerator(
                         configuration,
-                        new PropertyDeclarationGenerator(
+                        new PublicPropertyDeclarationGenerator(
                             configuration,
                             dataTypes.ToList(),
                             new EntityNameGenerator(configuration),

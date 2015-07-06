@@ -29,6 +29,7 @@ namespace Umbraco.CodeGen.Generators
 
             SetPartial(type);
             SetBaseClass(type, info);
+            AddInterfaces(type, contentType);
 
             base.Generate(type, entity);
         }
@@ -44,6 +45,15 @@ namespace Umbraco.CodeGen.Generators
                                     ? new CodeTypeReference(Config.BaseClass)
                                     : new CodeTypeReference(info.Master.PascalCase());
             type.BaseTypes.Add(baseReference);
+        }
+
+        private void AddInterfaces(CodeTypeDeclaration type, ContentType contentType)
+        {
+            if (contentType.IsMixin)
+                type.BaseTypes.Add((new CodeTypeReference("I" + contentType.Alias.PascalCase())));
+
+            foreach (var composition in contentType.Composition)
+                type.BaseTypes.Add((new CodeTypeReference("I" + composition.Alias.PascalCase())));
         }
     }
 }

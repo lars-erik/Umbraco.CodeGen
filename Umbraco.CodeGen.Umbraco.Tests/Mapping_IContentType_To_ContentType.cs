@@ -16,14 +16,23 @@ namespace Umbraco.CodeGen.Umbraco.Tests
     [TestFixture]
     public class Mapping_IContentType_To_ContentType
     {
+        private DocumentType expected;
+        private ContentType umbracoContentType;
+
         [Test]
         public void Maps_Metadata()
         {
-            var expected = CreateCodeGenDocumentType();
-            var umbracoContentType = CreateUmbracoContentType();
+            var actual = ContentTypeMapping.Map(umbracoContentType);
+            Assert.AreEqual(expected, actual, Serialize(actual));
+        }
+
+        [Test]
+        public void Ignores_DefaultTemplate_If_None()
+        {
+            umbracoContentType.SetDefaultTemplate(null);
+            ((DocumentTypeInfo) expected.Info).DefaultTemplate = null;
 
             var actual = ContentTypeMapping.Map(umbracoContentType);
-
             Assert.AreEqual(expected, actual, Serialize(actual));
         }
 
@@ -51,6 +60,27 @@ namespace Umbraco.CodeGen.Umbraco.Tests
                 Structure = new List<string>
                 {
                     "SomeOtherDocType"
+                },
+                Composition = new List<Definitions.ContentType>
+                {
+                    new Definitions.ContentType
+                    {
+                        Info = new Info
+                        {
+                            Alias = "Mixin"
+                        },
+                        Tabs = new List<Tab>{new Tab{Caption="Mixin tab"}},
+                        GenericProperties = new List<GenericProperty>
+                        {
+                            new GenericProperty
+                            {
+                                Alias = "mixinProp",
+                                Name = "Mixin prop",
+                                Type = "Umbraco.Number",
+                                Tab = "Mixin tab"
+                            }
+                        }
+                    }
                 },
                 GenericProperties = new List<GenericProperty>
                 {
@@ -84,15 +114,34 @@ namespace Umbraco.CodeGen.Umbraco.Tests
             return expected;
         }
 
+        [SetUp]
+        public void Setup()
+        {
+            MockSettings();
+
+            expected = CreateCodeGenDocumentType();
+            umbracoContentType = CreateUmbracoContentType();
+        }
+
+        private static void MockSettings()
+        {
+            var settings = new Mock<IUmbracoSettingsSection>();
+            var requestHandler = new Mock<IRequestHandlerSection>();
+            settings.Setup(m => m.RequestHandler).Returns(requestHandler.Object);
+            requestHandler.Setup(m => m.CharCollection).Returns(new IChar[0]);
+            SetUmbracoSettings(settings.Object);
+        }
+
         private static ContentType CreateUmbracoContentType()
         {
-            var umbracoContentType = new Core.Models.ContentType(-1)
+            var umbracoContentType = new Core.Models.ContentType(1)
             {
+                Id = 2,
                 Alias = "SomeDocumentType",
                 Name = "Some document type",
                 AllowedAsRoot = true,
-                AllowedContentTypes = new[] {new ContentTypeSort(new Lazy<int>(() => 1), 1, "SomeOtherDocType"),},
-                AllowedTemplates = new[] {new Template("", "", "ATemplate"), new Template("", "", "AnotherTemplate"),},
+                AllowedContentTypes = new[] {new ContentTypeSort(new Lazy<int>(() => 3), 1, "SomeOtherDocType"),},
+                AllowedTemplates = new[] {new Template("", "", "ATemplate") { Id = 1 }, new Template("", "", "AnotherTemplate") { Id = 2 },},
                 PropertyGroups = new PropertyGroupCollection(new[]
                 {
                     new PropertyGroup
@@ -128,22 +177,57 @@ namespace Umbraco.CodeGen.Umbraco.Tests
                 Thumbnail = "privateMemberThumb.png",
             };
             umbracoContentType.SetDefaultTemplate(umbracoContentType.AllowedTemplates.First());
+            umbracoContentType.AddContentType(CreateMaster());
+            umbracoContentType.AddContentType(CreateMixin());
+
             return umbracoContentType;
+        }
+
+        private static ContentType CreateMaster()
+        {
+            var master = new Core.Models.ContentType(-1)
+            {
+                Alias = "RootDocType",
+                Name = "Root document type",
+                AllowedAsRoot = true,
+                Id = 1
+            };
+            return master;
+        }
+
+        private static ContentType CreateMixin()
+        {
+            var mixin = new Core.Models.ContentType(-1)
+            {
+                Id = 3,
+                Alias = "Mixin",
+                Name = "Some mixin",
+                AllowedAsRoot = false,
+                PropertyGroups = new PropertyGroupCollection(new[]
+                {
+                    new PropertyGroup
+                    {
+                        Name = "Mixin tab",
+                        PropertyTypes = new PropertyTypeCollection(new[]
+                        {
+                            new PropertyType(new DataTypeDefinition(-1, "Umbraco.Number"), "Number")
+                            {
+                                Alias = "mixinProp",
+                                Name = "Mixin prop",
+                            }
+                        })
+                    }
+                }),
+                Description = "A description of some mixin type",
+                Icon = "privateMemberIcon.gif",
+                Thumbnail = "privateMemberThumb.png",
+            };
+            return mixin;
         }
 
         private static string Serialize(object obj)
         {
             return JsonConvert.SerializeObject(obj, Formatting.Indented);
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            var settings = new Mock<IUmbracoSettingsSection>();
-            var requestHandler = new Mock<IRequestHandlerSection>();
-            settings.Setup(m => m.RequestHandler).Returns(requestHandler.Object);
-            requestHandler.Setup(m => m.CharCollection).Returns(new IChar[0]);
-            SetUmbracoSettings(settings.Object);
         }
 
         private static void SetUmbracoSettings(IUmbracoSettingsSection umbracoSettingsSection)

@@ -60,12 +60,14 @@ namespace Umbraco.CodeGen.Configuration
 
         public static class Defaults
         {
+            public const string InterfaceFactory = "Umbraco.CodeGen.Generators.InterfaceGeneratorFactory, Umbraco.CodeGen";
             public const string GeneratorFactory = "Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory, Umbraco.CodeGen";
             public const string ParserFactory = "Umbraco.CodeGen.Parsers.DefaultParserFactory, Umbraco.CodeGen";
         }
 
         private Dictionary<string, ContentTypeConfiguration> configs;
         private string generatorFactory = Defaults.GeneratorFactory;
+        private string interfaceGeneratorFactory = Defaults.InterfaceFactory;
         private string parserFactory = Defaults.ParserFactory;
 
         public ContentTypeConfiguration DocumentTypes
@@ -94,6 +96,13 @@ namespace Umbraco.CodeGen.Configuration
         
         [XmlAttribute]
         public bool OverwriteReadOnly { get; set; }
+
+        [XmlAttribute, DefaultValue(Defaults.InterfaceFactory)]
+        public string InterfaceFactory
+        {
+            get { return interfaceGeneratorFactory; }
+            set { interfaceGeneratorFactory = value; }
+        }
 
         [XmlAttribute, DefaultValue(Defaults.GeneratorFactory)]
         public string GeneratorFactory
@@ -124,7 +133,7 @@ namespace Umbraco.CodeGen.Configuration
             configs = new Dictionary<string, ContentTypeConfiguration>
 	        {
 	            {Keys.DocumentType, new ContentTypeConfiguration(this, Keys.DocumentType)},
-	            {Keys.MediaType, new ContentTypeConfiguration(this, Keys.MediaType)}
+	            {Keys.MediaType, new ContentTypeConfiguration(this, Keys.MediaType)},
 	        };
         }
 
@@ -137,7 +146,7 @@ namespace Umbraco.CodeGen.Configuration
             configuration.configs = new Dictionary<string, ContentTypeConfiguration>
 	        {
 	            {Keys.DocumentType, new ContentTypeConfiguration(configuration, Keys.DocumentType)},
-	            {Keys.MediaType, new ContentTypeConfiguration(configuration, Keys.MediaType)}
+	            {Keys.MediaType, new ContentTypeConfiguration(configuration, Keys.MediaType)},
 	        };
             return configuration;
         }

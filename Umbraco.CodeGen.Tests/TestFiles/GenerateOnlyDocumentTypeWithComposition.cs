@@ -4,7 +4,7 @@
     using global::Umbraco.Core.Models;
     using global::Umbraco.Web;
     
-    public partial class SomeDocumentType : global::Umbraco.Core.Models.PublishedContent.PublishedContentModel
+    public partial class SomeDocumentType : global::Umbraco.Core.Models.PublishedContent.PublishedContentModel, IMixin
     {
         public SomeDocumentType(IPublishedContent content) : 
                 base(content)
@@ -29,6 +29,13 @@
             get
             {
                 return Content.GetPropertyValue<Int32>("tablessProperty");
+            }
+        }
+        public virtual Int32 MixinProp
+        {
+            get
+            {
+                return Content.GetPropertyValue<Int32>("mixinProp");
             }
         }
     }

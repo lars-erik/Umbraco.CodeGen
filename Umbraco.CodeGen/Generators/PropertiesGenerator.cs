@@ -25,7 +25,7 @@ namespace Umbraco.CodeGen.Generators
             var type = (CodeTypeDeclaration) codeObject;
             var contentType = (ContentType) entity;
 
-            foreach (var property in contentType.GenericProperties)
+            foreach (var property in contentType.GenericProperties.Union(contentType.Composition.SelectMany(c => c.GenericProperties)))
             {
                 var propNode = new CodeMemberProperty();
                 foreach(var generator in propertyGenerators)

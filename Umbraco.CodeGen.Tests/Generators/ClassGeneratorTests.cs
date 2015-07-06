@@ -1,4 +1,5 @@
 ﻿using System.CodeDom;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
@@ -60,6 +61,37 @@ namespace Umbraco.CodeGen.Tests.Generators
             info.Master = expectedMaster;
             Generate();
             Assert.AreEqual(expectedMaster.PascalCase(), Type.BaseTypes[0].BaseType);
+        }
+
+        [Test]
+        public void Generate_Composition_When_More_Than_Master_Adds_Interfaces()
+        {
+            const string expectedInterface = "IMixin";
+            ContentType.Composition = new List<ContentType>
+            {
+                new ContentType
+                {
+                    Info = new Info
+                    {
+                        Alias = "Mixin"
+                    }
+                }
+            };
+
+            Generate();
+
+            Assert.AreEqual(expectedInterface, Type.BaseTypes[1].BaseType);
+        }
+
+        [Test]
+        public void Generate_When_Is_Mixin_Adds_Own_Interface()
+        {
+            const string expectedInterface = "IAnEntity";
+            ContentType.IsMixin = true;
+
+            Generate();
+
+            Assert.AreEqual(expectedInterface, Type.BaseTypes[1].BaseType);
         }
 
         [Test]

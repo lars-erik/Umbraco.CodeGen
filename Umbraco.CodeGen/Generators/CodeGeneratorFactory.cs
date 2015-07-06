@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Mime;
 using Umbraco.CodeGen.Configuration;
 
 namespace Umbraco.CodeGen.Generators

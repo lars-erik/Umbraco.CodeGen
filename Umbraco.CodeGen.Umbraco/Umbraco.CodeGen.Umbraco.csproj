@@ -186,7 +186,9 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="ContentTypeMapping.cs" />
+    <Compile Include="ModelGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UmbracoDataTypesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

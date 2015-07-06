@@ -20,6 +20,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
         {
             ns.Imports.Add(new CodeNamespaceImport("global::System"));
             ns.Imports.Add(new CodeNamespaceImport("global::Umbraco.Core.Models"));
+            ns.Imports.Add(new CodeNamespaceImport("global::Umbraco.Web"));
         }
     }
 }

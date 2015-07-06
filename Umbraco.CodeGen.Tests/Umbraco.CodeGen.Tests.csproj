@@ -268,6 +268,7 @@
     <Compile Include="CodeGeneratorAcceptanceTests.cs" />
     <Compile Include="ContentTypeSerializerTests.cs" />
     <Compile Include="GenerateOnlyCodeGeneratorAcceptanceTests.cs" />
+    <Compile Include="GenerateOnlyInterfaceAcceptanceTests.cs" />
     <Compile Include="Generators\Annotated\AnnotationCodeGeneratorTestBase.cs" />
     <Compile Include="Generators\BaseSupportedAnnotated\ImportsGeneratorTests.cs" />
     <Compile Include="Generators\Annotated\CommonInfoGeneratorTests.cs" />
@@ -283,6 +284,11 @@
     <Compile Include="Generators\CodeGenerationHelper.cs" />
     <Compile Include="Generators\CtorGeneratorTests.cs" />
     <Compile Include="Generators\Bcl\ImportsGeneratorTests.cs" />
+    <Compile Include="Generators\GenerateOnly\ImportsGeneratorTests.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfaceGeneratorTests.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfaceNameGeneratorTests.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfacePropertyBodyGeneratorTests.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfacePropertyDeclarationGeneratorTests.cs" />
     <Compile Include="Generators\NamespaceGeneratorTests.cs" />
     <Compile Include="Generators\CodeGeneratorTestBase.cs" />
     <Compile Include="Generators\Bcl\CommonInfoGeneratorTests.cs" />
@@ -314,6 +320,8 @@
     <Content Include="TestFiles\SomeBaseSupportedAnnotatedDocumentType.cs" />
     <Content Include="TestFiles\SomeBaseSupportedAnnotatedMediaType.cs" />
     <None Include="TestFiles\GenerateOnlyDocumentType.cs" />
+    <None Include="TestFiles\GenerateOnlyDocumentTypeWithComposition.cs" />
+    <None Include="TestFiles\GenerateOnlyInterface.cs" />
     <Compile Include="TestHelpers\SerializationHelper.cs" />
     <Compile Include="TestHelpers\TestDataTypeProvider.cs" />
     <Compile Include="TestHelpers\TestFactory.cs" />

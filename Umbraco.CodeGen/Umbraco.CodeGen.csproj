@@ -120,9 +120,16 @@
     <Compile Include="Generators\BaseSupportedAnnotated\PropertyBodyGenerator.cs" />
     <Compile Include="Generators\BaseSupportedAnnotated\CtorGenerator.cs" />
     <Compile Include="Generators\BclCodeGeneratorFactory.cs" />
+    <Compile Include="Generators\InterfaceGeneratorFactory.cs" />
+    <Compile Include="Generators\PublicPropertyDeclarationGenerator.cs" />
     <Compile Include="Generators\CompositeCodeGenerator.cs" />
     <Compile Include="Generators\GenerateOnlyGeneratorFactory.cs" />
     <Compile Include="Generators\GenerateOnly\ImportsGenerator.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfaceGenerator.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfaceNameGenerator.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfacePropertyBodyGenerator.cs" />
+    <Compile Include="Generators\GenerateOnly\InterfacePropertyDeclarationGenerator.cs" />
+    <Compile Include="Generators\NameGenerator.cs" />
     <Compile Include="Generators\PropertyDeclarationGenerator.cs" />
     <Compile Include="Generators\EntityNameGenerator.cs" />
     <Compile Include="Generators\ClassGenerator.cs" />

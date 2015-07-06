@@ -1,4 +1,6 @@
-﻿namespace Umbraco.CodeGen.Definitions
+﻿using System.Collections.Generic;
+
+namespace Umbraco.CodeGen.Definitions
 {
     public class DocumentType : ContentType
     {

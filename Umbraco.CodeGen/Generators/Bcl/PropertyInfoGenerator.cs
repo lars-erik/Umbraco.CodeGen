@@ -7,7 +7,7 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators.Bcl
 {
-    public class PropertyInfoGenerator : PropertyDeclarationGenerator
+    public class PropertyInfoGenerator : PublicPropertyDeclarationGenerator
     {
         public PropertyInfoGenerator(
             ContentTypeConfiguration config,

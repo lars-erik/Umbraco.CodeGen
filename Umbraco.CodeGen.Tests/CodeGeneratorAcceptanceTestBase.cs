@@ -58,5 +58,36 @@ namespace Umbraco.CodeGen.Tests
         {
             
         }
+
+        protected void TestBuildCode(string classFileName, DocumentType contentType, string contentTypeName)
+        {
+            string expectedOutput;
+            using (var goldReader = File.OpenText(@"..\..\TestFiles\" + classFileName + ".cs"))
+            {
+                expectedOutput = goldReader.ReadToEnd();
+            }
+
+            var configuration = CodeGeneratorConfiguration.Create();
+            var typeConfig = configuration.Get(contentTypeName);
+            typeConfig.BaseClass = "Umbraco.Core.Models.TypedModelBase";
+            typeConfig.Namespace = "Umbraco.CodeGen.Models";
+
+            configuration.TypeMappings.Add(new TypeMapping("Umbraco.Integer", "Int32"));
+
+            OnConfiguring(configuration, contentTypeName);
+
+            var sb = new StringBuilder();
+            var writer = new StringWriter(sb);
+
+            var dataTypeProvider = new TestDataTypeProvider();
+            var generator = new CodeGenerator(typeConfig, dataTypeProvider, CreateGeneratorFactory());
+
+            generator.Generate(contentType, writer);
+
+            writer.Flush();
+            Console.WriteLine(sb.ToString());
+
+            Assert.AreEqual(expectedOutput, sb.ToString());
+        }
     }
 }

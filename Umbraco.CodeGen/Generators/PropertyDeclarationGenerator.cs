@@ -6,12 +6,12 @@ using Umbraco.CodeGen.Definitions;
 
 namespace Umbraco.CodeGen.Generators
 {
-    public class PropertyDeclarationGenerator : CodeGeneratorBase
+    public abstract class PropertyDeclarationGenerator : CodeGeneratorBase
     {
         protected IList<DataTypeDefinition> DataTypes;
         protected CodeGeneratorBase[] MemberGenerators;
 
-        public PropertyDeclarationGenerator(
+        protected PropertyDeclarationGenerator(
             ContentTypeConfiguration config,
             IList<DataTypeDefinition> dataTypes,
             params CodeGeneratorBase[] memberGenerators
@@ -31,13 +31,10 @@ namespace Umbraco.CodeGen.Generators
             foreach (var generator in MemberGenerators)
                 generator.Generate(codeObject, property);
 
-            SetPublic(propNode);
+            SetAttributes(propNode);
         }
 
-        protected void SetPublic(CodeTypeMember propNode)
-        {
-            propNode.Attributes = MemberAttributes.Public;
-        }
+        protected abstract void SetAttributes(CodeTypeMember propNode);
 
         protected void SetType(CodeMemberProperty propNode, GenericProperty property)
         {
