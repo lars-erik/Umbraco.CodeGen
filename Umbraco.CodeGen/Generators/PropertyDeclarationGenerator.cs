@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Linq;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 
@@ -38,10 +39,9 @@ namespace Umbraco.CodeGen.Generators
 
         protected void SetType(CodeMemberProperty propNode, GenericProperty property)
         {
-            var hasType = property.Type != null &&
-                          Config.TypeMappings.ContainsKey(property.Type.ToLower());
+            var hasType = property.PropertyEditorAlias != null;
             var typeName = hasType 
-                ? Config.TypeMappings[property.Type.ToLower()]
+                ? DataTypes.Single(d => d.PropertyEditorAlias == property.PropertyEditorAlias).ClrType.FullName
                 : Config.TypeMappings.DefaultType;
             if (typeName == null)
                 throw new Exception("TypeMappings/Default not set. Cannot guess default property type.");

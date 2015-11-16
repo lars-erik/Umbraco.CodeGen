@@ -3,11 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Generators.Annotated;
-using Umbraco.CodeGen.Parsers;
 
 namespace Umbraco.CodeGen.Generators
 {
-    [Parser(typeof(AnnotatedParserFactory))]
     [Description("Models depend on CodeGen for metadata. References the Umbraco.Core.Models namespace directly making naming more restricted.")]
     public class AnnotatedCodeGeneratorFactory : CodeGeneratorFactory
     {

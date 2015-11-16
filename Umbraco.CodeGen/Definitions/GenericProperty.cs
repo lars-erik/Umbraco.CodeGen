@@ -2,7 +2,10 @@
 {
     public class GenericProperty : EntityDescription
     {
-        public string Type { get; set; }
+        /// <summary>
+        /// Umbraco property editor type
+        /// </summary>
+        public string PropertyEditorAlias { get; set; }
         public string Definition { get; set; }
         public string Tab { get; set; }
         public bool Mandatory { get; set; }
@@ -10,7 +13,7 @@
 
         protected bool Equals(GenericProperty other)
         {
-            return base.Equals(other) && string.Equals(Type, other.Type) && string.Equals(Definition, other.Definition) && string.Equals(Tab, other.Tab) && Mandatory.Equals(other.Mandatory) && string.Equals(Validation, other.Validation);
+            return base.Equals(other) && string.Equals(PropertyEditorAlias, other.PropertyEditorAlias) && string.Equals(Definition, other.Definition) && string.Equals(Tab, other.Tab) && Mandatory.Equals(other.Mandatory) && string.Equals(Validation, other.Validation);
         }
 
         public override bool Equals(object obj)
@@ -26,7 +29,7 @@
             unchecked
             {
                 var hashCode = base.GetHashCode();
-                hashCode = (hashCode*397) ^ (Type != null ? Type.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (PropertyEditorAlias != null ? PropertyEditorAlias.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (Definition != null ? Definition.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (Tab != null ? Tab.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ Mandatory.GetHashCode();

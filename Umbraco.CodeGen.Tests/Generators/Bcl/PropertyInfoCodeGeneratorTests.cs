@@ -56,7 +56,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
             codeGenConfig.TypeMappings = new TypeMappings(new[]{
                 new TypeMapping("1413afcb-d19a-4173-8e9a-68288d2a73b8", "Int32")
             });
-            property.Type = "1413AFCB-D19A-4173-8E9A-68288D2A73B8";
+            property.PropertyEditorAlias = "1413AFCB-D19A-4173-8E9A-68288D2A73B8";
             Generate();
             Assert.AreEqual("Int32", codeProperty.Type.BaseType);
         }
@@ -64,7 +64,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Bcl
         [Test]
         public void Generate_Definition_WhenDefinitionExists_IsDefinitionName()
         {
-            property.Definition = TestDataTypeProvider.Numeric.DefinitionId;
+            property.Definition = TestDataTypeProvider.Numeric.PropertyEditorAlias;
             Generate();
             Assert.AreEqual("Numeric", FindAttributeValue("DataType"));
         }

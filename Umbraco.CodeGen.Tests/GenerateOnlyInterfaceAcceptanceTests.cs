@@ -41,7 +41,7 @@ namespace Umbraco.CodeGen.Tests
                     {
                         Alias = "mixinProp",
                         Name = "Mixin prop",
-                        Type = "Umbraco.Integer",
+                        PropertyEditorAlias = "Umbraco.Integer",
                         Tab = "Mixin tab"
                     }
                 }

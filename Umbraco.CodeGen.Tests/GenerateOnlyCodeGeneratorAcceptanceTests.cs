@@ -79,7 +79,7 @@ namespace Umbraco.CodeGen.Tests
                             {
                                 Alias = "mixinProp",
                                 Name = "Mixin prop",
-                                Type = "Umbraco.Integer",
+                                PropertyEditorAlias = "Umbraco.Integer",
                                 Tab = "Mixin tab"
                             }
                         }
@@ -94,7 +94,7 @@ namespace Umbraco.CodeGen.Tests
                         Description = "A description",
                         Name = "Some property",
                         Tab = "A tab",
-                        Type = "Umbraco.Richtext"
+                        PropertyEditorAlias = "Umbraco.TinyMCEv3"
                     },
                     new GenericProperty
                     {
@@ -103,14 +103,14 @@ namespace Umbraco.CodeGen.Tests
                         Description = "Another description",
                         Name = "Another property",
                         Tab = "A tab",
-                        Type = "Umbraco.Richtext"
+                        PropertyEditorAlias = "Umbraco.TinyMCEv3"
                     },
                     new GenericProperty
                     {
                         Alias = "tablessProperty",
                         Definition = null,
                         Name = "Tabless property",
-                        Type = "Umbraco.Integer"
+                        PropertyEditorAlias = "Umbraco.Integer"
                     },
                 }
             };

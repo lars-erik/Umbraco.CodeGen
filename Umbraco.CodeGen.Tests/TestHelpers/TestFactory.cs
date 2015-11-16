@@ -35,7 +35,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "Some Property",
                         Alias = "someProperty",
-                        Type = "Umbraco.TinyMCEv3",
+                        PropertyEditorAlias = "Umbraco.TinyMCEv3",
                         Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
                         Tab = "A tab",
                         Mandatory = true,
@@ -46,7 +46,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "Another Property",
                         Alias = "anotherProperty",
-                        Type = "Umbraco.TinyMCEv3",
+                        PropertyEditorAlias = "Umbraco.TinyMCEv3",
                         Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
                         Tab = "A tab",
                         Description = "Another description"
@@ -57,7 +57,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                         Alias = "tablessProperty",
                         Description = null,
                         Tab = null,
-                        Type = "Umbraco.Integer",
+                        PropertyEditorAlias = "Umbraco.Integer",
                         Definition = "2e6d3631-066e-44b8-aec4-96f09099b2b5"
                     }
                 },
@@ -98,7 +98,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "Lets Have A Property",
                         Alias = "letsHaveAProperty",
-                        Type = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
+                        PropertyEditorAlias = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
                         Tab = "A tab"
                     },
@@ -106,7 +106,7 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
                     {
                         Name = "And A Tabless Property",
                         Alias = "andATablessProperty",
-                        Type = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
+                        PropertyEditorAlias = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
                         Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
                     }
                 },

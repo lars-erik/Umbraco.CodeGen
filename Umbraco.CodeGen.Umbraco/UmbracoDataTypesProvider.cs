@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.Web;
@@ -17,10 +18,15 @@ namespace Umbraco.CodeGen.Umbraco
                 if (dataTypes == null)
                 { 
                     var umbracoDefinitions = UmbracoContext.Current.Application.Services.DataTypeService.GetAllDataTypeDefinitions();
-                    dataTypes = umbracoDefinitions.Select(d => new DataTypeDefinition(d.Name, "", d.PropertyEditorAlias, ""));
+                    dataTypes = umbracoDefinitions.Select(d => new DataTypeDefinition(d.Name, d.PropertyEditorAlias, ResolveType(d.PropertyEditorAlias)));
                 }
             }
             return dataTypes;
+        }
+
+        private Type ResolveType(string propertyEditorAlias)
+        {
+            return null;
         }
     }
 }

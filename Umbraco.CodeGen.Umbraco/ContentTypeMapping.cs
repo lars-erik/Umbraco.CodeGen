@@ -77,7 +77,7 @@ namespace Umbraco.CodeGen.Umbraco
                         Mandatory = p.Mandatory,
                         Name = p.Name,
                         Tab = pg.Name,
-                        Type = p.PropertyEditorAlias,
+                        PropertyEditorAlias = p.PropertyEditorAlias,
                         Validation = p.ValidationRegExp
                     }
                     )

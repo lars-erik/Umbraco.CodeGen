@@ -36,7 +36,7 @@ namespace Umbraco.CodeGen.Generators.Annotated
         private void AddDataType(CodeAttributeDeclaration attribute, GenericProperty property)
         {
             var dataType = dataTypes.SingleOrDefault(dt =>
-            String.Compare(dt.DefinitionId, property.Definition, IgnoreCase) == 0 ||
+            String.Compare(dt.PropertyEditorAlias, property.Definition, IgnoreCase) == 0 ||
             String.Compare(dt.DataTypeName, property.Definition, IgnoreCase) == 0);
             var dataTypeValue = dataType != null
                 ? dataType.DataTypeName

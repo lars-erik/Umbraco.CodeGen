@@ -104,7 +104,6 @@
     <Compile Include="Definitions\Info.cs" />
     <Compile Include="Definitions\MediaType.cs" />
     <Compile Include="Definitions\Tab.cs" />
-    <Compile Include="CodeParser.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationFileProvider.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Generators\BaseSupportedAnnotatedCodeGeneratorFactory.cs" />
@@ -148,27 +147,6 @@
     <Compile Include="Generators\Bcl\StructureGenerator.cs" />
     <Compile Include="Configuration\IConfigurationProvider.cs" />
     <Compile Include="Configuration\IDataTypeProvider.cs" />
-    <Compile Include="Parsers\AnnotatedParserFactory.cs" />
-    <Compile Include="Parsers\Annotated\CommonInfoParser.cs" />
-    <Compile Include="Parsers\Annotated\DocumentTypeInfoParser.cs" />
-    <Compile Include="Parsers\Annotated\PropertyParser.cs" />
-    <Compile Include="Parsers\Annotated\StructureParser.cs" />
-    <Compile Include="Parsers\BclParserFactory.cs" />
-    <Compile Include="Parsers\CodeParserBase.cs" />
-    <Compile Include="Parsers\Bcl\CommonInfoParser.cs" />
-    <Compile Include="Parsers\ContentTypeCodeParser.cs" />
-    <Compile Include="Parsers\ContentTypeCodeParserBase.cs" />
-    <Compile Include="Parsers\DocumentTypeCodeParser.cs" />
-    <Compile Include="Parsers\Bcl\DocumentTypeInfoParser.cs" />
-    <Compile Include="Parsers\InfoParserBase.cs" />
-    <Compile Include="Parsers\MediaPropertyParser.cs" />
-    <Compile Include="Parsers\MediaTypeCodeParser.cs" />
-    <Compile Include="Parsers\DefaultParserFactory.cs" />
-    <Compile Include="Parsers\ParserFactory.cs" />
-    <Compile Include="Parsers\PropertiesParser.cs" />
-    <Compile Include="Parsers\Bcl\PropertyParser.cs" />
-    <Compile Include="Parsers\Bcl\StructureParser.cs" />
-    <Compile Include="Parsers\TabsParser.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -178,7 +156,6 @@
     <None Include="Definitions\ClassDiagram.cd" />
     <None Include="Generators\ClassDiagram.cd" />
     <None Include="packages.config" />
-    <None Include="Parsers\ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -221,6 +221,11 @@ namespace Umbraco.CodeGen.Configuration
         {
             Items.Add(typeMapping);
         }
+
+        public string ResolveType(string propertyEditorType)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class TypeMapping

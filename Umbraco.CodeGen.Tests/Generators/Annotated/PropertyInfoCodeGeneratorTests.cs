@@ -30,7 +30,7 @@ namespace Umbraco.CodeGen.Tests.Generators.Annotated
         [Test]
         public void Generate_Definition_WhenDefinitionExists_IsDefinitionName()
         {
-            property.Definition = TestDataTypeProvider.Numeric.DefinitionId;
+            property.Definition = TestDataTypeProvider.Numeric.PropertyEditorAlias;
             Generate();
             Assert.AreEqual("Numeric", FindAttributeArgumentValue(attribute, "Definition"));
         }

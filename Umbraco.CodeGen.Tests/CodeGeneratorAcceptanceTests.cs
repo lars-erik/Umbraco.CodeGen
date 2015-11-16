@@ -1,12 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using NUnit.Framework;
-using Umbraco.CodeGen.Configuration;
-using Umbraco.CodeGen.Definitions;
+﻿using NUnit.Framework;
 using Umbraco.CodeGen.Generators;
-using Umbraco.CodeGen.Parsers;
-using Umbraco.CodeGen.Tests.TestHelpers;
 
 namespace Umbraco.CodeGen.Tests
 {

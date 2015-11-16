@@ -49,8 +49,6 @@ namespace Umbraco.CodeGen.Web
                 new ControllerSelectorWrapper((IHttpControllerSelector)GlobalConfiguration.Configuration.Services.GetService(typeof(IHttpControllerSelector)))
                 );
 
-            Integration.Configuration.Load();
-
             PropertyEditorResolver.Current = new PropertyEditorResolver(
                 () => new List<Type>
                 {

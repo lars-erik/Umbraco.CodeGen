@@ -100,7 +100,7 @@ namespace Umbraco.CodeGen
             var prop = new XElement("GenericProperty",
                 CreateElement("Name", property.Name),
                 CreateElement("Alias", property.Alias),
-                CreateElement("Type", property.Type),
+                CreateElement("Type", property.PropertyEditorAlias),
                 CreateElement("Definition", property.Definition),
                 CreateElement("Tab", property.Tab),
                 CreateElement("Mandatory", property.Mandatory.ToString()),
@@ -170,7 +170,7 @@ namespace Umbraco.CodeGen
             {
                 Name = propElement.ElementValue("Name"),
                 Alias = propElement.ElementValue("Alias"),
-                Type = propElement.ElementValue("Type"),
+                PropertyEditorAlias = propElement.ElementValue("Type"),
                 Definition = propElement.ElementValue("Definition"),
                 Tab = propElement.ElementValue("Tab"),
                 Mandatory = Convert.ToBoolean(propElement.ElementValue("Mandatory")),

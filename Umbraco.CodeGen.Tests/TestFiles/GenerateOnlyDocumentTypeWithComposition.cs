@@ -10,32 +10,32 @@
                 base(content)
         {
         }
-        public virtual String SomeProperty
+        public virtual System.Web.IHtmlString SomeProperty
         {
             get
             {
-                return Content.GetPropertyValue<String>("someProperty");
+                return Content.GetPropertyValue<System.Web.IHtmlString>("someProperty");
             }
         }
-        public virtual String AnotherProperty
+        public virtual System.Web.IHtmlString AnotherProperty
         {
             get
             {
-                return Content.GetPropertyValue<String>("anotherProperty");
+                return Content.GetPropertyValue<System.Web.IHtmlString>("anotherProperty");
             }
         }
-        public virtual Int32 TablessProperty
+        public virtual int TablessProperty
         {
             get
             {
-                return Content.GetPropertyValue<Int32>("tablessProperty");
+                return Content.GetPropertyValue<int>("tablessProperty");
             }
         }
-        public virtual Int32 MixinProp
+        public virtual int MixinProp
         {
             get
             {
-                return Content.GetPropertyValue<Int32>("mixinProp");
+                return Content.GetPropertyValue<int>("mixinProp");
             }
         }
     }

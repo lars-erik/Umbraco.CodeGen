@@ -3,11 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Generators.Bcl;
-using Umbraco.CodeGen.Parsers;
 
 namespace Umbraco.CodeGen.Generators
 {
-    [Parser(typeof(BclParserFactory))]
     [Description("Models only depend on the BCL and uses attributes from amongst others, the ComponentModel namespace.")]
     public class BclCodeGeneratorFactory : CodeGeneratorFactory
     {

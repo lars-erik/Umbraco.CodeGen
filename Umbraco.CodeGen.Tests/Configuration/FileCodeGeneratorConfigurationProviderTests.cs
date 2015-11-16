@@ -4,7 +4,6 @@ using System.Text;
 using System.Xml;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
-using Umbraco.CodeGen.Integration;
 
 namespace Umbraco.CodeGen.Tests.Configuration
 {
