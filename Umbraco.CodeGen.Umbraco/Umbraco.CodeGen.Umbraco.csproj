@@ -193,6 +193,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Umbraco.CodeGen.Umbraco.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Umbraco.CodeGen\Umbraco.CodeGen.csproj">

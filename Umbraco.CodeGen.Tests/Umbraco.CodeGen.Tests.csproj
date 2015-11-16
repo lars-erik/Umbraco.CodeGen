@@ -365,10 +365,6 @@
     <None Include="uSync\MediaType\Image\def.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Umbraco.CodeGen.Integration\Umbraco.CodeGen.Integration.csproj">
-      <Project>{25A9D2A6-65FF-470F-B284-2F85B08EE2B4}</Project>
-      <Name>Umbraco.CodeGen.Integration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Umbraco.CodeGen\Umbraco.CodeGen.csproj">
       <Project>{132E2FC4-B509-4204-9DA2-D688BEA75D4A}</Project>
       <Name>Umbraco.CodeGen</Name>

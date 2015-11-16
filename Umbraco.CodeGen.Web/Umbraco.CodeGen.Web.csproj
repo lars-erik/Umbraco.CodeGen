@@ -275,10 +275,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Umbraco.CodeGen.Integration\Umbraco.CodeGen.Integration.csproj">
-      <Project>{25a9d2a6-65ff-470f-b284-2f85b08ee2b4}</Project>
-      <Name>Umbraco.CodeGen.Integration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Umbraco.CodeGen\Umbraco.CodeGen.csproj">
       <Project>{132e2fc4-b509-4204-9da2-d688bea75d4a}</Project>
       <Name>Umbraco.CodeGen</Name>
