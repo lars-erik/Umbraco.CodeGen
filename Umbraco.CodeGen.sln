@@ -7,13 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen", "Umbraco.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Tests", "Umbraco.CodeGen.Tests\Umbraco.CodeGen.Tests.csproj", "{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{11D6B70E-6F69-4AB2-B036-3F22512F4265}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEADA4D9-4F5B-4A6C-A775-34C0B2A94195}"
 	ProjectSection(SolutionItems) = preProject
 		license.txt = license.txt
@@ -33,6 +26,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Umbraco", "Umbraco.CodeGen.Umbraco\Umbraco.CodeGen.Umbraco.csproj", "{3BBFCF51-FE34-4925-8133-940DBFD9782C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Umbraco.Tests", "Umbraco.CodeGen.Umbraco.Tests\Umbraco.CodeGen.Umbraco.Tests.csproj", "{DAB121E6-02BE-4C08-BA27-D1939F961CD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{368A8DF1-B3DE-4E7D-B2D1-2E700B4EFBF0}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
