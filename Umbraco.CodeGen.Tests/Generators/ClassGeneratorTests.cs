@@ -5,7 +5,6 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
-using Umbraco.CodeGen.Generators.Bcl;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
@@ -20,8 +19,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         {
             Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Generator = new ClassGenerator(
-                Configuration,
-                new EntityDescriptionGenerator(Configuration)
+                Configuration
                 );
             ContentType = new MediaType { Info = { Alias = "anEntity" } };
             info = ContentType.Info;

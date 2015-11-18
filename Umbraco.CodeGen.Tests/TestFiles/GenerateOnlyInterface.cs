@@ -6,7 +6,7 @@
     
     public partial interface IMixin : IPublishedContent
     {
-        Int32 MixinProp
+        int MixinProp
         {
             get;
         }

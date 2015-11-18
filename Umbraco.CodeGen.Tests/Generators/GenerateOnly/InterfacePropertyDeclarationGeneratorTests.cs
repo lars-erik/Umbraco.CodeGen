@@ -3,7 +3,6 @@ using System.CodeDom;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators.Bcl;
 using Umbraco.CodeGen.Generators.GenerateOnly;
 using Umbraco.CodeGen.Tests.TestHelpers;
 
@@ -23,8 +22,7 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
             Configuration = codeGenConfig.DocumentTypes;
             Generator = new InterfacePropertyDeclarationGenerator(
                 Configuration,
-                TestDataTypeProvider.All,
-                new EntityDescriptionGenerator(Configuration)
+                TestDataTypeProvider.All
             );
             Candidate = codeProperty = new CodeMemberProperty();
             property = new GenericProperty { Alias = "aProperty" };
@@ -55,12 +53,9 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
         [Test]
         public void Generate_Type_WhenConfigured_IsConfiguredType()
         {
-            codeGenConfig.TypeMappings = new TypeMappings(new[]{
-                new TypeMapping("1413afcb-d19a-4173-8e9a-68288d2a73b8", "Int32")
-            });
-            property.PropertyEditorAlias = "1413AFCB-D19A-4173-8E9A-68288D2A73B8";
+            property.PropertyEditorAlias = TestDataTypeProvider.Numeric.PropertyEditorAlias;
             Generate();
-            Assert.AreEqual("Int32", codeProperty.Type.BaseType);
+            Assert.AreEqual("System.Int32", codeProperty.Type.BaseType);
         }
 
 

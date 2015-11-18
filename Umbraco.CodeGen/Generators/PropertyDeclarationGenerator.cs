@@ -16,7 +16,8 @@ namespace Umbraco.CodeGen.Generators
             ContentTypeConfiguration config,
             IList<DataTypeDefinition> dataTypes,
             params CodeGeneratorBase[] memberGenerators
-            ) : base(config)
+            )
+            : base(config)
         {
             this.DataTypes = dataTypes;
             this.MemberGenerators = memberGenerators;
@@ -41,9 +42,8 @@ namespace Umbraco.CodeGen.Generators
         {
             var hasType = property.PropertyEditorAlias != null;
             var matchingDataTypes = DataTypes.Where(d => d.PropertyEditorAlias == property.PropertyEditorAlias);
-            var typeName = hasType 
-                ? matchingDataTypes.Select(t => t.ClrType.FullName).FirstOrDefault()
-                : Config.TypeMappings.DefaultType;
+            var typeName = matchingDataTypes.Select(t => t.ClrType.FullName).FirstOrDefault()
+                        ?? Config.TypeMappings.DefaultType;
             if (typeName == null)
                 throw new Exception("TypeMappings/Default not set. Cannot guess default property type.");
             propNode.Type = new CodeTypeReference(typeName);
