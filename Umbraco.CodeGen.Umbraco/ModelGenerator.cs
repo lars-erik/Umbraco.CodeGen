@@ -125,10 +125,26 @@ namespace Umbraco.CodeGen.Umbraco
 
             var classGenerator = new CodeGenerator(typeConfig, dataTypeProvider, specificGeneratorFactory);
             using (var stream = System.IO.File.CreateText(path))
-                classGenerator.Generate(contentType, stream);
+            { 
+                WriteGeneratedClass(contentType, classGenerator, stream);
+
+            }
 
             LogHelper.Debug<CodeGenerator>(
                 () => String.Format("Typed model for {0} generated. Took {1}", contentType.Alias, DateTime.Now - itemStart));
+        }
+
+        private static void WriteGeneratedClass(ContentType contentType, CodeGenerator classGenerator, StreamWriter stream)
+        {
+            try
+            {
+                classGenerator.Generate(contentType, stream);
+            }
+            catch (Exception ex)
+            {
+                stream.WriteLine();
+                stream.WriteLine("#warning " + ex.Message);
+            }
         }
 
         private static string GetPath(string modelPath, string fileName)

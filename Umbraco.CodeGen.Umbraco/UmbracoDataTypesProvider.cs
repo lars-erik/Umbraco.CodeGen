@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Umbraco.CodeGen.Configuration;
+using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Core.PropertyEditors;
 using Umbraco.Web;
+using DataTypeDefinition = Umbraco.CodeGen.Configuration.DataTypeDefinition;
 
 namespace Umbraco.CodeGen.Umbraco
 {
@@ -18,15 +22,16 @@ namespace Umbraco.CodeGen.Umbraco
                 if (dataTypes == null)
                 { 
                     var umbracoDefinitions = UmbracoContext.Current.Application.Services.DataTypeService.GetAllDataTypeDefinitions();
-                    dataTypes = umbracoDefinitions.Select(d => new DataTypeDefinition(d.Name, d.PropertyEditorAlias, ResolveType(d.PropertyEditorAlias)));
+                    dataTypes = umbracoDefinitions.Select(d => new DataTypeDefinition(d.Name, d.PropertyEditorAlias, ResolveType(d)));
                 }
             }
             return dataTypes;
         }
 
-        private Type ResolveType(string propertyEditorAlias)
+        private Type ResolveType(IDataTypeDefinition dataTypeDefinition)
         {
-            return null;
+            var fakePropType = new PublishedPropertyType(null, new PropertyType(dataTypeDefinition.PropertyEditorAlias, dataTypeDefinition.DatabaseType));
+            return fakePropType.ClrType;
         }
     }
 }

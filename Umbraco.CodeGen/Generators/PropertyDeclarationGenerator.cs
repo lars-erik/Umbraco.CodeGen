@@ -40,8 +40,9 @@ namespace Umbraco.CodeGen.Generators
         protected void SetType(CodeMemberProperty propNode, GenericProperty property)
         {
             var hasType = property.PropertyEditorAlias != null;
+            var matchingDataTypes = DataTypes.Where(d => d.PropertyEditorAlias == property.PropertyEditorAlias);
             var typeName = hasType 
-                ? DataTypes.Single(d => d.PropertyEditorAlias == property.PropertyEditorAlias).ClrType.FullName
+                ? matchingDataTypes.Select(t => t.ClrType.FullName).FirstOrDefault()
                 : Config.TypeMappings.DefaultType;
             if (typeName == null)
                 throw new Exception("TypeMappings/Default not set. Cannot guess default property type.");
