@@ -24,7 +24,7 @@ namespace Umbraco.CodeGen.Umbraco.Tests
         public void Maps_Metadata()
         {
             var actual = ContentTypeMapping.Map(umbracoContentType);
-            Assert.AreEqual(expected, actual, Serialize(actual));
+            Assert.AreEqual(expected, actual, Serialize(actual) + Serialize(expected));
         }
 
         [Test]
@@ -130,19 +130,19 @@ namespace Umbraco.CodeGen.Umbraco.Tests
             var requestHandler = new Mock<IRequestHandlerSection>();
             settings.Setup(m => m.RequestHandler).Returns(requestHandler.Object);
             requestHandler.Setup(m => m.CharCollection).Returns(new IChar[0]);
-            //SetUmbracoSettings(settings.Object);
+            SetUmbracoSettings(settings.Object);
         }
 
         private static IContentType CreateUmbracoContentType()
         {
-            var umbracoContentType = new FakeContentType()
+            var umbracoContentType = new ContentType(-1)
             {
                 Id = 2,
                 Alias = "SomeDocumentType",
                 Name = "Some document type",
                 AllowedAsRoot = true,
                 AllowedContentTypes = new[] {new ContentTypeSort(new Lazy<int>(() => 3), 1, "SomeOtherDocType"),},
-                AllowedTemplates = new[] {new FakeTemplate("ATemplate") { Id = 1 }, new FakeTemplate("AnotherTemplate") { Id = 2 },},
+                AllowedTemplates = new[] { new Template("ATemplate", "ATemplate") { Id = 1 }, new Template("AnotherTemplate", "AnotherTemplate") { Id = 2 }, },
                 PropertyGroups = new PropertyGroupCollection(new[]
                 {
                     new PropertyGroup
@@ -233,9 +233,7 @@ namespace Umbraco.CodeGen.Umbraco.Tests
 
         private static void SetUmbracoSettings(IUmbracoSettingsSection umbracoSettingsSection)
         {
-            var type = typeof (UmbracoConfig);
-            var method = type.GetMethod("SetUmbracoSettings", BindingFlags.Instance | BindingFlags.NonPublic);
-            method.Invoke(UmbracoConfig.For, new object[] {umbracoSettingsSection});
+            UmbracoConfig.For.SetUmbracoSettings(umbracoSettingsSection);
         }
     }
 
@@ -248,7 +246,7 @@ namespace Umbraco.CodeGen.Umbraco.Tests
 
         public object DeepClone()
         {
-            throw new NotImplementedException();
+            return this;
         }
 
         public int Id { get; set; }
@@ -425,6 +423,13 @@ namespace Umbraco.CodeGen.Umbraco.Tests
         public IEnumerable<ContentTypeSort> AllowedContentTypes { get; set; }
         public PropertyGroupCollection PropertyGroups { get; set; }
         public IEnumerable<PropertyType> PropertyTypes { get; private set; }
+
+        public IEnumerable<PropertyType> NoGroupPropertyTypes
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
         public bool AddContentType(IContentTypeComposition contentType)
         {
             throw new NotImplementedException();
@@ -450,12 +455,18 @@ namespace Umbraco.CodeGen.Umbraco.Tests
             throw new NotImplementedException();
         }
 
+        IEnumerable<IContentTypeComposition> IContentTypeComposition.ContentTypeComposition
+        {
+            get { return ContentTypeComposition; }
+            set { ContentTypeComposition = value; }
+        }
+
         public IEnumerable<IContentTypeComposition> ContentTypeComposition { get; private set; }
         public IEnumerable<PropertyGroup> CompositionPropertyGroups { get; private set; }
         public IEnumerable<PropertyType> CompositionPropertyTypes { get; private set; }
         public void SetDefaultTemplate(ITemplate template)
         {
-            throw new NotImplementedException();
+            this.DefaultTemplate = template;
         }
 
         public bool RemoveTemplate(ITemplate template)

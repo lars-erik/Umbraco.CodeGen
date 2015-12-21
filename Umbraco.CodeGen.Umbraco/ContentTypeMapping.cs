@@ -100,7 +100,7 @@ namespace Umbraco.CodeGen.Umbraco
             MapInfo(umbracoContentType, info);
             info.AllowedTemplates = umbracoContentType.AllowedTemplates.Select(t => t.Alias).ToList();
             info.DefaultTemplate = umbracoContentType.DefaultTemplate != null ? umbracoContentType.DefaultTemplate.Alias : null;
-            info.Master = umbracoContentType.ParentId > -1
+            info.Master = umbracoContentType.ParentId > -1 && umbracoContentType.ContentTypeComposition.Any(cmp => cmp.Id == umbracoContentType.ParentId)
                         ? umbracoContentType.ContentTypeComposition.First(cmp => cmp.Id == umbracoContentType.ParentId).Alias
                         : "";
         }
