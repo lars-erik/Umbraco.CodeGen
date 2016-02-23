@@ -20,7 +20,7 @@ namespace Umbraco.CodeGen.Tests.Generators
             Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Configuration.Namespace = "MyWeb.Models";
             ContentType = new TypeModel {ItemType = TypeModel.ItemTypes.Media};
-            Generator = new NamespaceGenerator(Configuration);
+            Generator = new NamespaceGenerator(Configuration.Namespace);
             compileUnit = new CodeCompileUnit();
         }
 
@@ -47,7 +47,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         {
             var spies = new[]{new SpyGenerator(), new SpyGenerator()};
             var memberGenerators = spies.Cast<CodeGeneratorBase>().ToArray();
-            Generator = new NamespaceGenerator(Configuration, memberGenerators);
+            Generator = new NamespaceGenerator(Configuration.Namespace, memberGenerators);
             Generator.Generate(compileUnit, ContentType);
             Assert.That(spies.All(s => s.Called));
         }

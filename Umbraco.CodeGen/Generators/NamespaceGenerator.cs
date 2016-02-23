@@ -7,13 +7,15 @@ namespace Umbraco.CodeGen.Generators
 {
     public class NamespaceGenerator : CodeGeneratorBase
     {
+        private readonly string configuredNamespace;
         private readonly CodeGeneratorBase[] memberGenerators;
 
         public NamespaceGenerator(
-            ContentTypeConfiguration config,
+            string configuredNamespace,
             params CodeGeneratorBase[] memberGenerators
-            ) : base(config)
+            ) : base(null)
         {
+            this.configuredNamespace = configuredNamespace;
             this.memberGenerators = memberGenerators;
         }
 
@@ -25,7 +27,7 @@ namespace Umbraco.CodeGen.Generators
             else
             { 
                 ns = (CodeNamespace) codeObject;
-                ns.Name = Config.Namespace;
+                ns.Name = configuredNamespace;
             }
 
             foreach(var generator in memberGenerators)
@@ -36,10 +38,10 @@ namespace Umbraco.CodeGen.Generators
         {
             var compileUnit = (CodeCompileUnit) codeObject;
 
-            if (String.IsNullOrWhiteSpace(Config.Namespace))
-                throw new Exception("ContentType namespace not configured.");
+            if (String.IsNullOrWhiteSpace(configuredNamespace))
+                throw new Exception("Namespace not configured.");
 
-            var ns = new CodeNamespace(Config.Namespace);
+            var ns = new CodeNamespace(configuredNamespace);
             compileUnit.Namespaces.Add(ns);
             return ns;
         }

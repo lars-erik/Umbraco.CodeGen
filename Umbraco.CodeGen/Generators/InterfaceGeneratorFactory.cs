@@ -10,28 +10,28 @@ namespace Umbraco.CodeGen.Generators
 {
     public class InterfaceGeneratorFactory : CodeGeneratorFactory
     {
-        public override CodeGeneratorBase Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
+        public override CodeGeneratorBase Create(string configuredNamespace)
         {
-            return CreateInterfaceGenerator(configuration, dataTypes);
+            return CreateInterfaceGenerator(configuredNamespace);
         }
 
-        public CodeGeneratorBase CreateInterfaceGenerator(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
+        public CodeGeneratorBase CreateInterfaceGenerator(string configuredNamespace)
         {
             return new NamespaceGenerator(
-                configuration,
-                new ImportsGenerator(configuration),
-                new InterfaceGenerator(configuration,
+                configuredNamespace,
+                new ImportsGenerator(null),
+                new InterfaceGenerator(null,
                     new CompositeCodeGenerator(
-                        configuration,
-                        new InterfaceNameGenerator(configuration)
+                        null,
+                        new InterfaceNameGenerator(null)
                         ),
                     new PropertiesGenerator(
-                        configuration,
+                        null,
                         new InterfacePropertyDeclarationGenerator(
-                            configuration,
-                            dataTypes.ToList(),
-                            new EntityNameGenerator(configuration),
-                            new InterfacePropertyBodyGenerator(configuration)
+                            null,
+                            null,
+                            new EntityNameGenerator(null),
+                            new InterfacePropertyBodyGenerator(null)
                             )
                         )
                     )

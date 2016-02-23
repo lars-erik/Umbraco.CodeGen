@@ -9,9 +9,9 @@ namespace Umbraco.CodeGen.Generators
     {
         private readonly CodeGeneratorFactory inner = new GenerateOnlyGeneratorFactory();
 
-        public override CodeGeneratorBase Create(ContentTypeConfiguration configuration, IEnumerable<DataTypeDefinition> dataTypes)
+        public override CodeGeneratorBase Create(string configuredNamespace)
         {
-            return inner.Create(configuration, dataTypes);
+            return inner.Create(configuredNamespace);
         }
     }
 }

@@ -57,8 +57,8 @@ namespace Umbraco.CodeGen.Umbraco
 
         private void InitializeGenerator()
         {
-            var generatorFactory = CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
-            var interfaceGeneratorFactory = CreateFactory<CodeGeneratorFactory>(configuration.InterfaceFactory);
+            var generatorFactory = CodeGeneratorFactory.CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
+            var interfaceGeneratorFactory = CodeGeneratorFactory.CreateFactory<CodeGeneratorFactory>(configuration.InterfaceFactory);
             var dataTypeProvider = new UmbracoDataTypesProvider();
             var paths = new Dictionary<string, string>
             {
@@ -80,23 +80,5 @@ namespace Umbraco.CodeGen.Umbraco
             var configurationProvider = new CodeGeneratorConfigurationFileProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
             configuration = configurationProvider.GetConfiguration();
         }
-
-        internal static T CreateFactory<T>(string typeName)
-        {
-            try
-            {
-                var factoryType = Type.GetType(typeName);
-                if (factoryType == null)
-                    factoryType = Type.GetType(String.Format("{0}, Umbraco.CodeGen", typeName));
-                if (factoryType == null)
-                    throw new Exception(String.Format("Type {0} not found", typeName));
-                return (T)Activator.CreateInstance(factoryType);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(String.Format("Invalid factory '{0}'", typeName), ex);
-            }
-        }
-
     }
 }

@@ -15,10 +15,8 @@ namespace Umbraco.CodeGen
 {
     public class CodeGenerator
     {
-        private readonly ContentTypeConfiguration contentTypeConfiguration;
-        private readonly IDataTypeProvider dataTypeProvider;
+        private readonly string configuredNamespace;
         private readonly CodeGeneratorFactory factory;
-        private IList<DataTypeDefinition> dataTypes;
         private CodeGeneratorBase generator;
 
         // TODO: Move to CodeGeneratorConfiguration
@@ -31,12 +29,10 @@ namespace Umbraco.CodeGen
         private static readonly CSharpCodeProvider CodeProvider = new CSharpCodeProvider();
 
         public CodeGenerator(
-            ContentTypeConfiguration contentTypeConfiguration, 
-            IDataTypeProvider dataTypeProvider, 
+            string configuredNamespace, 
             CodeGeneratorFactory factory)
         {
-            this.contentTypeConfiguration = contentTypeConfiguration;
-            this.dataTypeProvider = dataTypeProvider;
+            this.configuredNamespace = configuredNamespace;
             this.factory = factory;
         }
 
@@ -56,11 +52,8 @@ namespace Umbraco.CodeGen
 
         private void EnsureGenerator()
         {
-            if (dataTypes == null)
-                dataTypes = dataTypeProvider.GetDataTypes().ToList();
-
             if (generator == null)
-                generator = factory.Create(contentTypeConfiguration, dataTypes);
+                generator = factory.Create(configuredNamespace);
         }
     }
 }

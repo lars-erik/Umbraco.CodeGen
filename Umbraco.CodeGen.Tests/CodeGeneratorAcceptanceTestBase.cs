@@ -44,7 +44,7 @@ namespace Umbraco.CodeGen.Tests
             var writer = new StringWriter(sb);
 
             var dataTypeProvider = new TestDataTypeProvider();
-            var generator = new CodeGenerator(typeConfig, dataTypeProvider, CreateGeneratorFactory());
+            var generator = new CodeGenerator(configuration.DocumentTypes.Namespace, CreateGeneratorFactory());
 
             throw new Exception("Aint passing type model here yet, since serialization disappears");
             generator.Generate(null, writer);
@@ -83,7 +83,7 @@ namespace Umbraco.CodeGen.Tests
             var writer = new StringWriter(sb);
 
             var dataTypeProvider = new TestDataTypeProvider();
-            var generator = new CodeGenerator(typeConfig, dataTypeProvider, CreateGeneratorFactory());
+            var generator = new CodeGenerator(typeConfig.Namespace, CreateGeneratorFactory());
 
             generator.Generate(contentType, writer);
 

@@ -123,7 +123,7 @@ namespace Umbraco.CodeGen.Umbraco
             var path = GetPath(modelPath, fileNameGetter(contentType));
             RemoveReadonly(path);
 
-            var classGenerator = new CodeGenerator(typeConfig, dataTypeProvider, specificGeneratorFactory);
+            var classGenerator = new CodeGenerator(typeConfig.Namespace, specificGeneratorFactory);
             using (var stream = System.IO.File.CreateText(path))
             { 
                 WriteGeneratedClass(contentType, classGenerator, stream);
