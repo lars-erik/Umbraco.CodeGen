@@ -5,6 +5,7 @@ using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators.GenerateOnly;
 using Umbraco.CodeGen.Tests.TestHelpers;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
 {
@@ -12,7 +13,7 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
     public class InterfacePropertyDeclarationGeneratorTests : TypeCodeGeneratorTestBase
     {
         private CodeGeneratorConfiguration codeGenConfig;
-        private GenericProperty property;
+        private PropertyModel property;
         private CodeMemberProperty codeProperty;
 
         [SetUp]
@@ -25,7 +26,7 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
                 TestDataTypeProvider.All
             );
             Candidate = codeProperty = new CodeMemberProperty();
-            property = new GenericProperty { Alias = "aProperty" };
+            property = new PropertyModel { Alias = "aProperty", ClrName = "AProperty", ClrType = typeof(string) };
         }
 
         [Test]
@@ -36,24 +37,9 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
         }
 
         [Test]
-        public void Generate_Type_WhenNotConfigured_IsDefaultType()
-        {
-            Generate();
-            Assert.AreEqual("String", codeProperty.Type.BaseType);
-        }
-
-        [Test]
-        [ExpectedException(typeof(Exception), ExpectedMessage = "TypeMappings/Default not set. Cannot guess default property type.")]
-        public void Generate_Type_WhenNotConfigured_DefaultNotConfigured_Throws()
-        {
-            codeGenConfig.TypeMappings.DefaultType = null;
-            Generate();
-        }
-
-        [Test]
         public void Generate_Type_WhenConfigured_IsConfiguredType()
         {
-            property.PropertyEditorAlias = TestDataTypeProvider.Numeric.PropertyEditorAlias;
+            property.ClrType = typeof (int);
             Generate();
             Assert.AreEqual("System.Int32", codeProperty.Type.BaseType);
         }

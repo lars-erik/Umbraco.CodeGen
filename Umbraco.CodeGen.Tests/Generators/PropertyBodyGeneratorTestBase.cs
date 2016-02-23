@@ -2,6 +2,7 @@
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
@@ -9,7 +10,7 @@ namespace Umbraco.CodeGen.Tests.Generators
     {
         protected string GeneratePropertyAndGetBodyText()
         {
-            var property = new GenericProperty {Alias = "aProperty"};
+            var property = new PropertyModel {Alias = "aProperty", ClrName = "AProperty"};
             var propNode = new CodeMemberProperty {Type = new CodeTypeReference("String")};
             var generator = CreateGenerator();
 

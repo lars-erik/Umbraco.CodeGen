@@ -5,6 +5,7 @@ using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Generators.GenerateOnly;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
 {
@@ -20,7 +21,7 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
             Generator = new InterfaceGenerator(
                 Configuration
                 );
-            ContentType = new DocumentType { Info = { Alias = "Mixin" } };
+            ContentType = new TypeModel { ClrName = "Mixin" };
             ns = new CodeNamespace("ANamespace");
         }
 

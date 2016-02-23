@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
@@ -6,6 +7,7 @@ using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Tests.TestHelpers;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests
 {
@@ -44,7 +46,8 @@ namespace Umbraco.CodeGen.Tests
             var dataTypeProvider = new TestDataTypeProvider();
             var generator = new CodeGenerator(typeConfig, dataTypeProvider, CreateGeneratorFactory());
 
-            generator.Generate(contentType, writer);
+            throw new Exception("Aint passing type model here yet, since serialization disappears");
+            generator.Generate(null, writer);
 
             writer.Flush();
             Console.WriteLine(sb.ToString());
@@ -59,7 +62,7 @@ namespace Umbraco.CodeGen.Tests
             
         }
 
-        protected void TestBuildCode(string classFileName, DocumentType contentType, string contentTypeName)
+        protected void TestBuildCode(string classFileName, TypeModel contentType, string contentTypeName)
         {
             string expectedOutput;
             using (var goldReader = File.OpenText(@"..\..\TestFiles\" + classFileName + ".cs"))
@@ -85,7 +88,9 @@ namespace Umbraco.CodeGen.Tests
             generator.Generate(contentType, writer);
 
             writer.Flush();
-            Console.WriteLine(sb.ToString());
+
+            //Debug.Write("\n\n------\n");
+            //Console.Write(sb.ToString().Replace("\r\n", "\n"));
 
             Assert.AreEqual(expectedOutput, sb.ToString());
         }

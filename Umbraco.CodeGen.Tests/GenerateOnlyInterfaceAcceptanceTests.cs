@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests
 {
@@ -26,23 +27,19 @@ namespace Umbraco.CodeGen.Tests
             config.BaseClass = "IPublishedContent";
         }
 
-        private static DocumentType CreateInterfaceType()
+        private static TypeModel CreateInterfaceType()
         {
-            var expected = new DocumentType
+            var expected = new TypeModel
             {
-                Info = new DocumentTypeInfo()
+                Alias = "Mixin",
+                Properties = 
                 {
-                    Alias = "Mixin"
-                },
-                Tabs = new List<Tab> { new Tab { Caption = "Mixin tab" } },
-                GenericProperties = new List<GenericProperty>
-                {
-                    new GenericProperty
+                    new PropertyModel
                     {
                         Alias = "mixinProp",
                         Name = "Mixin prop",
-                        PropertyEditorAlias = "Umbraco.Integer",
-                        Tab = "Mixin tab"
+                        ClrName = "MixinProp",
+                        ClrType = typeof(int)
                     }
                 }
             };

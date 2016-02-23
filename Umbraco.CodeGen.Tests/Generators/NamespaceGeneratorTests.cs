@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
@@ -18,7 +19,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         {
             Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
             Configuration.Namespace = "MyWeb.Models";
-            ContentType = new MediaType();
+            ContentType = new TypeModel {ItemType = TypeModel.ItemTypes.Media};
             Generator = new NamespaceGenerator(Configuration);
             compileUnit = new CodeCompileUnit();
         }

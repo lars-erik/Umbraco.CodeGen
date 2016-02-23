@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Generators
 {
@@ -23,9 +24,9 @@ namespace Umbraco.CodeGen.Generators
             this.MemberGenerators = memberGenerators;
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
-            var property = (GenericProperty)entity;
+            var property = (PropertyModel)typeOrPropertyModel;
             var propNode = (CodeMemberProperty)codeObject;
 
             SetType(propNode, property);
@@ -38,15 +39,12 @@ namespace Umbraco.CodeGen.Generators
 
         protected abstract void SetAttributes(CodeTypeMember propNode);
 
-        protected void SetType(CodeMemberProperty propNode, GenericProperty property)
+        protected void SetType(CodeMemberProperty propNode, PropertyModel property)
         {
-            var hasType = property.PropertyEditorAlias != null;
-            var matchingDataTypes = DataTypes.Where(d => d.PropertyEditorAlias == property.PropertyEditorAlias);
-            var typeName = matchingDataTypes.Select(t => t.ClrType.FullName).FirstOrDefault()
-                        ?? Config.TypeMappings.DefaultType;
-            if (typeName == null)
-                throw new Exception("TypeMappings/Default not set. Cannot guess default property type.");
-            propNode.Type = new CodeTypeReference(typeName);
+            var hasType = property.ClrType != null;
+            if (!hasType || property.ClrType == null)
+                throw new Exception(String.Format("No ClrType for property {0}. Unable to generate code.", property.Alias));
+            propNode.Type = new CodeTypeReference(property.ClrType);
         }
     }
 }

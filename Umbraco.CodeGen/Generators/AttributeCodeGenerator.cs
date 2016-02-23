@@ -19,7 +19,7 @@ namespace Umbraco.CodeGen.Generators
             this.memberGenerators = memberGenerators;
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             var type = (CodeTypeMember)codeObject;
 
@@ -27,7 +27,7 @@ namespace Umbraco.CodeGen.Generators
 
             if (memberGenerators != null)
                 foreach(var generator in memberGenerators)
-                    generator.Generate(attribute, entity);
+                    generator.Generate(attribute, typeOrPropertyModel);
         }
     }
 }

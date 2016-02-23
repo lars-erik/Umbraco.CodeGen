@@ -10,21 +10,9 @@ namespace Umbraco.CodeGen.Tests
     public class ContentTypeSerializerTests
     {
         [Test]
-        public void Deserialize_DocumentType_ReturnsDocumentType()
-        {
-            TestDeserialize("SomeDocumentType", TestFactory.CreateExpectedDocumentType());
-        }
-
-        [Test]
         public void Deserialize_MediaType_ReturnsMediaType()
         {
             TestDeserialize("SomeMediaType", TestFactory.CreateExpectedMediaType());
-        }
-
-        [Test]
-        public void Serialize_DocumentType_WritesDocumentType()
-        {
-            TestSerialize(TestFactory.CreateExpectedDocumentType(), "SomeDocumentType");
         }
 
         [Test]

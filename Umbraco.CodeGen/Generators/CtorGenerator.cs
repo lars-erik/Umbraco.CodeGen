@@ -14,7 +14,7 @@ namespace Umbraco.CodeGen.Generators
         {
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             var type = (CodeTypeDeclaration) codeObject;
             var ctor = new CodeConstructor

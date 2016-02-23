@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Generators
 {
@@ -20,12 +21,12 @@ namespace Umbraco.CodeGen.Generators
             this.propertyGenerators = propertyGenerators;
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             var type = (CodeTypeDeclaration) codeObject;
-            var contentType = (ContentType) entity;
+            var typeModel = (TypeModel) typeOrPropertyModel;
 
-            foreach (var property in contentType.GenericProperties.Union(contentType.Composition.SelectMany(c => c.GenericProperties)))
+            foreach (var property in typeModel.Properties.Union(typeModel.MixinTypes.SelectMany(c => c.Properties)))
             {
                 var propNode = new CodeMemberProperty();
                 foreach(var generator in propertyGenerators)

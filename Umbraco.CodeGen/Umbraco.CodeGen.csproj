@@ -81,6 +81,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Umbraco.ModelsBuilder">
+      <HintPath>..\..\Zbu.ModelsBuilder - Fork\Umbraco.ModelsBuilder\bin\Debug\Umbraco.ModelsBuilder.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\ContentTypeAttribute.cs" />
@@ -103,6 +106,9 @@
     <Compile Include="Definitions\IEntityDescription.cs" />
     <Compile Include="Definitions\Info.cs" />
     <Compile Include="Definitions\MediaType.cs" />
+    <Compile Include="Definitions\ModelsBuilder\EntityDescriptionFactory.cs" />
+    <Compile Include="Definitions\ModelsBuilder\PropertyModelEntityDescription.cs" />
+    <Compile Include="Definitions\ModelsBuilder\TypeModelEntityDescription.cs" />
     <Compile Include="Definitions\Tab.cs" />
     <Compile Include="Configuration\CodeGeneratorConfigurationFileProvider.cs" />
     <Compile Include="EnumerableExtensions.cs" />

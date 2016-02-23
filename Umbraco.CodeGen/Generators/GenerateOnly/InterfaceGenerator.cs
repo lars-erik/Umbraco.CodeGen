@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
         {
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             var ns = (CodeNamespace)codeObject;
             var type = new CodeTypeDeclaration();
@@ -21,7 +21,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
             type.IsPartial = true;
             type.BaseTypes.Add(new CodeTypeReference("IPublishedContent"));
 
-            base.Generate(type, entity);
+            base.Generate(type, typeOrPropertyModel);
         }
     }
 }

@@ -269,6 +269,9 @@
       <HintPath>..\packages\UmbracoCms.Core.7.4.0-beta\lib\umbraco.MacroEngines.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Umbraco.ModelsBuilder">
+      <HintPath>..\..\Zbu.ModelsBuilder - Fork\Umbraco.ModelsBuilder\bin\Debug\Umbraco.ModelsBuilder.dll</HintPath>
+    </Reference>
     <Reference Include="umbraco.providers, Version=1.0.5829.26090, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.4.0-beta\lib\umbraco.providers.dll</HintPath>
       <Private>True</Private>

@@ -1,74 +1,79 @@
 using System.Collections.Generic;
+using System.Web;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.TestHelpers
 {
     static internal class TestFactory
     {
-        public static DocumentType CreateExpectedDocumentType()
+        public static TypeModel CreateExpectedDocumentType()
         {
-            return new DocumentType
+            return new TypeModel
             {
-                Info = new DocumentTypeInfo
+                Name = "Some Document Type",
+                Alias = "SomeDocumentType",
+                BaseType = null,
+                ClrName = "SomeDocumentType",
+                Description = "A description of some document type",
+                DeclaringInterfaces = {},
+                HasBase = false,
+                HasCtor = true,
+                HasImplement = false,
+                Id = 1,
+                ImplementingInterfaces = {},
+                IsContentIgnored = false,
+                IsMixin = false,
+                IsParent = false,
+                IsRenamed = false,
+                ItemType = TypeModel.ItemTypes.Content,
+                MixinTypes =
                 {
-                    Name = "Some Document Type",
-                    Alias = "SomeDocumentType",
-                    Icon = "privateMemberIcon.gif",
-                    Thumbnail = "privateMemberThumb.png",
-                    Description = "A description of some document type",
-                    AllowAtRoot = true,
-                    Master = null,
-                    AllowedTemplates = new List<string>
+                    new TypeModel
                     {
-                        "ATemplate",
-                        "AnotherTemplate"
-                    },
-                    DefaultTemplate = "ATemplate"
+                        Name = "Mixin",
+                        Alias = "mixin",
+                        ClrName = "Mixin",
+                        Properties = { new PropertyModel
+                        {
+                            Alias = "mixinProp",
+                            ClrName = "MixinProp",
+                            ClrType = typeof(int),
+                            Name = "Mixin prop"
+                        } }
+                    }
                 },
-                Structure = new List<string>
+                ParentId = -1,
+                Properties =
                 {
-                    "SomeOtherDocType"
-                },
-                GenericProperties = new List<GenericProperty>
-                {
-                    new GenericProperty
+                    new PropertyModel
                     {
                         Name = "Some Property",
                         Alias = "someProperty",
-                        PropertyEditorAlias = "Umbraco.TinyMCEv3",
-                        Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
-                        Tab = "A tab",
-                        Mandatory = true,
-                        Validation = "[a-z]",
-                        Description = "A description"
+                        ClrName = "SomeProperty",
+                        ClrType = typeof(IHtmlString),
+                        Description = "A description",
+                        IsIgnored = false
                     },
-                    new GenericProperty
+                    new PropertyModel
                     {
                         Name = "Another Property",
                         Alias = "anotherProperty",
-                        PropertyEditorAlias = "Umbraco.TinyMCEv3",
-                        Definition = "ca90c950-0aff-4e72-b976-a30b1ac57dad",
-                        Tab = "A tab",
+                        ClrName = "AnotherProperty",
+                        ClrType = typeof(IHtmlString),
                         Description = "Another description"
                     },
-                    new GenericProperty
+                    new PropertyModel
                     {
                         Name = "Tabless Property",
                         Alias = "tablessProperty",
-                        Description = null,
-                        Tab = null,
-                        PropertyEditorAlias = "Umbraco.Integer",
-                        Definition = "2e6d3631-066e-44b8-aec4-96f09099b2b5"
+                        ClrName = "TablessProperty",
+                        ClrType = typeof(int),
+                        Description = null
                     }
+
                 },
-                Tabs = new List<Tab>
-                {
-                    new Tab
-                    {
-                        Id = 0,
-                        Caption = "A tab"
-                    }
-                }
+                StaticMixinMethods = {}
             };
         }
 

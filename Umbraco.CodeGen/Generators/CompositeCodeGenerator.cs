@@ -19,11 +19,11 @@ namespace Umbraco.CodeGen.Generators
             this.generators = generators;
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             if (generators != null)
                 foreach(var generator in generators)
-                    generator.Generate(codeObject, entity);
+                    generator.Generate(codeObject, typeOrPropertyModel);
         }
     }
 }

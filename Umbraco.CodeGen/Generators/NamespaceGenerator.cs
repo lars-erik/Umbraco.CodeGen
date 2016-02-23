@@ -17,7 +17,7 @@ namespace Umbraco.CodeGen.Generators
             this.memberGenerators = memberGenerators;
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             CodeNamespace ns;
             if (codeObject is CodeCompileUnit)
@@ -29,7 +29,7 @@ namespace Umbraco.CodeGen.Generators
             }
 
             foreach(var generator in memberGenerators)
-                generator.Generate(ns, entity);
+                generator.Generate(ns, typeOrPropertyModel);
         }
 
         private CodeNamespace AddToCompileUnit(object codeObject)

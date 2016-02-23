@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
@@ -53,21 +54,21 @@ namespace Umbraco.CodeGen.Tests.Generators
 
         private void SetupDocumentType()
         {
-            ContentType = new DocumentType();
+            ContentType = new TypeModel { ItemType = TypeModel.ItemTypes.Content };
             Generator = new AttributeCodeGenerator("DocumentType", Configuration);
             Candidate = new CodeTypeDeclaration();
         }
 
         private void SetupMediaType()
         {
-            ContentType = new MediaType();
+            ContentType = new TypeModel { ItemType = TypeModel.ItemTypes.Media };
             Generator = new AttributeCodeGenerator("MediaType", Configuration);
             Candidate = new CodeTypeDeclaration();
         }
 
         private void SetupProperty()
         {
-            ContentType = new MediaType();
+            ContentType = new TypeModel { ItemType = TypeModel.ItemTypes.Media };
             Generator = new AttributeCodeGenerator("GenericProperty", Configuration);
             Candidate = new CodeMemberProperty();
         }

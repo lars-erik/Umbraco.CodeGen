@@ -19,13 +19,18 @@ namespace Umbraco.CodeGen.Tests
         [Test]
         public void BuildCode_Generates_Code_For_DocumentType()
         {
-            TestBuildCode("GenerateOnlyDocumentType", "SomeDocumentType", "DocumentType");
+            var docType = TestFactory.CreateExpectedDocumentType();
+            docType.MixinTypes.Clear();
+            TestBuildCode("GenerateOnlyDocumentType", docType, "DocumentType");
         }
 
         [Test]
         public void BuildCode_Generates_Code_For_DocumentType_With_Composition()
         {
-            TestBuildCode("GenerateOnlyDocumentTypeWithComposition", CreateCodeGenDocumentType(), "DocumentType");
+            TestBuildCode("GenerateOnlyDocumentTypeWithComposition", 
+                TestFactory.CreateExpectedDocumentType(),
+                //CreateCodeGenDocumentType(), 
+                "DocumentType");
         }
 
         protected override CodeGeneratorFactory CreateGeneratorFactory()

@@ -2,6 +2,7 @@ using System;
 using System.CodeDom;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Definitions.ModelsBuilder;
 
 namespace Umbraco.CodeGen.Generators
 {
@@ -19,9 +20,9 @@ namespace Umbraco.CodeGen.Generators
 
         protected abstract void SetName(CodeTypeMember type, IEntityDescription description);
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
-            var description = (IEntityDescription)entity;
+            var description = EntityDescriptionFactory.FromObject(typeOrPropertyModel);
             var type = (CodeTypeMember)codeObject;
 
             ValidateAlias(description);

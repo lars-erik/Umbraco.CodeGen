@@ -15,7 +15,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
         {
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             var property = (CodeMemberProperty) codeObject;
             property.HasGet = true;

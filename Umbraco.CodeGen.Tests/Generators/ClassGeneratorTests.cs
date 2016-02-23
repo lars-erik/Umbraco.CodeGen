@@ -5,13 +5,13 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
     [TestFixture]
     public class ClassGeneratorTests : TypeCodeGeneratorTestBase
     {
-        private Info info;
         private CodeNamespace ns;
 
         [SetUp]
@@ -21,8 +21,7 @@ namespace Umbraco.CodeGen.Tests.Generators
             Generator = new ClassGenerator(
                 Configuration
                 );
-            ContentType = new MediaType { Info = { Alias = "anEntity" } };
-            info = ContentType.Info;
+            ContentType = new TypeModel { Alias = "anEntity", ClrName = "AnEntity" };
             ns = new CodeNamespace("ANamespace");
         }
 
@@ -44,9 +43,9 @@ namespace Umbraco.CodeGen.Tests.Generators
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void Generate_Master_WhenNullOrEmpty_IsConfiguredBaseClass(string master)
+        public void Generate_Master_WhenNullOrEmpty_IsConfiguredBaseClass(string baseClassName)
         {
-            info.Master = master;
+            ContentType.BaseType = new TypeModel {ClrName = baseClassName};
             Configuration.BaseClass = "ConfiguredBase";
             Generate();
             Assert.AreEqual(Configuration.BaseClass, Type.BaseTypes[0].BaseType);
@@ -55,26 +54,23 @@ namespace Umbraco.CodeGen.Tests.Generators
         [Test]
         public void Generate_Master_WhenNotEmpty_IsBaseClassPascalCased()
         {
-            const string expectedMaster = "ABaseClass";
-            info.Master = expectedMaster;
+            const string expectedBaseClrName = "ABaseClass";
+            ContentType.HasBase = true;
+            ContentType.BaseType = new TypeModel {ClrName = expectedBaseClrName};
             Generate();
-            Assert.AreEqual(expectedMaster.PascalCase(), Type.BaseTypes[0].BaseType);
+            Assert.AreEqual(expectedBaseClrName, Type.BaseTypes[0].BaseType);
         }
 
         [Test]
         public void Generate_Composition_When_More_Than_Master_Adds_Interfaces()
         {
             const string expectedInterface = "IMixin";
-            ContentType.Composition = new List<ContentType>
-            {
-                new ContentType
+            ContentType.MixinTypes.Add(
+                new TypeModel
                 {
-                    Info = new Info
-                    {
-                        Alias = "Mixin"
-                    }
+                    ClrName = "Mixin"
                 }
-            };
+            );
 
             Generate();
 

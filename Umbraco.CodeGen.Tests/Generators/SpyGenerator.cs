@@ -14,7 +14,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         {
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             CodeObjects.Add(codeObject);
             Called = true;

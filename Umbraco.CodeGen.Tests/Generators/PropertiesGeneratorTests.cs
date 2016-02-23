@@ -4,24 +4,25 @@ using System.Linq;
 using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
     [TestFixture]
     public class PropertiesGeneratorTests
     {
-        private MediaType contentType;
+        private TypeModel contentType;
         private CodeTypeDeclaration type;
 
         [SetUp]
         public void SetUp()
         {
-            contentType = new MediaType
+            contentType = new TypeModel
             {
-                GenericProperties = new List<GenericProperty>
+                Properties =
                 {
-                    new GenericProperty{Alias="prop1"},
-                    new GenericProperty{Alias="prop2"}
+                    new PropertyModel{Alias = "prop1", ClrName = "Prop1"},
+                    new PropertyModel{Alias = "prop2", ClrName = "Prop2"}
                 }
             };
             type = new CodeTypeDeclaration();
@@ -39,20 +40,16 @@ namespace Umbraco.CodeGen.Tests.Generators
         [Test]
         public void Generate_Adds_Properties_From_Mixins()
         {
-            contentType.Composition = new List<ContentType>
-            {
-                new ContentType
+            contentType.MixinTypes.Add(
+                new TypeModel
                 {
-                    Info = new Info
+                    ClrName = "Mixin",
+                    Properties = 
                     {
-                        Alias = "Mixin"
-                    },
-                    GenericProperties = new List<GenericProperty>
-                    {
-                        new GenericProperty {Alias = "prop3"}
+                        new PropertyModel {Alias = "prop3", ClrName="Prop3"}
                     }
                 }
-            };
+            );
 
             var generator = new PropertiesGenerator(null);
             generator.Generate(type, contentType);
@@ -63,7 +60,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [Test]
         public void Generate_CallsPropertyGeneratorsForAllProperties()
         {
-            var spies = new[] {new SpyGenerator(), new SpyGenerator()};
+            var spies = new[] { new SpyGenerator(), new SpyGenerator() };
             var memberGenerators = spies.Cast<CodeGeneratorBase>().ToArray();
             var generator = new PropertiesGenerator(null, memberGenerators);
             generator.Generate(type, contentType);

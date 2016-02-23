@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Definitions.ModelsBuilder;
 using Umbraco.CodeGen.Generators.GenerateOnly;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
 {
     [TestFixture]
     public class InterfaceNameGeneratorTests : TypeCodeGeneratorTestBase
     {
-        protected EntityDescription EntityDescription;
-        private DocumentType documentType;
+        private TypeModel documentType;
 
         [SetUp]
         public void SetUp()
@@ -23,20 +24,19 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
             Configuration = CodeGeneratorConfiguration.Create().DocumentTypes;
             Candidate = Type = new CodeTypeDeclaration();
             Generator = new InterfaceNameGenerator(Configuration);
-            documentType = new DocumentType { Info = { Alias = "aMixin" } };
-            EntityDescription = documentType.Info;
+            documentType = new TypeModel { Alias = "aMixin", ClrName = "AMixin" };
         }
 
         [Test]
         public void Generate_Alias_Pascal_Cases_Name_And_Prefixes_With_I()
         {
             Generate();
-            Assert.AreEqual("I" + EntityDescription.Alias.PascalCase(), Candidate.Name);
+            Assert.AreEqual("I" + documentType.ClrName, Candidate.Name);
         }
 
         protected virtual void Generate()
         {
-            Generator.Generate(Candidate, EntityDescription);
+            Generator.Generate(Candidate, documentType);
         }
     }
 }

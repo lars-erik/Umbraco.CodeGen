@@ -10,7 +10,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
         {
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
             var ns = (CodeNamespace) codeObject;
             AddImports(ns);

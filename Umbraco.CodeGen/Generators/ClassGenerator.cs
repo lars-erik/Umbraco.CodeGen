@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Generators
 {
@@ -18,20 +19,19 @@ namespace Umbraco.CodeGen.Generators
         {
         }
 
-        public override void Generate(object codeObject, Entity entity)
+        public override void Generate(object codeObject, object typeOrPropertyModel)
         {
-            var contentType = (ContentType) entity;
-            var info = contentType.Info;
+            var typeModel = (TypeModel) typeOrPropertyModel;
 
             var ns = (CodeNamespace)codeObject;
             var type = new CodeTypeDeclaration();
             ns.Types.Add(type);
 
             SetPartial(type);
-            SetBaseClass(type, info);
-            AddInterfaces(type, contentType);
+            SetBaseClass(type, typeModel);
+            AddInterfaces(type, typeModel);
 
-            base.Generate(type, entity);
+            base.Generate(type, typeOrPropertyModel);
         }
 
         private void SetPartial(CodeTypeDeclaration type)
@@ -39,21 +39,21 @@ namespace Umbraco.CodeGen.Generators
             type.IsPartial = true;
         }
 
-        protected void SetBaseClass(CodeTypeDeclaration type, Info info)
+        protected void SetBaseClass(CodeTypeDeclaration type, TypeModel typeModel)
         {
-            var baseReference = String.IsNullOrWhiteSpace(info.Master)
-                                    ? new CodeTypeReference(Config.BaseClass)
-                                    : new CodeTypeReference(info.Master.PascalCase());
+            var baseReference = typeModel.HasBase
+                                    ? new CodeTypeReference(typeModel.BaseType.ClrName)
+                                    : new CodeTypeReference(Config.BaseClass);
             type.BaseTypes.Add(baseReference);
         }
 
-        private void AddInterfaces(CodeTypeDeclaration type, ContentType contentType)
+        private void AddInterfaces(CodeTypeDeclaration type, TypeModel typeModel)
         {
-            if (contentType.IsMixin)
-                type.BaseTypes.Add((new CodeTypeReference("I" + contentType.Alias.PascalCase())));
+            if (typeModel.IsMixin)
+                type.BaseTypes.Add((new CodeTypeReference("I" + typeModel.ClrName)));
 
-            foreach (var composition in contentType.Composition)
-                type.BaseTypes.Add((new CodeTypeReference("I" + composition.Alias.PascalCase())));
+            foreach (var composition in typeModel.MixinTypes)
+                type.BaseTypes.Add((new CodeTypeReference("I" + composition.ClrName)));
         }
     }
 }
