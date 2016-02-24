@@ -116,38 +116,28 @@ namespace WebApplication1.Models
 ```
 
 Example code generator for property declarations (used from `SimplePropertyGenerator`)
-(Temp sample, discovered missing composite base there. :P )
 
 ```c#
-public abstract class PropertyDeclarationGenerator : CodeGeneratorBase
+public class PropertyDeclarationGenerator : CompositeCodeGenerator
 {
-    // Injected generators for body implementation and whatnot
-    protected CodeGeneratorBase[] MemberGenerators;
-
-    protected PropertyDeclarationGenerator(
-        Configuration.GeneratorConfig config,
-        params CodeGeneratorBase[] memberGenerators
-        )
-        : base(config)
+    protected PropertyDeclarationGenerator(GeneratorConfig config, params CodeGeneratorBase[] childGenerators) 
+        : base(config, childGenerators)
     {
-        this.MemberGenerators = memberGenerators;
     }
 
     // Gets a CodeDom `CodeMemberProperty` created by `PropertiesGenerator`
     public override void Generate(object codeObject, object typeOrPropertyModel)
     {
-        var property = (PropertyModel)typeOrPropertyModel;
-        var propNode = (CodeMemberProperty)codeObject;
+        var umbracoProperty = (PropertyModel)typeOrPropertyModel;
+        var codeDomProperty = (CodeMemberProperty)codeObject;
 
-        propNode.Attributes = MemberAttributes.Public;
-        propNode.Type = new CodeTypeReference(property.ClrType);
-        propNode.Name = property.ClrName;
+        codeDomProperty.Attributes = MemberAttributes.Public;
+        codeDomProperty.Type = new CodeTypeReference(umbracoProperty.ClrType);
+        codeDomProperty.Name = umbracoProperty.ClrName;
 
         // Delegate rest of this to children, 
         // passing the CodeDom property and the Umbraco property def.
-        foreach (var generator in MemberGenerators)
-            generator.Generate(codeObject, property);
-
+        base.Generate(codeDomProperty, umbracoProperty)
     }
 
 }

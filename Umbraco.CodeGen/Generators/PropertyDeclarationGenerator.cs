@@ -8,17 +8,11 @@ using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Generators
 {
-    public abstract class PropertyDeclarationGenerator : CodeGeneratorBase
+    public abstract class PropertyDeclarationGenerator : CompositeCodeGenerator
     {
-        protected CodeGeneratorBase[] MemberGenerators;
-
-        protected PropertyDeclarationGenerator(
-            Configuration.GeneratorConfig config,
-            params CodeGeneratorBase[] memberGenerators
-            )
-            : base(config)
+        protected PropertyDeclarationGenerator(GeneratorConfig config, params CodeGeneratorBase[] childGenerators) 
+            : base(config, childGenerators)
         {
-            this.MemberGenerators = memberGenerators;
         }
 
         public override void Generate(object codeObject, object typeOrPropertyModel)
@@ -27,11 +21,9 @@ namespace Umbraco.CodeGen.Generators
             var propNode = (CodeMemberProperty)codeObject;
 
             SetType(propNode, property);
-
-            foreach (var generator in MemberGenerators)
-                generator.Generate(codeObject, property);
-
             SetAttributes(propNode);
+
+            base.Generate(codeObject, typeOrPropertyModel);
         }
 
         protected abstract void SetAttributes(CodeTypeMember propNode);

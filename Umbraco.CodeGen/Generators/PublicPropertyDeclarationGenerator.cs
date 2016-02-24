@@ -5,7 +5,7 @@ namespace Umbraco.CodeGen.Generators
 {
     public class PublicPropertyDeclarationGenerator : PropertyDeclarationGenerator
     {
-        public PublicPropertyDeclarationGenerator(Configuration.GeneratorConfig config, params CodeGeneratorBase[] memberGenerators) : base(config, memberGenerators)
+        public PublicPropertyDeclarationGenerator(Configuration.GeneratorConfig config, params CodeGeneratorBase[] childGenerators) : base(config, childGenerators)
         {
         }
 
