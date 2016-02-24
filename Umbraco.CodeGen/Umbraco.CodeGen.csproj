@@ -103,6 +103,7 @@
   <ItemGroup>
     <None Include="Definitions\ClassDiagram.cd" />
     <None Include="Generators\ClassDiagram.cd" />
+    <None Include="Umbraco.CodeGen.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
