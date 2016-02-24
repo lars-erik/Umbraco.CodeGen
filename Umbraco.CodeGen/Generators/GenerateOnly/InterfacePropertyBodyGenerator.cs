@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
 {
     public class InterfacePropertyBodyGenerator : CodeGeneratorBase
     {
-        public InterfacePropertyBodyGenerator(ContentTypeConfiguration config) : base(config)
+        public InterfacePropertyBodyGenerator(Configuration.GeneratorConfig config) : base(config)
         {
         }
 

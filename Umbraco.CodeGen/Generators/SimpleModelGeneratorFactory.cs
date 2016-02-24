@@ -1,36 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Generators.GenerateOnly;
 
 namespace Umbraco.CodeGen.Generators
 {
-    public class InterfaceGeneratorFactory : CodeGeneratorFactory
+    public class SimpleModelGeneratorFactory : CodeGeneratorFactory
     {
         public override CodeGeneratorBase Create(Configuration.GeneratorConfig configuration)
         {
-            return CreateInterfaceGenerator(configuration);
+            return CreateGenerators(configuration);
         }
 
-        public CodeGeneratorBase CreateInterfaceGenerator(Configuration.GeneratorConfig configuration)
+
+        private static CodeGeneratorBase CreateGenerators(
+            Configuration.GeneratorConfig configuration
+            )
         {
             return new NamespaceGenerator(
                 configuration,
                 new ImportsGenerator(configuration),
-                new InterfaceGenerator(configuration,
+                new ClassGenerator(configuration,
                     new CompositeCodeGenerator(
                         configuration,
-                        new InterfaceNameGenerator(configuration)
+                        new EntityNameGenerator(configuration)
                         ),
+                    new CtorGenerator(configuration),
                     new PropertiesGenerator(
                         configuration,
-                        new InterfacePropertyDeclarationGenerator(
+                        new PublicPropertyDeclarationGenerator(
                             configuration,
                             new EntityNameGenerator(configuration),
-                            new InterfacePropertyBodyGenerator(configuration)
+                            new PropertyBodyGenerator(configuration)
                             )
                         )
                     )

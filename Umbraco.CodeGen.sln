@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen", "Umbraco.CodeGen\Umbraco.CodeGen.csproj", "{132E2FC4-B509-4204-9DA2-D688BEA75D4A}"
 EndProject
@@ -49,19 +49,15 @@ Global
 		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB05B28-A1DF-4404-B298-3CCE2D2A8C99}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F812694C-14C8-4195-9FD2-77D7D47A495B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F812694C-14C8-4195-9FD2-77D7D47A495B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F812694C-14C8-4195-9FD2-77D7D47A495B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F812694C-14C8-4195-9FD2-77D7D47A495B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD5E19B6-0550-4B7B-919A-A6677E123CDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BBFCF51-FE34-4925-8133-940DBFD9782C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BBFCF51-FE34-4925-8133-940DBFD9782C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BBFCF51-FE34-4925-8133-940DBFD9782C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BBFCF51-FE34-4925-8133-940DBFD9782C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DAB121E6-02BE-4C08-BA27-D1939F961CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAB121E6-02BE-4C08-BA27-D1939F961CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAB121E6-02BE-4C08-BA27-D1939F961CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAB121E6-02BE-4C08-BA27-D1939F961CD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

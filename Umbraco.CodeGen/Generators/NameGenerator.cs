@@ -8,7 +8,7 @@ namespace Umbraco.CodeGen.Generators
 {
     public abstract class NameGenerator : CodeGeneratorBase
     {
-        protected NameGenerator(ContentTypeConfiguration config) : base(config)
+        protected NameGenerator(Configuration.GeneratorConfig config) : base(config)
         {
         }
 

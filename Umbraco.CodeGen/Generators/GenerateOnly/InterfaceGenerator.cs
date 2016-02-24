@@ -7,7 +7,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
 {
     public class InterfaceGenerator : CompositeCodeGenerator
     {
-        public InterfaceGenerator(ContentTypeConfiguration config, params CodeGeneratorBase[] generators) : base(config, generators)
+        public InterfaceGenerator(Configuration.GeneratorConfig config, params CodeGeneratorBase[] generators) : base(config, generators)
         {
         }
 

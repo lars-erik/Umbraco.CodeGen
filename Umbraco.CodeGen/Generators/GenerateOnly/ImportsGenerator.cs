@@ -6,7 +6,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
 {
     public class ImportsGenerator : CodeGeneratorBase
     {
-        public ImportsGenerator(ContentTypeConfiguration config) : base(config)
+        public ImportsGenerator(Configuration.GeneratorConfig config) : base(config)
         {
         }
 

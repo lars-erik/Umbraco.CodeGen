@@ -7,7 +7,7 @@ namespace Umbraco.CodeGen.Generators
 {
     public class PropertyBodyGenerator : CodeGeneratorBase
     {
-        public PropertyBodyGenerator(ContentTypeConfiguration config) : base(config)
+        public PropertyBodyGenerator(Configuration.GeneratorConfig config) : base(config)
         {
         }
 

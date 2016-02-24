@@ -10,7 +10,7 @@ namespace Umbraco.CodeGen.Generators
 {
     public class CtorGenerator : CodeGeneratorBase
     {
-        public CtorGenerator(ContentTypeConfiguration config) : base(config)
+        public CtorGenerator(Configuration.GeneratorConfig config) : base(config)
         {
         }
 

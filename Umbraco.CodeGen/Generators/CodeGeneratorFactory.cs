@@ -7,7 +7,7 @@ namespace Umbraco.CodeGen.Generators
 {
     public abstract class CodeGeneratorFactory
     {
-        public abstract CodeGeneratorBase Create(string configuredNamespace);
+        public abstract CodeGeneratorBase Create(Configuration.GeneratorConfig configuration);
 
         public static T CreateFactory<T>(string typeName)
         {

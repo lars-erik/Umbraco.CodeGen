@@ -21,7 +21,7 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
         [SetUp]
         public void SetUp()
         {
-            Configuration = CodeGeneratorConfiguration.Create().DocumentTypes;
+            Configuration = new GeneratorConfig();
             Candidate = Type = new CodeTypeDeclaration();
             Generator = new InterfaceNameGenerator(Configuration);
             documentType = new TypeModel { Alias = "aMixin", ClrName = "AMixin" };

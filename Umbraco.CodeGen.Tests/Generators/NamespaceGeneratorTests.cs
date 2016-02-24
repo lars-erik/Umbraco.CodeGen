@@ -17,10 +17,10 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
+            Configuration = new GeneratorConfig();
             Configuration.Namespace = "MyWeb.Models";
             ContentType = new TypeModel {ItemType = TypeModel.ItemTypes.Media};
-            Generator = new NamespaceGenerator(Configuration.Namespace);
+            Generator = new NamespaceGenerator(Configuration);
             compileUnit = new CodeCompileUnit();
         }
 
@@ -32,7 +32,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         }
 
         [Test]
-        [ExpectedException(typeof(Exception), ExpectedMessage = "ContentType namespace not configured.")]
+        [ExpectedException(typeof(Exception), ExpectedMessage = "Namespace not configured.")]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -47,7 +47,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         {
             var spies = new[]{new SpyGenerator(), new SpyGenerator()};
             var memberGenerators = spies.Cast<CodeGeneratorBase>().ToArray();
-            Generator = new NamespaceGenerator(Configuration.Namespace, memberGenerators);
+            Generator = new NamespaceGenerator(Configuration, memberGenerators);
             Generator.Generate(compileUnit, ContentType);
             Assert.That(spies.All(s => s.Called));
         }

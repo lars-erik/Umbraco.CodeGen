@@ -12,7 +12,7 @@ namespace Umbraco.CodeGen.Generators
         private readonly CodeGeneratorBase[] generators;
 
         public CompositeCodeGenerator(
-            ContentTypeConfiguration config,
+            Configuration.GeneratorConfig config,
             params CodeGeneratorBase[] generators
         ) : base(config)
         {

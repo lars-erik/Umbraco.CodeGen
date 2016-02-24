@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Generators.GenerateOnly
 {
     public class InterfaceNameGenerator : NameGenerator
     {
-        public InterfaceNameGenerator(ContentTypeConfiguration config) : base(config)
+        public InterfaceNameGenerator(Configuration.GeneratorConfig config) : base(config)
         {
         }
 

@@ -9,6 +9,7 @@ using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Tests.TestHelpers;
+using Umbraco.Core.Models.PublishedContent;
 using File = System.IO.File;
 
 namespace Umbraco.CodeGen.Tests
@@ -35,91 +36,12 @@ namespace Umbraco.CodeGen.Tests
 
         protected override CodeGeneratorFactory CreateGeneratorFactory()
         {
-            return new GenerateOnlyGeneratorFactory();
+            return new SimpleModelGeneratorFactory();
         }
 
-        protected override void OnConfiguring(CodeGeneratorConfiguration configuration, string contentTypeName)
+        protected override void OnConfiguring(GeneratorConfig configuration, string contentTypeName)
         {
-            var config = configuration.Get(contentTypeName);
-            config.BaseClass = "global::Umbraco.Core.Models.PublishedContent.PublishedContentModel";
-        }
-
-        private static DocumentType CreateCodeGenDocumentType()
-        {
-            var expected = new DocumentType
-            {
-                Info = new DocumentTypeInfo
-                {
-                    Alias = "SomeDocumentType",
-                    AllowAtRoot = true,
-                    AllowedTemplates = new List<string> { "ATemplate", "AnotherTemplate" },
-                    DefaultTemplate = "ATemplate",
-                    Description = "A description of some document type",
-                    Icon = "privateMemberIcon.gif",
-                    Master = "",
-                    Name = "Some document type",
-                    Thumbnail = "privateMemberThumb.png"
-                },
-                Tabs = new List<Tab>
-                {
-                    new Tab {Caption = "A tab"},
-                    new Tab()
-                },
-                Structure = new List<string>
-                {
-                    "SomeOtherDocType"
-                },
-                Composition = new List<ContentType>
-                {
-                    new ContentType
-                    {
-                        Info = new Info
-                        {
-                            Alias = "Mixin"
-                        },
-                        Tabs = new List<Tab>{new Tab{Caption="Mixin tab"}},
-                        GenericProperties = new List<GenericProperty>
-                        {
-                            new GenericProperty
-                            {
-                                Alias = "mixinProp",
-                                Name = "Mixin prop",
-                                PropertyEditorAlias = "Umbraco.Integer",
-                                Tab = "Mixin tab"
-                            }
-                        }
-                    }
-                },
-                GenericProperties = new List<GenericProperty>
-                {
-                    new GenericProperty
-                    {
-                        Alias = "someProperty",
-                        Definition = null,
-                        Description = "A description",
-                        Name = "Some property",
-                        Tab = "A tab",
-                        PropertyEditorAlias = "Umbraco.TinyMCEv3"
-                    },
-                    new GenericProperty
-                    {
-                        Alias = "anotherProperty",
-                        Definition = null,
-                        Description = "Another description",
-                        Name = "Another property",
-                        Tab = "A tab",
-                        PropertyEditorAlias = "Umbraco.TinyMCEv3"
-                    },
-                    new GenericProperty
-                    {
-                        Alias = "tablessProperty",
-                        Definition = null,
-                        Name = "Tabless property",
-                        PropertyEditorAlias = "Umbraco.Integer"
-                    },
-                }
-            };
-            return expected;
+            configuration.BaseClass = typeof(PublishedContentModel);
         }
     }
 }

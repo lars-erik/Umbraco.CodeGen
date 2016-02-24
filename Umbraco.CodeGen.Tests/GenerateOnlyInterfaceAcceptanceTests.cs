@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.Core.Models;
 using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests
@@ -21,10 +22,9 @@ namespace Umbraco.CodeGen.Tests
             return new InterfaceGeneratorFactory();
         }
 
-        protected override void OnConfiguring(CodeGeneratorConfiguration configuration, string contentTypeName)
+        protected override void OnConfiguring(GeneratorConfig configuration, string contentTypeName)
         {
-            var config = configuration.Get(contentTypeName);
-            config.BaseClass = "IPublishedContent";
+            configuration.BaseClass = typeof(IPublishedContent);
         }
 
         private static TypeModel CreateInterfaceType()

@@ -9,7 +9,7 @@ namespace Umbraco.CodeGen.Tests.Generators
     {
         protected CodeGeneratorBase Generator;
         protected CodeTypeMember Candidate;
-        protected ContentTypeConfiguration Configuration;
+        protected CodeGen.Configuration.GeneratorConfig Configuration;
 
         protected object FindAttributeValue(string attributeName)
         {

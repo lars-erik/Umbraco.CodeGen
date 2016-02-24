@@ -16,7 +16,7 @@ namespace Umbraco.CodeGen.Umbraco
     {
         private ModelGenerator generator;
         
-        private CodeGeneratorConfiguration configuration;
+        private GeneratorConfig configuration;
         private IEnumerable<Type> types;
 
         protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
@@ -41,7 +41,10 @@ namespace Umbraco.CodeGen.Umbraco
         public void ContentTypeSaved(IContentTypeService service, SaveEventArgs<IContentType> args)
         {
             foreach(var contentType in args.SavedEntities)
-                generator.GenerateModelAndDependants(service, contentType);
+            {
+                // TODO: Find content type from ModelsBuilder
+                //generator.GenerateModelAndDependents(null);
+            }
         }
 
         private void SetModelFactory()
@@ -51,7 +54,7 @@ namespace Umbraco.CodeGen.Umbraco
 
         private void FindModelTypes()
         {
-            var namespaces = new[] {configuration.DocumentTypes.Namespace, configuration.MediaTypes.Namespace}.Distinct();
+            var namespaces = new[] {configuration.Namespace, configuration.Namespace}.Distinct();
             types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes().Where(t => namespaces.Contains(t.Namespace) && !t.IsInterface));
         }
 
@@ -59,26 +62,17 @@ namespace Umbraco.CodeGen.Umbraco
         {
             var generatorFactory = CodeGeneratorFactory.CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
             var interfaceGeneratorFactory = CodeGeneratorFactory.CreateFactory<CodeGeneratorFactory>(configuration.InterfaceFactory);
-            var dataTypeProvider = new UmbracoDataTypesProvider();
-            var paths = new Dictionary<string, string>
-            {
-                {"DocumentType", HttpContext.Current.Server.MapPath(configuration.DocumentTypes.ModelPath)},
-                {"MediaType", HttpContext.Current.Server.MapPath(configuration.MediaTypes.ModelPath)}
-            };
 
             generator = new ModelGenerator(
                 configuration,
                 generatorFactory,
-                interfaceGeneratorFactory,
-                dataTypeProvider,
-                paths
+                interfaceGeneratorFactory
                 );
         }
 
         private void LoadConfiguration()
         {
-            var configurationProvider = new CodeGeneratorConfigurationFileProvider(HttpContext.Current.Server.MapPath("~/config/CodeGen.config"));
-            configuration = configurationProvider.GetConfiguration();
+            configuration = GeneratorConfig.FromModelsBuilder();
         }
     }
 }

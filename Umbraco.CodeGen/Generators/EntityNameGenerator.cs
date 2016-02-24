@@ -6,7 +6,7 @@ namespace Umbraco.CodeGen.Generators
 {
     public class EntityNameGenerator : NameGenerator
     {
-        public EntityNameGenerator(ContentTypeConfiguration config) : base(config)
+        public EntityNameGenerator(Configuration.GeneratorConfig config) : base(config)
         {
         }
 

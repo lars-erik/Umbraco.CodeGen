@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.CodeGen.Tests.TestHelpers;
 using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators
@@ -17,7 +18,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = CodeGeneratorConfiguration.Create().MediaTypes;
+            Configuration = TestFactory.TestConfig();
             Generator = new ClassGenerator(
                 Configuration
                 );
@@ -46,9 +47,9 @@ namespace Umbraco.CodeGen.Tests.Generators
         public void Generate_Master_WhenNullOrEmpty_IsConfiguredBaseClass(string baseClassName)
         {
             ContentType.BaseType = new TypeModel {ClrName = baseClassName};
-            Configuration.BaseClass = "ConfiguredBase";
+            Configuration.BaseClass = typeof(object);
             Generate();
-            Assert.AreEqual(Configuration.BaseClass, Type.BaseTypes[0].BaseType);
+            Assert.AreEqual(Configuration.BaseClass.FullName, Type.BaseTypes[0].BaseType);
         }
 
         [Test]

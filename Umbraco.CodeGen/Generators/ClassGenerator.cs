@@ -12,7 +12,7 @@ namespace Umbraco.CodeGen.Generators
     public class ClassGenerator : CompositeCodeGenerator
     {
         public ClassGenerator(
-            ContentTypeConfiguration config, 
+            Configuration.GeneratorConfig config, 
             params CodeGeneratorBase[] memberGenerators
             )
             : base(config, memberGenerators)
@@ -43,7 +43,7 @@ namespace Umbraco.CodeGen.Generators
         {
             var baseReference = typeModel.HasBase
                                     ? new CodeTypeReference(typeModel.BaseType.ClrName)
-                                    : new CodeTypeReference(Config.BaseClass);
+                                    : new CodeTypeReference(Config.BaseClass.FullName) { Options = CodeTypeReferenceOptions.GlobalReference };
             type.BaseTypes.Add(baseReference);
         }
 

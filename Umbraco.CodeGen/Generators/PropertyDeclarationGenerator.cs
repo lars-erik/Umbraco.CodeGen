@@ -10,17 +10,14 @@ namespace Umbraco.CodeGen.Generators
 {
     public abstract class PropertyDeclarationGenerator : CodeGeneratorBase
     {
-        protected IList<DataTypeDefinition> DataTypes;
         protected CodeGeneratorBase[] MemberGenerators;
 
         protected PropertyDeclarationGenerator(
-            ContentTypeConfiguration config,
-            IList<DataTypeDefinition> dataTypes,
+            Configuration.GeneratorConfig config,
             params CodeGeneratorBase[] memberGenerators
             )
             : base(config)
         {
-            this.DataTypes = dataTypes;
             this.MemberGenerators = memberGenerators;
         }
 

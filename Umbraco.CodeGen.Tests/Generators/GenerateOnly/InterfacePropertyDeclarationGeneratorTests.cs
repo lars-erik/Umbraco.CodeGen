@@ -4,7 +4,6 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators.GenerateOnly;
-using Umbraco.CodeGen.Tests.TestHelpers;
 using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
@@ -12,18 +11,16 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
     [TestFixture]
     public class InterfacePropertyDeclarationGeneratorTests : TypeCodeGeneratorTestBase
     {
-        private CodeGeneratorConfiguration codeGenConfig;
+        private GeneratorConfig codeGenConfig;
         private PropertyModel property;
         private CodeMemberProperty codeProperty;
 
         [SetUp]
         public void SetUp()
         {
-            codeGenConfig = CodeGeneratorConfiguration.Create();
-            Configuration = codeGenConfig.DocumentTypes;
+            Configuration = new GeneratorConfig();
             Generator = new InterfacePropertyDeclarationGenerator(
-                Configuration,
-                TestDataTypeProvider.All
+                Configuration
             );
             Candidate = codeProperty = new CodeMemberProperty();
             property = new PropertyModel { Alias = "aProperty", ClrName = "AProperty", ClrType = typeof(string) };

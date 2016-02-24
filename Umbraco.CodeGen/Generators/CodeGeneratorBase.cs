@@ -9,9 +9,9 @@ namespace Umbraco.CodeGen.Generators
     public abstract class CodeGeneratorBase
     {
         protected const StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
-        protected ContentTypeConfiguration Config;
+        protected Configuration.GeneratorConfig Config;
 
-        protected CodeGeneratorBase(ContentTypeConfiguration config)
+        protected CodeGeneratorBase(Configuration.GeneratorConfig config)
         {
             Config = config;
         }

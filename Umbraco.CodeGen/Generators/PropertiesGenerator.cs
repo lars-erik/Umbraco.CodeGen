@@ -14,7 +14,7 @@ namespace Umbraco.CodeGen.Generators
         private readonly CodeGeneratorBase[] propertyGenerators;
 
         public PropertiesGenerator(
-            ContentTypeConfiguration config,
+            Configuration.GeneratorConfig config,
             params CodeGeneratorBase[] propertyGenerators
             ) : base(config)
         {

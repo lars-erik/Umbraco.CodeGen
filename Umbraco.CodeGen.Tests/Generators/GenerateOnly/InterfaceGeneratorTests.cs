@@ -5,6 +5,7 @@ using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Generators.GenerateOnly;
+using Umbraco.CodeGen.Tests.TestHelpers;
 using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
@@ -17,7 +18,7 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
         [SetUp]
         public void SetUp()
         {
-            Configuration = CodeGeneratorConfiguration.Create().DocumentTypes;
+            Configuration = TestFactory.TestConfig();
             Generator = new InterfaceGenerator(
                 Configuration
                 );

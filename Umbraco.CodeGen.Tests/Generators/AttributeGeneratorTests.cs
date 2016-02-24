@@ -17,7 +17,7 @@ namespace Umbraco.CodeGen.Tests.Generators
         [SetUp]
         public void SetUp()
         {
-            Configuration = CodeGeneratorConfiguration.Create().DocumentTypes;
+            Configuration = new GeneratorConfig();
             spy1 = new SpyGenerator();
             spy2 = new SpyGenerator();
         }
@@ -80,7 +80,7 @@ namespace Umbraco.CodeGen.Tests.Generators
 
         private void GenerateProperty()
         {
-            Generator.Generate(Candidate, new GenericProperty());
+            Generator.Generate(Candidate, new PropertyModel());
         }
     }
 }

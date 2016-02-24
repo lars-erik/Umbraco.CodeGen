@@ -9,123 +9,79 @@ using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using ContentType = Umbraco.CodeGen.Definitions.ContentType;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Umbraco
 {
     public class ModelGenerator
     {
-        private readonly CodeGeneratorConfiguration configuration;
+        private readonly GeneratorConfig configuration;
         private readonly CodeGeneratorFactory generatorFactory;
         private readonly CodeGeneratorFactory interfaceGeneratorFactory;
-        private readonly UmbracoDataTypesProvider dataTypeProvider;
-        private readonly IDictionary<string, string> paths;
 
         public ModelGenerator(
-            CodeGeneratorConfiguration configuration, 
-            CodeGeneratorFactory generatorFactory, 
-            CodeGeneratorFactory interfaceGeneratorFactory,
-            UmbracoDataTypesProvider dataTypeProvider, 
-            IDictionary<string, string> paths)
+            GeneratorConfig configuration,
+            CodeGeneratorFactory generatorFactory,
+            CodeGeneratorFactory interfaceGeneratorFactory)
         {
             this.configuration = configuration;
             this.generatorFactory = generatorFactory;
             this.interfaceGeneratorFactory = interfaceGeneratorFactory;
-            this.dataTypeProvider = dataTypeProvider;
-            this.paths = paths;
         }
 
-        public void GenerateModelAndDependants(IContentTypeService service, IContentTypeComposition umbracoContentType)
+        public void GenerateModelAndDependents(TypeModel model)
         {
-            var contentType = ContentTypeMapping.Map(umbracoContentType);
-            var allContentTypes = service.GetAllContentTypes().ToList();
+            var composedOfThis = GetDependents(model);
 
-            GenerateDependencies(umbracoContentType, allContentTypes);
+            GenerateClass(model);
 
-            var composedOfThis = GetDependants(umbracoContentType, allContentTypes);
-
-            var isMixin = composedOfThis.Any();
-            
-            if (isMixin)
+            if (model.IsMixin)
             {
-                contentType.IsMixin = true;
+                GenerateInterface(model);
             }
 
-            GenerateClass(contentType);
-
-            if (isMixin)
-            {
-                GenerateInterface(contentType);
+            if (model.IsMixin || model.IsRenamed)
                 GenerateDependants(composedOfThis);
-            }
         }
 
-        private void GenerateDependants(IEnumerable<IContentType> composedOfThis)
+        private void GenerateDependants(IEnumerable<TypeModel> composedOfThis)
         {
-            foreach (var umbracoCompositeType in composedOfThis)
+            foreach (var composite in composedOfThis)
             {
-                var compositeType = ContentTypeMapping.Map(umbracoCompositeType);
-                GenerateClass(compositeType);
+                GenerateClass(composite);
             }
         }
 
-        private static List<IContentType> GetDependants(IContentTypeComposition umbracoContentType, IEnumerable<IContentType> allContentTypes)
+        private static List<TypeModel> GetDependents(TypeModel model)
         {
-            var id = umbracoContentType.Id;
-            var composedOfThis = allContentTypes
-                .Where(ct => ct.CompositionIds().Contains(id) && ct.ParentId != id)
-                .ToList();
-            return composedOfThis;
+            return new List<TypeModel>();
+            // TODO: Find dependents in TypeModel list
         }
 
-        private void GenerateDependencies(IContentTypeComposition umbracoContentType, IEnumerable<IContentType> allContentTypes)
-        {
-            var compositionIds = umbracoContentType.CompositionIds();
-            var thisIsComposedOf = allContentTypes
-                .Where(ct => compositionIds.Contains(ct.Id) && umbracoContentType.ParentId != ct.Id)
-                .ToList();
-
-            foreach (var composition in thisIsComposedOf)
-            {
-                var compositionType = ContentTypeMapping.Map(composition);
-                compositionType.IsMixin = true;
-                GenerateClass(compositionType);
-                GenerateInterface(compositionType);
-            }
-        }
-
-        private void GenerateInterface(ContentType contentType)
+        private void GenerateInterface(TypeModel contentType)
         {
             GenerateModel(contentType, interfaceGeneratorFactory, c => "I" + c.Alias.PascalCase());
         }
 
-        private void GenerateClass(ContentType contentType)
+        private void GenerateClass(TypeModel contentType)
         {
             GenerateModel(contentType, generatorFactory, c => c.Alias.PascalCase());
         }
 
-        private void GenerateModel(ContentType contentType, CodeGeneratorFactory specificGeneratorFactory, Func<ContentType, string> fileNameGetter)
+        private void GenerateModel(TypeModel contentType, CodeGeneratorFactory specificGeneratorFactory, Func<TypeModel, string> fileNameGetter)
         {
-            var typeConfig = contentType is DocumentType
-                ? configuration.DocumentTypes
-                : configuration.MediaTypes;
-
-            if (!typeConfig.GenerateClasses)
-                return;
-
             var itemStart = DateTime.Now;
 
             LogHelper.Debug<CodeGenerator>(
                 () => String.Format("Content type {0} saved, generating typed model", contentType.Name));
             LogHelper.Info<CodeGenerator>(() => String.Format("Generating typed model for {0}", contentType.Alias));
 
-            var modelPath = EnsureModelPath(typeConfig);
+            var modelPath = EnsureModelPath(configuration.ModelsPath);
             var path = GetPath(modelPath, fileNameGetter(contentType));
-            RemoveReadonly(path);
 
-            var classGenerator = new CodeGenerator(typeConfig.Namespace, specificGeneratorFactory);
+            var classGenerator = new CodeGenerator(configuration, specificGeneratorFactory);
             using (var stream = System.IO.File.CreateText(path))
-            { 
+            {
                 WriteGeneratedClass(contentType, classGenerator, stream);
 
             }
@@ -134,7 +90,7 @@ namespace Umbraco.CodeGen.Umbraco
                 () => String.Format("Typed model for {0} generated. Took {1}", contentType.Alias, DateTime.Now - itemStart));
         }
 
-        private static void WriteGeneratedClass(ContentType contentType, CodeGenerator classGenerator, StreamWriter stream)
+        private static void WriteGeneratedClass(TypeModel contentType, CodeGenerator classGenerator, StreamWriter stream)
         {
             try
             {
@@ -152,15 +108,8 @@ namespace Umbraco.CodeGen.Umbraco
             return Path.Combine(modelPath, fileName + ".cs");
         }
 
-        private void RemoveReadonly(string path)
+        private string EnsureModelPath(string modelPath)
         {
-            if (configuration.OverwriteReadOnly && System.IO.File.Exists(path))
-                System.IO.File.SetAttributes(path, System.IO.File.GetAttributes(path) & ~FileAttributes.ReadOnly);
-        }
-
-        private string EnsureModelPath(ContentTypeConfiguration typeConfig)
-        {
-            var modelPath = paths[typeConfig.ContentTypeName];
             if (!Directory.Exists(modelPath))
                 Directory.CreateDirectory(modelPath);
             return modelPath;

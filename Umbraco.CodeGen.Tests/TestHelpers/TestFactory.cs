@@ -1,12 +1,23 @@
 using System.Collections.Generic;
 using System.Web;
+using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.TestHelpers
 {
     static internal class TestFactory
     {
+        public static GeneratorConfig TestConfig()
+        {
+            return new GeneratorConfig
+            {
+                BaseClass = typeof (PublishedContentModel),
+                Namespace = "Umbraco.CodeGen.Models"
+            };
+        }
+
         public static TypeModel CreateExpectedDocumentType()
         {
             return new TypeModel
@@ -74,55 +85,6 @@ namespace Umbraco.CodeGen.Tests.TestHelpers
 
                 },
                 StaticMixinMethods = {}
-            };
-        }
-
-        public static MediaType CreateExpectedMediaType()
-        {
-            return new MediaType
-            {
-                Info = new Info
-                {
-                    Name = "Inherited Media Folder",
-                    Alias = "InheritedMediaFolder",
-                    Icon = "folder.gif",
-                    Thumbnail = "folder.png",
-                    AllowAtRoot = true,
-                    Master = "Folder"
-                },
-                Structure = new List<string>
-                {
-                    "Folder",
-                    "Image",
-                    "File",
-                    "InheritedMediaFolder"
-                },
-                GenericProperties = new List<GenericProperty>
-                {
-                    new GenericProperty
-                    {
-                        Name = "Lets Have A Property",
-                        Alias = "letsHaveAProperty",
-                        PropertyEditorAlias = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
-                        Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
-                        Tab = "A tab"
-                    },
-                    new GenericProperty
-                    {
-                        Name = "And A Tabless Property",
-                        Alias = "andATablessProperty",
-                        PropertyEditorAlias = "76FD82CF-8AC3-4FF7-9E88-D0A8539AE109",
-                        Definition = "0cc0eba1-9960-42c9-bf9b-60e150b429ae",
-                    }
-                },
-                Tabs = new List<Tab>
-                {
-                    new Tab
-                    {
-                        Id = 0,
-                        Caption = "A tab"
-                    }
-                }
             };
         }
     }

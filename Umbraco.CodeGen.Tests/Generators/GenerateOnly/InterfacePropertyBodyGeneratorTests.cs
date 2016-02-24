@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators.GenerateOnly;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
 {
@@ -17,10 +18,10 @@ namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
         [Test]
         public void Generate_Adds_Getter()
         {
-            var property = new GenericProperty { Alias = "aProperty" };
+            var property = new PropertyModel { Alias = "aProperty", ClrName = "AProperty" };
             var propNode = new CodeMemberProperty { Type = new CodeTypeReference("String") };
 
-            var generator = new InterfacePropertyBodyGenerator(CodeGeneratorConfiguration.Create().DocumentTypes);
+            var generator = new InterfacePropertyBodyGenerator(new GeneratorConfig());
             generator.Generate(propNode, property);
 
             Assert.IsTrue(propNode.HasGet);

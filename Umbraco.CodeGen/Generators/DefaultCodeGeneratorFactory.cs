@@ -7,11 +7,11 @@ namespace Umbraco.CodeGen.Generators
     [Description("Use whichever generator the dev deems appropriate for this version")]
     public class DefaultCodeGeneratorFactory : CodeGeneratorFactory
     {
-        private readonly CodeGeneratorFactory inner = new GenerateOnlyGeneratorFactory();
+        private readonly CodeGeneratorFactory inner = new SimpleModelGeneratorFactory();
 
-        public override CodeGeneratorBase Create(string configuredNamespace)
+        public override CodeGeneratorBase Create(Configuration.GeneratorConfig configuration)
         {
-            return inner.Create(configuredNamespace);
+            return inner.Create(configuration);
         }
     }
 }

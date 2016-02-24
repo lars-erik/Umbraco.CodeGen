@@ -259,7 +259,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mapping_IContentType_To_ContentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Generators
 
         public AttributeCodeGenerator(
             string attributeName,
-            ContentTypeConfiguration config,
+            Configuration.GeneratorConfig config,
             params CodeGeneratorBase[] memberGenerators
             ) : base(config)
         {

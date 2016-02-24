@@ -15,7 +15,7 @@ namespace Umbraco.CodeGen
 {
     public class CodeGenerator
     {
-        private readonly string configuredNamespace;
+        private readonly Configuration.GeneratorConfig configuration;
         private readonly CodeGeneratorFactory factory;
         private CodeGeneratorBase generator;
 
@@ -29,10 +29,10 @@ namespace Umbraco.CodeGen
         private static readonly CSharpCodeProvider CodeProvider = new CSharpCodeProvider();
 
         public CodeGenerator(
-            string configuredNamespace, 
+            Configuration.GeneratorConfig configuration, 
             CodeGeneratorFactory factory)
         {
-            this.configuredNamespace = configuredNamespace;
+            this.configuration = configuration;
             this.factory = factory;
         }
 
@@ -53,7 +53,7 @@ namespace Umbraco.CodeGen
         private void EnsureGenerator()
         {
             if (generator == null)
-                generator = factory.Create(configuredNamespace);
+                generator = factory.Create(configuration);
         }
     }
 }

@@ -90,38 +90,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Annotations\ContentTypeAttribute.cs" />
-    <Compile Include="Annotations\DocumentTypeAttribute.cs" />
-    <Compile Include="Annotations\EntityDescriptionAttribute.cs" />
-    <Compile Include="Annotations\GenericPropertyAttribute.cs" />
-    <Compile Include="Annotations\MediaTypeAttribute.cs" />
     <Compile Include="CodeDomTextBuilder.cs" />
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="Configuration\CodeGeneratorConfiguration.cs" />
-    <Compile Include="Configuration\DataTypeDefinition.cs" />
-    <Compile Include="Configuration\ParserAttribute.cs" />
-    <Compile Include="Definitions\ContentType.cs" />
-    <Compile Include="ContentTypeSerializer.cs" />
-    <Compile Include="Definitions\DocumentType.cs" />
-    <Compile Include="Definitions\DocumentTypeInfo.cs" />
-    <Compile Include="Definitions\Entity.cs" />
     <Compile Include="Definitions\EntityDescription.cs" />
-    <Compile Include="Definitions\EnumerableExtensions.cs" />
-    <Compile Include="Definitions\GenericProperty.cs" />
     <Compile Include="Definitions\IEntityDescription.cs" />
-    <Compile Include="Definitions\Info.cs" />
-    <Compile Include="Definitions\MediaType.cs" />
     <Compile Include="Definitions\ModelsBuilder\EntityDescriptionFactory.cs" />
     <Compile Include="Definitions\ModelsBuilder\PropertyModelEntityDescription.cs" />
     <Compile Include="Definitions\ModelsBuilder\TypeModelEntityDescription.cs" />
-    <Compile Include="Definitions\Tab.cs" />
-    <Compile Include="Configuration\CodeGeneratorConfigurationFileProvider.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Generators\AttributeCodeGenerator.cs" />
     <Compile Include="Generators\InterfaceGeneratorFactory.cs" />
     <Compile Include="Generators\PublicPropertyDeclarationGenerator.cs" />
     <Compile Include="Generators\CompositeCodeGenerator.cs" />
-    <Compile Include="Generators\GenerateOnlyGeneratorFactory.cs" />
+    <Compile Include="Generators\SimpleModelGeneratorFactory.cs" />
     <Compile Include="Generators\GenerateOnly\ImportsGenerator.cs" />
     <Compile Include="Generators\GenerateOnly\InterfaceGenerator.cs" />
     <Compile Include="Generators\GenerateOnly\InterfaceNameGenerator.cs" />
@@ -138,10 +120,7 @@
     <Compile Include="Generators\DefaultCodeGeneratorFactory.cs" />
     <Compile Include="Generators\PropertiesGenerator.cs" />
     <Compile Include="Generators\PropertyBodyGenerator.cs" />
-    <Compile Include="Configuration\IConfigurationProvider.cs" />
-    <Compile Include="Configuration\IDataTypeProvider.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="Configuration\CodeGeneratorConfigurationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XExtensions.cs" />
   </ItemGroup>

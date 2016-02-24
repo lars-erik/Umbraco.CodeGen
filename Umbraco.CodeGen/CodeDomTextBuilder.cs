@@ -28,7 +28,7 @@ namespace Umbraco.CodeGen
         public override void Generate(StringBuilder sb, TypeModel typeModel)
         {
             var factory = new DefaultCodeGeneratorFactory();
-            var codeGenerator = new CodeGenerator(modelsNamespace, factory);
+            var codeGenerator = new CodeGenerator(null, factory);
             codeGenerator.Generate(typeModel, new StringWriter(sb));
         }
     }

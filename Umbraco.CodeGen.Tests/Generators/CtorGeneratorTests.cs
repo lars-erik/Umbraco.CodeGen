@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Umbraco.CodeGen.Definitions;
 using Umbraco.CodeGen.Generators;
+using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators
 {
@@ -14,7 +15,7 @@ namespace Umbraco.CodeGen.Tests.Generators
             var type = new CodeTypeDeclaration{Name="AName"};
             type.BaseTypes.Add("ABaseType");
             var generator = new CtorGenerator(null);
-            generator.Generate(type, new MediaType());
+            generator.Generate(type, new TypeModel());
 
             var ns = CodeGenerationHelper.CreateNamespaceWithType(type);
             var code = CodeGenerationHelper.GenerateCode(ns);
