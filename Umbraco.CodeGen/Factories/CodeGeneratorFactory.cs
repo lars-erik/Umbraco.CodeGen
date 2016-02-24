@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Mime;
-using Umbraco.CodeGen.Configuration;
+using Umbraco.CodeGen.Generators;
 
-namespace Umbraco.CodeGen.Generators
+namespace Umbraco.CodeGen.Factories
 {
     public abstract class CodeGeneratorFactory
     {
-        public abstract CodeGeneratorBase Create(Configuration.GeneratorConfig configuration);
+        public abstract CodeGeneratorBase Create(Configuration.GeneratorConfig config);
 
-        public static T CreateFactory<T>(string typeName)
+        public static CodeGeneratorFactory CreateFactory(string typeName)
         {
             try
             {
@@ -18,7 +16,7 @@ namespace Umbraco.CodeGen.Generators
                     factoryType = Type.GetType(String.Format("{0}, Umbraco.CodeGen", typeName));
                 if (factoryType == null)
                     throw new Exception(String.Format("Type {0} not found", typeName));
-                return (T)Activator.CreateInstance(factoryType);
+                return (CodeGeneratorFactory)Activator.CreateInstance(factoryType);
             }
             catch (Exception ex)
             {

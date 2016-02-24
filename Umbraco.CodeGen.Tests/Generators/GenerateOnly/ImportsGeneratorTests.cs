@@ -1,7 +1,7 @@
 ﻿using System.CodeDom;
 using System.Linq;
 using NUnit.Framework;
-using Umbraco.CodeGen.Generators.GenerateOnly;
+using Umbraco.CodeGen.Generators;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly
 {

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Factories;
 using Umbraco.CodeGen.Generators;
 using Umbraco.Core;
 using Umbraco.Core.Logging;

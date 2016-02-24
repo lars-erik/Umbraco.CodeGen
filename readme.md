@@ -3,11 +3,9 @@
 CodeDom based generation of types with ModelsBuilder.  
 Completely extendable and modifyable on all levels.
 
-Generated classes are clean, partial, all virtual for painless extension.
+Builtin generated classes are clean, partial, all virtual for painless extension.
 
 For now ignores all ModelsBuilder logic for parsing existing partials.
-
-For now not possible to swap factory, but configuration imminent.
 
 Example appSettings for configuring ModelsBuilder to use CodeDom:  
 (and save to ~/Models)
@@ -18,31 +16,54 @@ Example appSettings for configuring ModelsBuilder to use CodeDom:
 <add key="Umbraco.ModelsBuilder.ModelsPath" value="~/Models" />
 <add key="Umbraco.ModelsBuilder.ModelsNamespace" value="WebApplication1.Models" />
 <add key="Umbraco.ModelsBuilder.BuilderType" value="Umbraco.CodeGen.CodeDomTextBuilder, Umbraco.CodeGen" />
+
+<!-- optional, to override codedom builder -->
+<add key="Umbraco.ModelsBuilder.GeneratorFactory" value="Umbraco.CodeGen.Factories.SimpleModelGeneratorFactory, Umbraco.CodeGen" />
 ```
 
-Example generator configuration:
+Example plain model generator configuration:
 
 ```c#
 public class SimpleModelGeneratorFactory : CodeGeneratorFactory
 {
-    public override CodeGeneratorBase Create(Configuration.GeneratorConfig configuration)
+    public override CodeGeneratorBase Create(Configuration.GeneratorConfig config)
     {
-        return new NamespaceGenerator(
-            configuration,
-            new ImportsGenerator(configuration),
-            new ClassGenerator(configuration,
-                new EntityNameGenerator(configuration),
-                new CtorGenerator(configuration),
-                new PropertiesGenerator(
-                    configuration,
-                    new PublicPropertyDeclarationGenerator(
-                        configuration,
-                        new EntityNameGenerator(configuration),
-                        new PropertyBodyGenerator(configuration)
-                        )
-                    )
+        return new NamespaceGenerator(config,
+            new ImportsGenerator(config),
+            new SimpleClassGenerator(config,
+                new PropertiesGenerator(config,
+                    new SimplePropertyGenerator(config)
                 )
-            );
+            )
+        );
+    }
+}
+```
+
+Example generator with bundled interfaces for mixin types
+
+```c#
+public class SimpleModelAndInterfaceGeneratorFactory : CodeGeneratorFactory
+{
+    public override CodeGeneratorBase Create(GeneratorConfig config)
+    {
+        return new NamespaceGenerator(config,
+                
+            new ImportsGenerator(config),
+                
+            new SimpleInterfaceGenerator(config,
+                new PropertiesGenerator(config,
+                    new InterfacePropertyGenerator(config)
+                )
+            ),
+                
+            new SimpleClassGenerator(config,
+                new PropertiesGenerator(config,
+                    new SimplePropertyGenerator(config)
+                )
+            )
+        );
+
     }
 }
 ```

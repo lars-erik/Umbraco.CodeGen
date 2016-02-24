@@ -1,55 +1,34 @@
 ﻿namespace Umbraco.CodeGen.Models
 {
     using global::System;
-    using global::System.ComponentModel;
-    using global::System.ComponentModel.DataAnnotations;
     using global::Umbraco.Core.Models;
     using global::Umbraco.Web;
     
-    [Description("A description of some document type")]
-    public partial class SomeDocumentType : Umbraco.Core.Models.TypedModelBase
+    public partial class SomeDocumentType : global::Umbraco.Core.Models.PublishedContent.PublishedContentModel
     {
-        private string icon = "privateMemberIcon.gif";
-        private string thumbnail = "privateMemberThumb.png";
-        private bool allowAtRoot = true;
-        private string defaultTemplate = "ATemplate";
-        private string[] allowedTemplates = new string[] {
-                "ATemplate",
-                "AnotherTemplate"};
-        private System.Type[] structure = new System.Type[] {
-                typeof(SomeOtherDocType)};
         public SomeDocumentType(IPublishedContent content) : 
                 base(content)
         {
         }
-        [Description("A description")]
-        [DataType("Richtext editor")]
-        [Category("A tab")]
-        [Required()]
-        [RegularExpression("[a-z]")]
-        public virtual String SomeProperty
+        public virtual System.Web.IHtmlString SomeProperty
         {
             get
             {
-                return Content.GetPropertyValue<String>("someProperty");
+                return Content.GetPropertyValue<System.Web.IHtmlString>("someProperty");
             }
         }
-        [Description("Another description")]
-        [DataType("Richtext editor")]
-        [Category("A tab")]
-        public virtual String AnotherProperty
+        public virtual System.Web.IHtmlString AnotherProperty
         {
             get
             {
-                return Content.GetPropertyValue<String>("anotherProperty");
+                return Content.GetPropertyValue<System.Web.IHtmlString>("anotherProperty");
             }
         }
-        [DataType("Numeric")]
-        public virtual Int32 TablessProperty
+        public virtual int TablessProperty
         {
             get
             {
-                return Content.GetPropertyValue<Int32>("tablessProperty");
+                return Content.GetPropertyValue<int>("tablessProperty");
             }
         }
     }

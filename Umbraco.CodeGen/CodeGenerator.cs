@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.CSharp;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Factories;
 using Umbraco.CodeGen.Generators;
 using Umbraco.ModelsBuilder.Building;
 

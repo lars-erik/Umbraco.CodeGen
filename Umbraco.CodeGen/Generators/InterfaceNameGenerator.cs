@@ -1,13 +1,7 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Umbraco.CodeGen.Configuration;
+﻿using System.CodeDom;
 using Umbraco.CodeGen.Definitions;
 
-namespace Umbraco.CodeGen.Generators.GenerateOnly
+namespace Umbraco.CodeGen.Generators
 {
     public class InterfaceNameGenerator : NameGenerator
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Umbraco.CodeGen.Configuration;
+using Umbraco.CodeGen.Factories;
 using Umbraco.CodeGen.Generators;
 using Umbraco.Core;
 using Umbraco.Core.Events;
@@ -60,8 +61,8 @@ namespace Umbraco.CodeGen.Umbraco
 
         private void InitializeGenerator()
         {
-            var generatorFactory = CodeGeneratorFactory.CreateFactory<CodeGeneratorFactory>(configuration.GeneratorFactory);
-            var interfaceGeneratorFactory = CodeGeneratorFactory.CreateFactory<CodeGeneratorFactory>(configuration.InterfaceFactory);
+            var generatorFactory = CodeGeneratorFactory.CreateFactory(configuration.GeneratorFactory);
+            var interfaceGeneratorFactory = CodeGeneratorFactory.CreateFactory(configuration.InterfaceFactory);
 
             generator = new ModelGenerator(
                 configuration,

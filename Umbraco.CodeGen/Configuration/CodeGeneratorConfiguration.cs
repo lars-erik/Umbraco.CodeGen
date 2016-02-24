@@ -1,4 +1,5 @@
 ﻿using System;
+using Umbraco.CodeGen.Factories;
 using Umbraco.CodeGen.Generators;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Models.PublishedContent;

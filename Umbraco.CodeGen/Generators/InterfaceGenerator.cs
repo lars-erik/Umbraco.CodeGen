@@ -1,9 +1,6 @@
-﻿using System;
-using System.CodeDom;
-using Umbraco.CodeGen.Configuration;
-using Umbraco.CodeGen.Definitions;
+﻿using System.CodeDom;
 
-namespace Umbraco.CodeGen.Generators.GenerateOnly
+namespace Umbraco.CodeGen.Generators
 {
     public class InterfaceGenerator : CompositeCodeGenerator
     {

@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
+using Umbraco.CodeGen.Factories;
 using Umbraco.CodeGen.Generators;
 using Umbraco.CodeGen.Tests.TestHelpers;
 using Umbraco.Core.Models.PublishedContent;

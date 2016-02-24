@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Definitions;
-using Umbraco.CodeGen.Generators.GenerateOnly;
+using Umbraco.CodeGen.Generators;
 using Umbraco.ModelsBuilder.Building;
 
 namespace Umbraco.CodeGen.Tests.Generators.GenerateOnly

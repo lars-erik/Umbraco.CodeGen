@@ -1,13 +1,6 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Umbraco.CodeGen.Configuration;
-using Umbraco.CodeGen.Definitions;
+﻿using System.CodeDom;
 
-namespace Umbraco.CodeGen.Generators.GenerateOnly
+namespace Umbraco.CodeGen.Generators
 {
     public class InterfacePropertyBodyGenerator : CodeGeneratorBase
     {

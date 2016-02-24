@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using Umbraco.CodeGen.Configuration;
+﻿using System.ComponentModel;
+using Umbraco.CodeGen.Generators;
 
-namespace Umbraco.CodeGen.Generators
+namespace Umbraco.CodeGen.Factories
 {
     [Description("Use whichever generator the dev deems appropriate for this version")]
     public class DefaultCodeGeneratorFactory : CodeGeneratorFactory
     {
         private readonly CodeGeneratorFactory inner = new SimpleModelGeneratorFactory();
 
-        public override CodeGeneratorBase Create(Configuration.GeneratorConfig configuration)
+        public override CodeGeneratorBase Create(Configuration.GeneratorConfig config)
         {
-            return inner.Create(configuration);
+            return inner.Create(config);
         }
     }
 }
