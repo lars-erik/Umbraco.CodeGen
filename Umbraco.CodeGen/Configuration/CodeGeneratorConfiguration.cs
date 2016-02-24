@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
 using Umbraco.CodeGen.Generators;
 using Umbraco.Core.Configuration;
 using Umbraco.Core.Models.PublishedContent;

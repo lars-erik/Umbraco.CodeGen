@@ -41,12 +41,9 @@ namespace Umbraco.CodeGen.Tests.Generators
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase(" ")]
-        public void Generate_Master_WhenNullOrEmpty_IsConfiguredBaseClass(string baseClassName)
+        public void Generate_BaseType_WhenNull_IsConfiguredBaseClass(string baseClassName)
         {
-            ContentType.BaseType = new TypeModel {ClrName = baseClassName};
+            ContentType.BaseType = null;
             Configuration.BaseClass = typeof(object);
             Generate();
             Assert.AreEqual(Configuration.BaseClass.FullName, Type.BaseTypes[0].BaseType);
@@ -56,7 +53,6 @@ namespace Umbraco.CodeGen.Tests.Generators
         public void Generate_Master_WhenNotEmpty_IsBaseClassPascalCased()
         {
             const string expectedBaseClrName = "ABaseClass";
-            ContentType.HasBase = true;
             ContentType.BaseType = new TypeModel {ClrName = expectedBaseClrName};
             Generate();
             Assert.AreEqual(expectedBaseClrName, Type.BaseTypes[0].BaseType);

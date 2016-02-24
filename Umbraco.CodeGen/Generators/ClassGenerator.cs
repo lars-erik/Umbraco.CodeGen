@@ -41,9 +41,9 @@ namespace Umbraco.CodeGen.Generators
 
         protected void SetBaseClass(CodeTypeDeclaration type, TypeModel typeModel)
         {
-            var baseReference = typeModel.HasBase
-                                    ? new CodeTypeReference(typeModel.BaseType.ClrName)
-                                    : new CodeTypeReference(Config.BaseClass.FullName) { Options = CodeTypeReferenceOptions.GlobalReference };
+            var baseReference = typeModel.BaseType != null
+                ? new CodeTypeReference(typeModel.BaseType.ClrName)
+                : new CodeTypeReference(Config.BaseClass.FullName) { Options = CodeTypeReferenceOptions.GlobalReference };
             type.BaseTypes.Add(baseReference);
         }
 
