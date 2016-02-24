@@ -9,6 +9,16 @@ For now ignores all ModelsBuilder logic for parsing existing partials.
 
 For now not possible to swap factory, but configuration imminent.
 
+Example appSettings for configuring ModelsBuilder to use CodeDom:  
+(and save to ~/Models)
+
+    <add key="Umbraco.ModelsBuilder.Enable" value="true" />
+    <add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" />
+    <add key="Umbraco.ModelsBuilder.ModelsPath" value="~/Models" />
+    <add key="Umbraco.ModelsBuilder.ModelsNamespace" value="WebApplication1.Models" />
+    <add key="Umbraco.ModelsBuilder.BuilderType" value="Umbraco.CodeGen.CodeDomTextBuilder, Umbraco.CodeGen" />
+
+
 Example generator configuration:
 
     public class SimpleModelGeneratorFactory : CodeGeneratorFactory
