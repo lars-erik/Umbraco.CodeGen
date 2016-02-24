@@ -11,7 +11,7 @@ namespace Umbraco.CodeGen.Generators
 
         protected override void SetAttributes(CodeTypeMember propNode)
         {
-            propNode.Attributes = MemberAttributes.Public;
+            propNode.Attributes = propNode.Attributes | MemberAttributes.Public;
         }
     }
 }
