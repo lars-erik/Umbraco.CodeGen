@@ -67,3 +67,50 @@ public class SimpleModelAndInterfaceGeneratorFactory : CodeGeneratorFactory
     }
 }
 ```
+
+Example generated class with mixin
+
+```c#
+namespace WebApplication1.Models
+{
+    using global::System;
+    using global::Umbraco.Core.Models;
+    using global::Umbraco.Web;
+    
+    public partial class UmbTextPage : UmbMaster, ISomeMixin
+    {
+        public UmbTextPage(IPublishedContent content) : 
+                base(content)
+        {
+        }
+        public virtual bool FeaturedPage
+        {
+            get
+            {
+                return Content.GetPropertyValue<bool>("featuredPage");
+            }
+        }
+        public virtual object Image
+        {
+            get
+            {
+                return Content.GetPropertyValue<object>("image");
+            }
+        }
+        public virtual System.Web.IHtmlString BodyText
+        {
+            get
+            {
+                return Content.GetPropertyValue<System.Web.IHtmlString>("bodyText");
+            }
+        }
+        public virtual System.DateTime MixinProperty
+        {
+            get
+            {
+                return Content.GetPropertyValue<System.DateTime>("mixinProperty");
+            }
+        }
+    }
+}
+```

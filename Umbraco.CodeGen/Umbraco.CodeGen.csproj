@@ -304,7 +304,7 @@
     <Compile Include="Generators\AttributeCodeGenerator.cs" />
     <Compile Include="Factories\InterfaceGeneratorFactory.cs" />
     <Compile Include="Generators\Compositions\InterfacePropertyGenerator.cs" />
-    <Compile Include="Generators\Compositions\NamedClassGenerator - Copy.cs" />
+    <Compile Include="Generators\Compositions\SimpleInterfaceGenerator.cs" />
     <Compile Include="Generators\Compositions\NamedClassGenerator.cs" />
     <Compile Include="Generators\Compositions\SimpleClassGenerator.cs" />
     <Compile Include="Generators\Compositions\SimplePropertyGenerator.cs" />
