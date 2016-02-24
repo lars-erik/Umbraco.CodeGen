@@ -31,10 +31,7 @@ public class SimpleModelGeneratorFactory : CodeGeneratorFactory
             configuration,
             new ImportsGenerator(configuration),
             new ClassGenerator(configuration,
-                new CompositeCodeGenerator(
-                    configuration,
-                    new EntityNameGenerator(configuration)
-                    ),
+                new EntityNameGenerator(configuration),
                 new CtorGenerator(configuration),
                 new PropertiesGenerator(
                     configuration,
