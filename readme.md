@@ -116,6 +116,7 @@ namespace WebApplication1.Models
 ```
 
 Example code generator for property declarations (used from `SimplePropertyGenerator`)
+(Temp sample, discovered missing composite base there. :P )
 
 ```c#
 public abstract class PropertyDeclarationGenerator : CodeGeneratorBase
