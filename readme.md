@@ -12,37 +12,40 @@ For now not possible to swap factory, but configuration imminent.
 Example appSettings for configuring ModelsBuilder to use CodeDom:  
 (and save to ~/Models)
 
-    <add key="Umbraco.ModelsBuilder.Enable" value="true" />
-    <add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" />
-    <add key="Umbraco.ModelsBuilder.ModelsPath" value="~/Models" />
-    <add key="Umbraco.ModelsBuilder.ModelsNamespace" value="WebApplication1.Models" />
-    <add key="Umbraco.ModelsBuilder.BuilderType" value="Umbraco.CodeGen.CodeDomTextBuilder, Umbraco.CodeGen" />
-
+```xml
+<add key="Umbraco.ModelsBuilder.Enable" value="true" />
+<add key="Umbraco.ModelsBuilder.ModelsMode" value="AppData" />
+<add key="Umbraco.ModelsBuilder.ModelsPath" value="~/Models" />
+<add key="Umbraco.ModelsBuilder.ModelsNamespace" value="WebApplication1.Models" />
+<add key="Umbraco.ModelsBuilder.BuilderType" value="Umbraco.CodeGen.CodeDomTextBuilder, Umbraco.CodeGen" />
+```
 
 Example generator configuration:
 
-    public class SimpleModelGeneratorFactory : CodeGeneratorFactory
+```c#
+public class SimpleModelGeneratorFactory : CodeGeneratorFactory
+{
+    public override CodeGeneratorBase Create(Configuration.GeneratorConfig configuration)
     {
-        public override CodeGeneratorBase Create(Configuration.GeneratorConfig configuration)
-        {
-            return new NamespaceGenerator(
-                configuration,
-                new ImportsGenerator(configuration),
-                new ClassGenerator(configuration,
-                    new CompositeCodeGenerator(
+        return new NamespaceGenerator(
+            configuration,
+            new ImportsGenerator(configuration),
+            new ClassGenerator(configuration,
+                new CompositeCodeGenerator(
+                    configuration,
+                    new EntityNameGenerator(configuration)
+                    ),
+                new CtorGenerator(configuration),
+                new PropertiesGenerator(
+                    configuration,
+                    new PublicPropertyDeclarationGenerator(
                         configuration,
-                        new EntityNameGenerator(configuration)
-                        ),
-                    new CtorGenerator(configuration),
-                    new PropertiesGenerator(
-                        configuration,
-                        new PublicPropertyDeclarationGenerator(
-                            configuration,
-                            new EntityNameGenerator(configuration),
-                            new PropertyBodyGenerator(configuration)
-                            )
+                        new EntityNameGenerator(configuration),
+                        new PropertyBodyGenerator(configuration)
                         )
                     )
-                );
-        }
+                )
+            );
     }
+}
+```
