@@ -29,40 +29,40 @@ namespace Umbraco.CodeGen.Web
 
         private void OnBeginRequest(object sender, EventArgs e)
         {
-            UmbracoContext.EnsureContext(
-                new HttpContextWrapper(HttpContext.Current),
-                ApplicationContext.EnsureContext(
-                    new DatabaseContext(new FakeDatabaseFactory()),
-                    new ServiceContext(null, null, null, null, null, null, null, null, null, null, null, null, null),
-                    new CacheHelper(),
-                    true
-                    )
-                );
+            //    UmbracoContext.EnsureContext(
+            //        new HttpContextWrapper(HttpContext.Current),
+            //        ApplicationContext.EnsureContext(
+            //            new DatabaseContext(new FakeDatabaseFactory()),
+            //            new ServiceContext(null, null, null, null, null, null, null, null, null, null, null, null, null),
+            //            new CacheHelper(),
+            //            true
+            //            )
+            //        );
         }
 
         protected void Application_Start(object sender, EventArgs e)
         {
             RouteConfig.ApplyRoutes(RouteTable.Routes);
 
-            GlobalConfiguration.Configuration.Services.Replace(
-                typeof(IHttpControllerSelector),
-                new ControllerSelectorWrapper((IHttpControllerSelector)GlobalConfiguration.Configuration.Services.GetService(typeof(IHttpControllerSelector)))
-                );
+            //GlobalConfiguration.Configuration.Services.Replace(
+            //    typeof(IHttpControllerSelector),
+            //    new ControllerSelectorWrapper((IHttpControllerSelector)GlobalConfiguration.Configuration.Services.GetService(typeof(IHttpControllerSelector)))
+            //    );
 
-            PropertyEditorResolver.Current = new PropertyEditorResolver(
-                () => new List<Type>
-                {
-                    typeof(CheckBoxListPropertyEditor),
-                    typeof(RichTextPropertyEditor),
-                    typeof(IntegerPropertyEditor)
-                }
-            );
+            //PropertyEditorResolver.Current = new PropertyEditorResolver(
+            //    () => new List<Type>
+            //    {
+            //        typeof(CheckBoxListPropertyEditor),
+            //        typeof(RichTextPropertyEditor),
+            //        typeof(IntegerPropertyEditor)
+            //    }
+            //);
 
-            AutoMapper.Mapper.CreateMap<PropertyEditor, PropertyEditorBasic>();
+            //AutoMapper.Mapper.CreateMap<PropertyEditor, PropertyEditorBasic>();
 
-            Type.GetType("Umbraco.Core.ObjectResolution.Resolution, Umbraco.Core")
-                .GetMethod("Freeze", BindingFlags.Static | BindingFlags.Public)
-                .Invoke(null, new object[0]);
+            //Type.GetType("Umbraco.Core.ObjectResolution.Resolution, Umbraco.Core")
+            //    .GetMethod("Freeze", BindingFlags.Static | BindingFlags.Public)
+            //    .Invoke(null, new object[0]);
         }
 
     }
