@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen", "Umbraco.CodeGen\Umbraco.CodeGen.csproj", "{132E2FC4-B509-4204-9DA2-D688BEA75D4A}"
 EndProject
@@ -16,13 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Umbraco", "Umbraco.CodeGen.Umbraco\Umbraco.CodeGen.Umbraco.csproj", "{3BBFCF51-FE34-4925-8133-940DBFD9782C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.CodeGen.Umbraco.Tests", "Umbraco.CodeGen.Umbraco.Tests\Umbraco.CodeGen.Umbraco.Tests.csproj", "{DAB121E6-02BE-4C08-BA27-D1939F961CD9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{368A8DF1-B3DE-4E7D-B2D1-2E700B4EFBF0}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
