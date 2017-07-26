@@ -342,6 +342,7 @@
     <None Include="TestFiles\SomeDocumentType.cs" />
     <None Include="TestFiles\SomeDocumentTypeWithComposition.cs" />
     <None Include="TestFiles\SomeInterface.cs" />
+    <None Include="TestFiles\SomeDocumentTypeWithProxy.cs" />
     <Compile Include="TestHelpers\TestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
