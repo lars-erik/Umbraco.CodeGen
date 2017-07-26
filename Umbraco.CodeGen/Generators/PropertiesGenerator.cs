@@ -28,7 +28,10 @@ namespace Umbraco.CodeGen.Generators
 
             foreach (var property in typeModel.Properties.Union(typeModel.MixinTypes.SelectMany(c => c.Properties)))
             {
-                var propNode = new CodeMemberProperty();
+                var propNode = new CodeMemberProperty
+                {
+                    Attributes = MemberAttributes.Public
+                };
                 foreach(var generator in propertyGenerators)
                     generator.Generate(propNode, property);
                 type.Members.Add(propNode);

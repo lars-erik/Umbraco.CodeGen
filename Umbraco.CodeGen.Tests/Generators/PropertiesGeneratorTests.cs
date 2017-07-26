@@ -34,7 +34,11 @@ namespace Umbraco.CodeGen.Tests.Generators
             var generator = new PropertiesGenerator(null);
             generator.Generate(type, contentType);
             var properties = type.Members.OfType<CodeMemberProperty>().ToList();
-            Assert.AreEqual(2, properties.Count());
+            Assert.That(
+                properties,
+                Has.Count.EqualTo(2) &
+                Has.All.With.Property("Attributes").Matches<MemberAttributes>(att => att.HasFlag(MemberAttributes.Public))
+                );
         }
 
         [Test]
