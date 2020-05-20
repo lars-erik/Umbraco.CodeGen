@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
@@ -30,8 +31,27 @@ namespace Umbraco.CodeGen.Umbraco
 
         private Type ResolveType(IDataTypeDefinition dataTypeDefinition)
         {
-            var fakePropType = new PublishedPropertyType(null, new PropertyType(dataTypeDefinition.PropertyEditorAlias, dataTypeDefinition.DatabaseType));
-            return fakePropType.ClrType;
+
+            var ctor = typeof(PublishedPropertyType).GetConstructor(
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                null, 
+                new[] {typeof(string), typeof(int), typeof(string), typeof(bool) }, 
+                null);
+
+            var fakePropType = (PublishedPropertyType)ctor.Invoke(new object[] {dataTypeDefinition.Name, dataTypeDefinition.Id, dataTypeDefinition.PropertyEditorAlias, false});
+
+            var converter = PropertyValueConvertersResolver.Current.Converters.FirstOrDefault(x => x.IsConverter(fakePropType));
+            var converterMeta = converter as IPropertyValueConverterMeta;
+            var type = converterMeta?.GetPropertyValueType(fakePropType);
+            if (converter != null && type == null)
+            {
+                var attr = converter.GetType().GetCustomAttribute<PropertyValueTypeAttribute>();
+                if (attr != null)
+                {
+                    type = attr.Type;
+                }
+            }
+            return type ?? typeof(object);
         }
     }
 }

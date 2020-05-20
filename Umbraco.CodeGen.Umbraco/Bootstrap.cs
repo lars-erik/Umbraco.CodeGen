@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Compilation;
 using Umbraco.CodeGen.Configuration;
 using Umbraco.CodeGen.Generators;
 using Umbraco.Core;
@@ -36,9 +37,15 @@ namespace Umbraco.CodeGen.Umbraco
             }
         }
 
-        private void Initialize()
+        public void Initialize()
         {
             LoadConfiguration();
+            Initialize(configuration);
+        }
+
+        public void Initialize(CodeGeneratorConfiguration configuration)
+        {
+            Configure(configuration);
             if (configuration != null)
             {
                 InitializeGenerator();
@@ -46,7 +53,12 @@ namespace Umbraco.CodeGen.Umbraco
             }
         }
 
-        private void ListenForContentTypeSaves()
+        public void Configure(CodeGeneratorConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
+        public void ListenForContentTypeSaves()
         {
             ContentTypeService.SavedContentType += ContentTypeSaved;
         }
@@ -57,16 +69,30 @@ namespace Umbraco.CodeGen.Umbraco
                 generator.GenerateModelAndDependants(service, contentType);
         }
 
-        private void SetModelFactory()
+        public void SetModelFactory()
         {
-            PublishedContentModelFactoryResolver.Current.SetFactory(new PublishedContentModelFactory(types));
+            var type = Type.GetType(configuration.ModelFactory);
+            var ctor = type.GetConstructor(new[] {typeof (IEnumerable<Type>)});
+            PublishedContentModelFactoryResolver.Current.SetFactory((PublishedContentModelFactory)ctor.Invoke(new[] { types }));
         }
 
-        private void FindModelTypes()
+        public void FindModelTypes()
         {
             var namespaces = new[] { configuration.DocumentTypes.Namespace, configuration.MediaTypes.Namespace }.Distinct();
-            types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => TypesFromNamespaces(a, namespaces));
+            try
+            {
+                types = BuildManager.GetReferencedAssemblies().Cast<Assembly>().SelectMany(a => TypesFromNamespaces(a, namespaces)).ToList();
+            }
+            catch
+            {
+                types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => TypesFromNamespaces(a, namespaces)).ToList();
+            }
         }
+
+        public void SetModelTypes(IEnumerable<Type> types)
+        {
+            this.types = types.ToList();
+        } 
 
         private static IEnumerable<Type> TypesFromNamespaces(Assembly assembly, IEnumerable<string> namespaces)
         {

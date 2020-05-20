@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Umbraco.Core.Models.PublishedContent;
 
 namespace Umbraco.CodeGen.Configuration
 {
@@ -63,12 +64,14 @@ namespace Umbraco.CodeGen.Configuration
             public const string InterfaceFactory = "Umbraco.CodeGen.Generators.InterfaceGeneratorFactory, Umbraco.CodeGen";
             public const string GeneratorFactory = "Umbraco.CodeGen.Generators.DefaultCodeGeneratorFactory, Umbraco.CodeGen";
             public const string ParserFactory = "Umbraco.CodeGen.Parsers.DefaultParserFactory, Umbraco.CodeGen";
+            public const string ModelFactory = "Umbraco.Core.Models.PublishedContent.PublishedContentModelFactory, Umbraco.Core";
         }
 
         private Dictionary<string, ContentTypeConfiguration> configs;
         private string generatorFactory = Defaults.GeneratorFactory;
         private string interfaceGeneratorFactory = Defaults.InterfaceFactory;
         private string parserFactory = Defaults.ParserFactory;
+        private string modelFactory = Defaults.ModelFactory;
 
         public ContentTypeConfiguration DocumentTypes
 	    {
@@ -116,6 +119,13 @@ namespace Umbraco.CodeGen.Configuration
         {
             get { return parserFactory; }
             set { parserFactory = value; }
+        }
+
+        [XmlAttribute, DefaultValue(Defaults.ModelFactory)]
+        public string ModelFactory
+        {
+            get { return modelFactory; }
+            set { modelFactory = value; }
         }
 
         protected Dictionary<string, ContentTypeConfiguration> Configs
